@@ -6,20 +6,22 @@ import {
     Zap,
     Clock,
     Rocket,
-    Send,
-    Video,
-    FileText,
-    Monitor
+    ShieldAlert, // Not used in the provided content, but kept as per instruction to only add Send
+    Target, // Not used in the provided content, but kept as per instruction to only add Send
+    BarChart3,
+    Dna, // Not used in the provided content, but kept as per instruction to only add Send
+    Send // Added as per instruction
 } from "lucide-react";
 import Link from "next/link";
+import { SlantDivider, WaveDivider } from "@/components/VisualElements";
 import GlassCard from "@/components/GlassCard";
-import Testimonials from "@/components/Testimonials";
+import ExpertiseGrid from "@/components/ExpertiseGrid";
 
 export default function Home() {
     return (
         <main className="min-h-screen bg-white text-navy-950 selection:bg-growth selection:text-white">
 
-            {/* Hero Section */}
+            {/* Compact Light Blue Hero with CSS Texture */}
             <section className="relative min-h-screen flex items-center pt-20 pb-12 overflow-hidden bg-blue-50/50 border-b border-blue-100">
                 {/* CSS Texture Background */}
                 <div className="absolute inset-0 opacity-100 pointer-events-none">
@@ -32,24 +34,12 @@ export default function Home() {
                 <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center h-full text-center">
                     <div className="max-w-4xl flashy-reveal flex flex-col items-center">
                         <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-navy-950 leading-[1.1] tracking-tighter mb-8 transition-all duration-700 hover:tracking-wide">
-                            100% Canadian, <br />
-                            <span className="text-growth">No Outsourcing.</span>
+                            The Finance Team <br />
+                            <span className="text-growth">for Growth.</span>
                         </h1>
-                        <p className="text-lg md:text-xl text-navy-900/80 mb-6 leading-relaxed max-w-2xl font-medium">
-                            While the majority of accounting firms outsource overseas, we're doubling down on an exceptional Canadian workforce.
+                        <p className="text-lg md:text-xl text-navy-900/80 mb-10 leading-relaxed max-w-2xl font-medium">
+                            Tax, bookkeeping, and fractional CFO expertise for Canada's most ambitious companies.
                         </p>
-                        <ul className="text-sm md:text-base text-navy-900/60 font-semibold mb-10 space-y-2">
-                            <li>✨ Reliable controllership services for tax, bookkeeping, payroll, AP/AR, reporting and tech support</li>
-                            <li>✨ Regular check-ins with your team</li>
-                            <li>✨ Never worry about turnover in your finance team</li>
-                        </ul>
-
-                        <div className="bg-white/50 border border-growth/20 p-4 rounded-xl mb-12">
-                            <p className="text-sm font-bold text-growth">
-                                Ideal for companies with $3M-$15M in revenue or 1-3 people in your finance department
-                            </p>
-                        </div>
-
                         <div className="flex flex-col sm:flex-row gap-6 mb-12 w-full sm:w-auto justify-center">
                             <Link href="/contact" className="group bg-growth text-white px-10 py-5 rounded-2xl text-base font-black hover:scale-105 transition-all flex items-center justify-center gap-2 shadow-lg shadow-growth/20 whitespace-nowrap">
                                 Get Started <ArrowRight size={18} />
@@ -59,23 +49,16 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="inline-flex items-center gap-3 px-4 py-2 bg-blue-100/50 border border-blue-200 rounded-full text-growth font-bold text-[10px] uppercase tracking-[0.3em] shadow-sm backdrop-blur-md">
-                            <ShieldCheck size={14} /> 10+ Years Experience • 60+ Team Members
+                            <ShieldCheck size={14} /> 100% Virtual. 100% Canadian.
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Social Proof */}
+            {/* Trusted By - Logo Cloud */}
             <section className="py-20 border-b border-gray-100 bg-gray-50/50">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-12">
-                        <p className="text-[10px] font-black text-navy-900/40 uppercase tracking-[0.4em] mb-2">Organizations we've helped</p>
-                        <h3 className="text-2xl font-black text-navy-950 tracking-tight">You're in good company.</h3>
-                        <p className="text-navy-900/50 text-sm mt-2 max-w-xl mx-auto">
-                            Reach out knowing we've helped some of the best companies in Canada with tax planning, bookkeeping and structuring their financial back office.
-                        </p>
-                    </div>
-
+                    <p className="text-center text-[10px] font-black text-navy-900/40 uppercase tracking-[0.4em] mb-12">Trusted by Industry Leaders</p>
                     <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-40 hover:opacity-100 transition-opacity duration-700">
                         {/* Custom SVG Logos for a premium look */}
                         <div className="flex items-center gap-3 grayscale filter">
@@ -99,60 +82,77 @@ export default function Home() {
                             <span className="text-lg font-black tracking-tighter text-navy-950">MERIDIAN</span>
                         </div>
                     </div>
-
-                    <div className="text-center mt-12">
-                        <Link href="/contact" className="text-growth font-bold text-sm hover:underline">View Case Studies →</Link>
-                        <p className="text-xs text-navy-900/40 mt-1">It's free, and you'll learn something!</p>
-                    </div>
                 </div>
             </section>
 
-            {/* Features / Pillars */}
+            {/* Service Verticals */}
             <section className="py-32 bg-white">
                 <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        {/* Always On Support */}
-                        <div className="flex flex-col items-start group">
-                            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-8 group-hover:scale-110 transition-transform">
-                                <Video size={32} />
-                            </div>
-                            <h3 className="text-2xl font-black text-navy-950 mb-4">Always On Support</h3>
-                            <p className="text-navy-900/60 font-medium leading-relaxed mb-6">
-                                Your entire accounting team, including your CPA, on call when you need them. Connect with them over video chat, phone, or email.
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+                        <div className="flashy-reveal">
+                            <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block">Our Approach</span>
+                            <h2 className="text-3xl md:text-4xl font-black text-navy-950 mb-8 tracking-tighter leading-[1.1]">
+                                More than just <br />
+                                <span className="text-growth">Accountants.</span>
+                            </h2>
+                            <p className="text-base text-navy-900/60 font-medium leading-relaxed mb-10">
+                                We combine high-end technology with professional CPA expertise to give you a real-time view of your business performance.
                             </p>
+                            <Link href="/about" className="inline-flex items-center gap-2 text-[10px] font-black text-navy-950 hover:text-growth transition uppercase tracking-widest group">
+                                Our Story <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                            </Link>
                         </div>
 
-                        {/* Upfront Pricing */}
-                        <div className="flex flex-col items-start group">
-                            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-8 group-hover:scale-110 transition-transform">
-                                <FileText size={32} />
-                            </div>
-                            <h3 className="text-2xl font-black text-navy-950 mb-4">Upfront Pricing</h3>
-                            <p className="text-navy-900/60 font-medium leading-relaxed mb-6">
-                                Agreed upfront monthly prices. No hidden charges, cancellation fees, or minimum term contracts.
-                            </p>
-                            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 w-full">
-                                <p className="text-xs font-bold text-navy-950 mb-1">Want to lower your bill?</p>
-                                <p className="text-xs text-navy-900/50">We'll optimize or share duties to fit your budget.</p>
-                            </div>
-                        </div>
-
-                        {/* 100% Online */}
-                        <div className="flex flex-col items-start group">
-                            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-8 group-hover:scale-110 transition-transform">
-                                <Monitor size={32} />
-                            </div>
-                            <h3 className="text-2xl font-black text-navy-950 mb-4">100% Online</h3>
-                            <p className="text-navy-900/60 font-medium leading-relaxed mb-6">
-                                Using only online tools allows us to collaborate virtually in real-time giving you up-to-date financial information.
-                            </p>
+                        <div className="grid grid-cols-1 gap-6">
+                            {[
+                                { title: "Tax & Advisory", desc: "Strategic planning and corporate filings that maximize your wealth.", icon: <BarChart3 className="text-white" size={20} /> },
+                                { title: "Cloud Bookkeeping", desc: "Real-time ledger management integrated with your entire tech stack.", icon: <Zap className="text-white" size={20} /> },
+                                { title: "Fractional CFO", desc: "High-level strategy to help you scale from seed to Series C.", icon: <Rocket className="text-white" size={20} /> }
+                            ].map((service, i) => (
+                                <GlassCard key={i} className="p-8 hover-flash group" intensity="light">
+                                    <div className="flex gap-6 items-start">
+                                        <div className="w-12 h-12 bg-navy-950 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-growth transition-colors">
+                                            {service.icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-lg font-black text-navy-950 mb-2 tracking-tight">{service.title}</h3>
+                                            <p className="text-navy-900/50 text-sm font-medium leading-relaxed">{service.desc}</p>
+                                        </div>
+                                    </div>
+                                </GlassCard>
+                            ))}
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Testimonials */}
-            <Testimonials />
+            {/* Minimalist Philosophy Section */}
+            <section className="py-24 relative overflow-hidden bg-white text-navy-950 border-y border-gray-100">
+                <div className="container mx-auto px-6 relative z-10">
+                    <div className="max-w-4xl mx-auto text-center flashy-reveal">
+                        <div className="w-16 h-1 bg-growth mx-auto mb-10 rounded-full opacity-30" />
+                        <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-8 leading-[1.1]">
+                            We're building the <br />
+                            <span className="text-growth">future of finance.</span>
+                        </h2>
+                        <p className="text-lg text-navy-900/60 mb-10 leading-relaxed font-semibold max-w-2xl mx-auto">
+                            "The industry and tech are changing too fast for traditional accounting firms to keep up. We built TaxBuddy to be the agile partner that modern entrepreneurs actually need."
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-left pt-12 border-t border-gray-50">
+                            {[
+                                { val: "100%", label: "Cloud Based" },
+                                { val: "No", label: "Timesheets" },
+                                { val: "Direct", label: "CPA Access" }
+                            ].map((stat, i) => (
+                                <div key={i}>
+                                    <div className="text-2xl font-black text-growth mb-1">{stat.val}</div>
+                                    <div className="text-[9px] font-black uppercase tracking-[0.2em] text-navy-900/30">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* Final CTA */}
             <section className="py-32 bg-white">

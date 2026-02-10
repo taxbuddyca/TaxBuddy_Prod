@@ -1,75 +1,40 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, ArrowRight } from 'lucide-react';
+import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import GlassCard from './GlassCard';
 
 interface FAQItem {
     question: string;
-    answer: React.ReactNode;
+    answer: string;
     category: string;
 }
 
 const faqs: FAQItem[] = [
     {
-        category: "General",
-        question: "What does TaxBuddy do?",
-        answer: (
-            <>
-                We serve as both an extension to finance departments or act as the entire finance team for Canadian medium-sized businesses typically earning between $3M and $15M in revenue.
-                <br /><br />
-                Recognizing the unique challenges faced by these companies, we offer a suite of outsourced financial services designed to fill knowledge gaps, manage workload overflow, and provide expert guidance when needed.
-                <br /><br />
-                Our clients gain a reliable partner in tax services, bookkeeping, payroll management, accounts payable, and other essential finance functions.
-                <br /><br />
-                Our dedicated team of specialists is committed to ensuring you have support without the need for additional full-time hires. We tailor our services to integrate smoothly with your business, ensuring that you have scalable solutions that adapt to your evolving needs.
-            </>
-        )
+        category: "Sales & Onboarding",
+        question: "How long does onboarding take?",
+        answer: "Typically 2-4 weeks. This includes a deep dive into your current systems, data migration to Xero/QBO, and setting up your dedicated 'pod' communication channels."
     },
     {
-        category: "Team",
-        question: "How many employees work at TaxBuddy?",
-        answer: "~60 team members."
+        category: "Sales & Onboarding",
+        question: "Do I have to switch to Xero?",
+        answer: "We highly recommend Xero or QuickBooks Online for their robust API ecosystems. If you're on a legacy system, part of our onboarding is a managed migration to these modern tools."
     },
     {
-        category: "Why Us",
-        question: "Why TaxBuddy?",
-        answer: (
-            <>
-                We've worked with over 1,000 Canadian companies and have helped each one create a custom financial back-office that works for them.
-                <br /><br />
-                We're usually the firm people come to when they've outgrown their current Canadian bookkeeper/CPA firm or would like to de-risk any turnover issues in their finance department.
-                <br /><br />
-                Your needs may change over time (hiring internally, adding/subtracting services) and we'll work with you ensure you're using us for exactly what you need.
-            </>
-        )
+        category: "Technical & Ops",
+        question: "Will I have a dedicated accountant?",
+        answer: "Yes. You are assigned a 'Pod' which includes a Lead CPA, a Bookkeeper, and a Tech Specialist. This ensures continuity even if one person is away."
     },
     {
-        category: "Fit",
-        question: "Who is your ideal customer?",
-        answer: (
-            <>
-                Any industry that does not subscribe to the typical tech 'grow at all costs' mentality and emphasizes sustainable and stable business practices.
-                <br /><br />
-                Some industry examples include professional services, agencies, retail, e-commerce, healthcare, non-profits, real estate and financial services (typically not bootstrapped startups, restaurants, or construction).
-            </>
-        )
+        category: "Technical & Ops",
+        question: "How do you handle payroll?",
+        answer: "We integrate with tools like Wagepoint and Deel. We manage the filings, remittances, and T4/T4A production as part of our Enterprise and Controllership tiers."
     },
     {
-        category: "Service Area",
-        question: "What cities do you serve?",
-        answer: (
-            <>
-                We work in all Canadian cities, including Toronto, Vancouver, Halifax, Edmonton, Calgary and Winnipeg. Because we're remote, we can perform bookkeeping and tax no matter where you're located in Canada.
-                <br /><br />
-                We also support USA and other Global companies who are operating in Canada.
-            </>
-        )
-    },
-    {
-        category: "Fit",
-        question: "I'm a sole proprietor, can you help?",
-        answer: "While we only work with corporations, we may be able to point you in the right direction or recommend another firm that may be able to help."
+        category: "Pricing & Plans",
+        question: "Is there an setup fee?",
+        answer: "For complex migrations, we may charge a one-time onboarding fee. For standard cloud-to-cloud moves, it is usually waived upon signing a 12-month agreement."
     }
 ];
 
@@ -102,12 +67,12 @@ export default function FAQAccordion() {
                         </div>
                     </button>
 
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                         <div className="px-8 pb-8 pt-0 ml-16">
                             <div className="w-full h-px bg-gray-100/20 mb-6" />
-                            <div className="text-navy-900/70 text-lg font-medium leading-relaxed">
+                            <p className="text-navy-900/70 text-lg font-medium leading-relaxed">
                                 {faq.answer}
-                            </div>
+                            </p>
                         </div>
                     </div>
                 </GlassCard>
