@@ -1,0 +1,144 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { Plus, Trash2, Edit3, Tag, CheckCircle2, Zap, Save, X } from 'lucide-react';
+import GlassCard from './GlassCard';
+import { getPricingPlans, updatePricingPlan, createPricingPlan, deletePricingPlan, PricingPlan } from '@/lib/pricing';
+
+export default function AdminPricingManager() {
+    const [plans, setPlans] = useState<PricingPlan[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [editingId, setEditingId] = useState<number | null>(null);
+    const [editForm, setEditForm] = useState<Partial<PricingPlan>>({});
+
+    useEffect(() => {
+        fetchPlans();
+    }, []);
+
+    const fetchPlans = async () => {
+        try {
+            const data = await getPricingPlans();
+            setPlans(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleEdit = (plan: PricingPlan) => {
+        setEditingId(plan.id!);
+        setEditForm(plan);
+    };
+
+    const handleSave = async (id: number) => {
+        try {
+            await updatePricingPlan(id, editForm);
+            setEditingId(null);
+            fetchPlans();
+        } catch (err) {
+            alert("Error saving plan");
+        }
+    };
+
+    const handleDelete = async (id: number) => {
+        if (!confirm("Are you sure?")) return;
+        try {
+            await deletePricingPlan(id);
+            fetchPlans();
+        } catch (err) {
+            alert("Error deleting plan");
+        }
+    };
+
+    if (loading) return <div className="p-20 text-center animate-pulse text-navy-950 font-black">Synchronizing with Command Center...</div>;
+
+    return (
+        <div className="space-y-8">
+            <div className="flex justify-between items-center px-4">
+                <div>
+                    <h2 className="text-2xl font-black text-navy-950">Subscription Management</h2>
+                    <p className="text-navy-900/40 text-sm font-medium">Update public pricing and feature lists in real-time</p>
+                </div>
+                <button
+                    onClick={() => createPricingPlan({ name: "New Plan", price: "$0", tag: "Draft", popular: false, features: [], order_index: plans.length + 1 }).then(fetchPlans)}
+                    className="bg-growth text-white px-6 py-3 rounded-xl font-bold hover:bg-growth-600 transition flex items-center gap-2 shadow-lg shadow-growth/20"
+                >
+                    <Plus size={18} /> New Plan
+                </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {plans.map((plan) => (
+                    <GlassCard key={plan.id} className={`p-8 border ${plan.popular ? 'border-growth/50 shadow-growth/5' : 'border-gray-100'}`} intensity="light">
+                        <div className="flex justify-between items-start mb-6">
+                            <div className={`p-3 rounded-xl transition-all ${plan.popular ? 'bg-growth text-white rotate-12' : 'bg-gray-100 text-navy-950'}`}>
+                                {plan.popular ? <Zap size={20} /> : <Tag size={20} />}
+                            </div>
+                            <div className="flex gap-2">
+                                {editingId === plan.id ? (
+                                    <button onClick={() => setEditingId(null)} className="p-2 text-navy-900/40 hover:text-red-500 rounded-lg transition"><X size={16} /></button>
+                                ) : (
+                                    <>
+                                        <button onClick={() => handleEdit(plan)} className="p-2 text-navy-900/20 hover:text-navy-900 hover:bg-gray-100 rounded-lg transition"><Edit3 size={16} /></button>
+                                        <button onClick={() => handleDelete(plan.id!)} className="p-2 text-navy-900/20 hover:text-red-500 hover:bg-red-50 rounded-lg transition"><Trash2 size={16} /></button>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+
+                        {editingId === plan.id ? (
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Plan Name</label>
+                                    <input
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm font-bold text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
+                                        value={editForm.name}
+                                        onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Price</label>
+                                    <input
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-lg font-black text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
+                                        value={editForm.price}
+                                        onChange={(e) => setEditForm({ ...editForm, price: e.target.value })}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-2 pt-2">
+                                    <input
+                                        type="checkbox"
+                                        id="popular"
+                                        checked={editForm.popular}
+                                        onChange={(e) => setEditForm({ ...editForm, popular: e.target.checked })}
+                                        className="w-4 h-4 rounded border-gray-300 text-growth focus:ring-growth"
+                                    />
+                                    <label htmlFor="popular" className="text-sm font-bold text-navy-950">Featured / Popular</label>
+                                </div>
+                                <button
+                                    onClick={() => handleSave(plan.id!)}
+                                    className="w-full bg-navy-950 text-white py-3 rounded-xl text-sm font-black flex items-center justify-center gap-2 hover:bg-navy-900 transition-all mt-4"
+                                >
+                                    <Save size={16} /> Update Plan
+                                </button>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3 className="text-xl font-black text-navy-950">{plan.name}</h3>
+                                <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-4">{plan.tag}</div>
+                                <div className="text-3xl font-black text-navy-950 mb-6">{plan.price}</div>
+                                <div className="space-y-2">
+                                    {plan.features.map((f, i) => (
+                                        <div key={i} className="flex items-center gap-2 text-[11px] font-bold text-navy-900/60 uppercase tracking-tight">
+                                            <CheckCircle2 size={12} className="text-growth flex-shrink-0" /> {f}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </GlassCard>
+                ))}
+            </div>
+        </div>
+    );
+}
