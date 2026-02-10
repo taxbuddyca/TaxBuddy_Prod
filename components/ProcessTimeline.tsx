@@ -36,8 +36,8 @@ export default function ProcessTimeline() {
                             {step.icon}
                         </div>
                         <div className="bg-growth/20 px-3 py-1 rounded-full text-[10px] font-black text-growth uppercase tracking-widest mb-4">Step 0{i + 1}</div>
-                        <h4 className="text-2xl font-black text-white mb-3">{step.title}</h4>
-                        <p className="text-white/60 text-sm font-medium leading-relaxed max-w-[200px]">{step.desc}</p>
+                        <h4 className="text-2xl font-black text-navy-950 mb-3">{step.title}</h4>
+                        <p className="text-navy-900/60 text-sm font-medium leading-relaxed max-w-[200px]">{step.desc}</p>
                     </div>
                 ))}
             </div>

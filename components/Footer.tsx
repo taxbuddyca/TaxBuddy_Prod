@@ -37,7 +37,6 @@ export default function Footer() {
                             <Link href="/services" className="hover:text-growth transition">Services</Link>
                             <Link href="/pricing" className="hover:text-growth transition">Pricing</Link>
                             <Link href="/process" className="hover:text-growth transition">Process</Link>
-                            <Link href="/customers" className="hover:text-growth transition">Customers</Link>
                         </div>
                     </div>
 
@@ -45,7 +44,6 @@ export default function Footer() {
                         <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-8">Company</h4>
                         <div className="flex flex-col gap-4 text-sm font-bold text-navy-900/40 uppercase tracking-widest">
                             <Link href="/about" className="hover:text-growth transition">About Us</Link>
-                            <Link href="/team" className="hover:text-growth transition">Team</Link>
                             <Link href="/careers" className="hover:text-growth transition">Careers</Link>
                             <Link href="/faq" className="hover:text-growth transition">FAQ</Link>
                         </div>
