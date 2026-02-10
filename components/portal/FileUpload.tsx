@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { Upload, X, FileText, CheckCircle, AlertCircle } from "lucide-react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
 export default function FileUpload() {
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const supabase = createClientComponentClient();
+    const supabase = createClient();
     const router = useRouter();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FileText, Download, Check, X, Loader2 } from "lucide-react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/utils/supabase/client";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 
@@ -20,7 +20,7 @@ type Document = {
 export default function AdminDocumentList({ documents }: { documents: Document[] }) {
     const [downloading, setDownloading] = useState<string | null>(null);
     const [updating, setUpdating] = useState<string | null>(null);
-    const supabase = createClientComponentClient();
+    const supabase = createClient();
     const router = useRouter();
 
     const handleDownload = async (path: string, filename: string) => {
@@ -93,8 +93,8 @@ export default function AdminDocumentList({ documents }: { documents: Document[]
                             </td>
                             <td className="p-4">
                                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${doc.status === 'approved' ? 'bg-green-100 text-green-800' :
-                                        doc.status === 'rejected' ? 'bg-red-100 text-red-800' :
-                                            'bg-yellow-100 text-yellow-800'
+                                    doc.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                                        'bg-yellow-100 text-yellow-800'
                                     }`}>
                                     {doc.status}
                                 </span>

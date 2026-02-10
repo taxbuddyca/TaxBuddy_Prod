@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -8,12 +8,17 @@ const plusJakartaSans = Plus_Jakarta_Sans({
     variable: '--font-plus-jakarta'
 });
 
+export const viewport: Viewport = {
+    themeColor: "#2cd4be",
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+};
+
 export const metadata: Metadata = {
     title: "TaxBuddy Canada | Modern Accounting for Startups",
     description: "Virtual bookkeeping, tax, and CFO services for Canadian businesses.",
     manifest: "/manifest.json",
-    themeColor: "#2cd4be",
-    viewport: "width=device-width, initial-scale=1, maximum-scale=1",
     appleWebApp: {
         capable: true,
         statusBarStyle: "default",

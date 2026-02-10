@@ -1,12 +1,11 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import AdminDocumentList from "@/components/admin/AdminDocumentList";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDocumentsPage() {
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = await createClient();
 
     const { data: { session } } = await supabase.auth.getSession();
 
