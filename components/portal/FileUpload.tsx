@@ -2,20 +2,19 @@
 
 import { useState } from "react";
 import { Upload, X, FileText, CheckCircle, AlertCircle } from "lucide-react";
-import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
+import { uploadGuestFile } from "@/actions/upload";
 
 export default function FileUpload() {
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const supabase = createClient();
-    const router = useRouter();
+    const [success, setSuccess] = useState(false);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setFile(e.target.files[0]);
             setError(null);
+            setSuccess(false);
         }
     };
 
@@ -25,34 +24,20 @@ export default function FileUpload() {
         setError(null);
 
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) throw new Error("User not authenticated");
+            const formData = new FormData();
+            formData.append("file", file);
 
-            const filePath = `${user.id}/${Date.now()}_${file.name}`;
+            const result = await uploadGuestFile(formData);
 
-            // 1. Upload to Storage
-            const { error: uploadError } = await supabase.storage
-                .from("client-documents")
-                .upload(filePath, file);
+            if (result.error) {
+                throw new Error(result.error);
+            }
 
-            if (uploadError) throw uploadError;
-
-            // 2. Insert into Database
-            const { error: dbError } = await supabase
-                .from("documents")
-                .insert({
-                    user_id: user.id,
-                    file_name: file.name,
-                    file_path: filePath,
-                    file_size: file.size,
-                    content_type: file.type,
-                    status: "pending"
-                });
-
-            if (dbError) throw dbError;
-
+            setSuccess(true);
             setFile(null);
-            router.refresh();
+
+            // Reset success message after 3 seconds
+            setTimeout(() => setSuccess(false), 3000);
 
         } catch (err: any) {
             console.error(err);
@@ -66,8 +51,20 @@ export default function FileUpload() {
         <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
             <h3 className="text-lg font-black text-navy-950 mb-4 flex items-center gap-2">
                 <Upload size={20} className="text-growth" />
-                Upload Document
+                Quick Document Upload
             </h3>
+
+            {success ? (
+                <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle size={18} />
+                    </div>
+                    <div>
+                        <div className="font-bold">Upload Successful!</div>
+                        <div className="text-xs opacity-80">Our team has been notified.</div>
+                    </div>
+                </div>
+            ) : null}
 
             {!file ? (
                 <label className="border-2 border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer hover:border-growth hover:bg-growth/5 transition-all group">

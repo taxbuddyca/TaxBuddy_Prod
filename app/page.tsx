@@ -126,41 +126,68 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Minimalist Philosophy Section */}
+            {/* Philosophy / Future of Finance Section */}
             <section className="py-24 relative overflow-hidden bg-white text-navy-950 border-y border-gray-100">
                 <div className="container mx-auto px-6 relative z-10">
-                    <div className="max-w-4xl mx-auto text-center flashy-reveal">
+                    <div className="max-w-4xl mx-auto text-center flashy-reveal mb-16">
                         <div className="w-16 h-1 bg-growth mx-auto mb-10 rounded-full opacity-30" />
-                        <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-8 leading-[1.1]">
-                            We're building the <br />
-                            <span className="text-growth">future of finance.</span>
+                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-8 leading-[1.1]">
+                            We're not your father's <br />
+                            <span className="text-growth">accounting firm.</span>
                         </h2>
-                        <p className="text-lg text-navy-900/60 mb-10 leading-relaxed font-semibold max-w-2xl mx-auto">
-                            "The industry and tech are changing too fast for traditional accounting firms to keep up. We built TaxBuddy to be the agile partner that modern entrepreneurs actually need."
+                        <p className="text-lg text-navy-900/60 leading-relaxed font-semibold max-w-2xl mx-auto">
+                            "The industry and tech are changing too fast for traditional firms to keep up. We built TaxBuddy to be the agile, tech-forward partner that modern entrepreneurs actually need."
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-left pt-12 border-t border-gray-50">
-                            {[
-                                { val: "100%", label: "Cloud Based" },
-                                { val: "No", label: "Timesheets" },
-                                { val: "Direct", label: "CPA Access" }
-                            ].map((stat, i) => (
-                                <div key={i}>
-                                    <div className="text-2xl font-black text-growth mb-1">{stat.val}</div>
-                                    <div className="text-[9px] font-black uppercase tracking-[0.2em] text-navy-900/30">{stat.label}</div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        {[
+                            {
+                                title: "100% Cloud-Native",
+                                desc: "We live in the cloud. Xero, QBO, Dext, Stripe. We integrate your entire stack so data flows automatically. No paper, no shoeboxes.",
+                                icon: <Zap size={24} className="text-white" />
+                            },
+                            {
+                                title: "Kill the Billable Hour",
+                                desc: "Traditional firms bill by time; we bill by value. Our upfront pricing aligns our incentives with yours: efficiency, speed, and results.",
+                                icon: <Clock size={24} className="text-white" />
+                            },
+                            {
+                                title: "Real-Time Visibility",
+                                desc: "Stop driving with your rear-view mirror. We provide up-to-date dashboards so you can make decisions based on today's numbers.",
+                                icon: <BarChart3 size={24} className="text-white" />
+                            },
+                            {
+                                title: "Direct Expert Access",
+                                desc: "No gatekeepers. You get direct access to your dedicated CPA and finance team via video, chat, or email. We're an extension of your team.",
+                                icon: <ShieldCheck size={24} className="text-white" />
+                            }
+                        ].map((item, i) => (
+                            <GlassCard key={i} className="p-8 group hover:border-growth/30 transition-all duration-300" intensity="light">
+                                <div className="flex items-start gap-6">
+                                    <div className="w-12 h-12 bg-navy-950 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-growth transition-colors shadow-lg">
+                                        {item.icon}
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-black text-navy-950 mb-3 tracking-tight">{item.title}</h3>
+                                        <p className="text-navy-900/60 font-medium leading-relaxed text-sm">
+                                            {item.desc}
+                                        </p>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
+                            </GlassCard>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Final CTA */}
-            <section className="py-32 bg-white">
+            <section className="py-20 bg-white">
                 <div className="container mx-auto px-6 text-center flashy-reveal">
-                    <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-8 block font-bold">Join the Revolution</span>
-                    <h2 className="text-4xl md:text-5xl font-black text-navy-950 tracking-tighter mb-12 leading-[1.1]">Ready to upgrade?</h2>
-                    <Link href="/contact" className="inline-flex items-center gap-3 bg-navy-950 text-white px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-xl">
-                        Schedule a Call <Send size={20} />
+                    <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block font-bold">Join the Revolution</span>
+                    <h2 className="text-3xl md:text-4xl font-black text-navy-950 tracking-tighter mb-8 leading-[1.1]">Ready to upgrade?</h2>
+                    <Link href="/contact" className="inline-flex items-center gap-2 bg-navy-950 text-white px-8 py-4 rounded-xl text-base font-black hover:scale-105 transition-all shadow-xl">
+                        Schedule a Call <Send size={18} />
                     </Link>
                 </div>
             </section>

@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Zap, Settings, LayoutDashboard, Menu, X } from "lucide-react";
+import { Zap, Settings, LayoutDashboard, Menu, X, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./Logo";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -26,6 +27,7 @@ export default function Navbar() {
         { name: "FAQ", href: "/faq" },
         { name: "About", href: "/about" },
         { name: "Team", href: "/team" },
+        { name: "Portal", href: "/portal/documents" },
     ];
 
     return (
@@ -35,11 +37,11 @@ export default function Navbar() {
                     <Link href="/" className="flex items-center gap-4 group">
                         <div className="relative w-14 h-14 flex items-center justify-center">
                             <div className="absolute inset-0 bg-navy-950 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-500 shadow-xl" />
-                            <div className="absolute inset-x-0 inset-y-0.5 bg-growth rounded-2xl -rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-premium" />
-                            <Zap className="relative w-7 h-7 text-white group-hover:scale-110 transition-transform" />
+                            <div className="absolute inset-x-0 inset-y-0.5 bg-white rounded-2xl -rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-premium border border-gray-100" />
+                            <Logo className="relative w-8 h-8 group-hover:scale-110 transition-transform" />
                         </div>
                         <div className="flex flex-col -gap-1">
-                            <span className="text-2xl font-black tracking-tighter text-navy-950 leading-none">TaxBuddy</span>
+                            <span className="text-2xl font-black tracking-tighter text-navy-950 dark:text-white leading-none">Tax<span className="text-blue-600">Buddy</span></span>
                             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-navy-900/30">Advisory</span>
                         </div>
                     </Link>
@@ -96,6 +98,13 @@ export default function Navbar() {
                                 className="bg-navy-950 text-white px-8 py-4 rounded-xl font-black text-center shadow-lg"
                             >
                                 Contact Us
+                            </Link>
+                            <Link
+                                href="/portal/documents"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="bg-gray-100 text-navy-950 px-8 py-4 rounded-xl font-black text-center shadow-lg hover:bg-gray-200"
+                            >
+                                Client Portal
                             </Link>
                         </div>
                     </div>

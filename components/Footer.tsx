@@ -1,21 +1,22 @@
 "use client";
 
-import { Zap, Mail, Phone, MapPin, Twitter, Linkedin, Github } from "lucide-react";
+import { Zap, Mail, Phone, MapPin, Twitter, Linkedin, Github, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
     return (
-        <footer className="bg-white pt-32 pb-16 border-t border-gray-100 selection:bg-growth selection:text-white">
+        <footer className="bg-white pt-16 pb-8 border-t border-gray-100 selection:bg-growth selection:text-white">
             <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-16 mb-20">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
                     <div className="lg:col-span-1">
-                        <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 bg-growth rounded-xl flex items-center justify-center rotate-3 shadow-emerald">
-                                <Zap className="w-6 h-6 text-white" />
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center rotate-3 shadow-emerald">
+                                <Logo className="w-6 h-6" />
                             </div>
-                            <span className="text-3xl font-black tracking-tight text-navy-950">Tax<span className="text-growth">Buddy</span></span>
+                            <span className="text-3xl font-black tracking-tight text-navy-950 dark:text-white">Tax<span className="text-blue-600">Buddy</span></span>
                         </div>
-                        <p className="text-navy-900/40 font-medium leading-relaxed mb-8">
+                        <p className="text-navy-900/40 font-medium leading-relaxed mb-6 text-sm">
                             A different kind of CPA firm. 100% remote, 100% Canadian. Built for the modern entrepreneur.
                         </p>
                         <div className="flex gap-4">
@@ -31,9 +32,10 @@ export default function Footer() {
                         </div>
                     </div>
 
+
                     <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-8">Ecosystem</h4>
-                        <div className="flex flex-col gap-4 text-sm font-bold text-navy-900/40 uppercase tracking-widest">
+                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Ecosystem</h4>
+                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
                             <Link href="/services" className="hover:text-growth transition">Services</Link>
                             <Link href="/pricing" className="hover:text-growth transition">Pricing</Link>
                             <Link href="/process" className="hover:text-growth transition">Process</Link>
@@ -42,8 +44,8 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-8">Company</h4>
-                        <div className="flex flex-col gap-4 text-sm font-bold text-navy-900/40 uppercase tracking-widest">
+                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Company</h4>
+                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
                             <Link href="/about" className="hover:text-growth transition">About Us</Link>
                             <Link href="/team" className="hover:text-growth transition">Team</Link>
                             <Link href="/careers" className="hover:text-growth transition">Careers</Link>
@@ -52,8 +54,8 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-8">Legal</h4>
-                        <div className="flex flex-col gap-4 text-sm font-bold text-navy-900/40 uppercase tracking-widest">
+                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Legal</h4>
+                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
                             <Link href="/privacy" className="hover:text-growth transition">Privacy Policy</Link>
                             <Link href="/terms" className="hover:text-growth transition">Terms of Service</Link>
                             <Link href="/cookies" className="hover:text-growth transition">Cookie Policy</Link>
@@ -61,7 +63,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-16 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="text-navy-900/20 text-xs font-black uppercase tracking-[0.2em]">
                         © 2026 TaxBuddy. No Outsourcing. No Bull.
                     </div>
