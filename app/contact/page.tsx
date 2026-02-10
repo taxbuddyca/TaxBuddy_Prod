@@ -55,21 +55,37 @@ export default function ContactPage() {
                                 </p>
 
                                 <div className="space-y-8">
-                                    {[
-                                        { icon: <Mail size={20} />, label: "Email Us", val: "taxbuddyca4u@gmail.com" },
-                                        { icon: <Phone size={20} />, label: "Call Us", val: "+ 1 306-880-4017" },
-                                        { icon: <MapPin size={20} />, label: "Headquarters", val: "Unit 608 - 569 Washmill Lake Dr, Halifax, NS, Canada, B3S 0E3" }
-                                    ].map((item, i) => (
-                                        <div key={i} className="flex gap-6 items-center group">
+                                    <div className="space-y-8">
+                                        <a href="mailto:taxbuddyca4u@gmail.com" className="flex gap-6 items-center group">
                                             <div className="w-12 h-12 bg-navy-950 rounded-2xl flex items-center justify-center text-white group-hover:bg-growth transition-all shadow-sm">
-                                                {item.icon}
+                                                <Mail size={20} />
                                             </div>
                                             <div>
-                                                <div className="text-[10px] font-black text-navy-900/40 uppercase tracking-[0.2em]">{item.label}</div>
-                                                <div className="text-base font-black text-navy-950 group-hover:text-growth transition-colors">{item.val}</div>
+                                                <div className="text-[10px] font-black text-navy-900/40 uppercase tracking-[0.2em]">Email Us</div>
+                                                <div className="text-base font-black text-navy-950 group-hover:text-growth transition-colors">taxbuddyca4u@gmail.com</div>
+                                            </div>
+                                        </a>
+
+                                        <a href="tel:+13068804017" className="flex gap-6 items-center group">
+                                            <div className="w-12 h-12 bg-navy-950 rounded-2xl flex items-center justify-center text-white group-hover:bg-growth transition-all shadow-sm">
+                                                <Phone size={20} />
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] font-black text-navy-900/40 uppercase tracking-[0.2em]">Call Us</div>
+                                                <div className="text-base font-black text-navy-950 group-hover:text-growth transition-colors">+ 1 306-880-4017</div>
+                                            </div>
+                                        </a>
+
+                                        <div className="flex gap-6 items-center group">
+                                            <div className="w-12 h-12 bg-navy-950 rounded-2xl flex items-center justify-center text-white group-hover:bg-growth transition-all shadow-sm">
+                                                <MapPin size={20} />
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] font-black text-navy-900/40 uppercase tracking-[0.2em]">Headquarters</div>
+                                                <div className="text-base font-black text-navy-950 group-hover:text-growth transition-colors">Unit 608 - 569 Washmill Lake Dr, Halifax, NS, Canada, B3S 0E3</div>
                                             </div>
                                         </div>
-                                    ))}
+                                    </div>
                                 </div>
                             </div>
 

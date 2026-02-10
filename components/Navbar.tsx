@@ -33,14 +33,14 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto">
                 <div className={`bg-white/70 backdrop-blur-xl border border-gray-200/50 rounded-full px-8 py-4 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'shadow-premium py-3' : 'shadow-glass'}`}>
                     <Link href="/" className="flex items-center gap-4 group">
-                        <div className="relative w-11 h-11 flex items-center justify-center">
+                        <div className="relative w-14 h-14 flex items-center justify-center">
                             <div className="absolute inset-0 bg-navy-950 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-500 shadow-xl" />
                             <div className="absolute inset-x-0 inset-y-0.5 bg-growth rounded-2xl -rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-premium" />
-                            <Zap className="relative w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+                            <Zap className="relative w-7 h-7 text-white group-hover:scale-110 transition-transform" />
                         </div>
                         <div className="flex flex-col -gap-1">
-                            <span className="text-lg font-black tracking-tighter text-navy-950 leading-none">TaxBuddy</span>
-                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-navy-900/30">Advisory</span>
+                            <span className="text-2xl font-black tracking-tighter text-navy-950 leading-none">TaxBuddy</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-navy-900/30">Advisory</span>
                         </div>
                     </Link>
 

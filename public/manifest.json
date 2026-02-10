@@ -1,0 +1,21 @@
+{
+    "name": "TaxBuddy Canada",
+    "short_name": "TaxBuddy",
+    "description": "Modern Accounting & Tax Services for Canadian Businesses",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#2cd4be",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

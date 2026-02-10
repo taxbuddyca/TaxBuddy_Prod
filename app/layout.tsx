@@ -9,12 +9,22 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "TaxBuddy | Professional Tax & Business Services",
-    description: "Your Trusted Tax and Business Consultant. Specializing in Individual Tax, Corporate Tax, and Bookkeeping.",
+    title: "TaxBuddy Canada | Modern Accounting for Startups",
+    description: "Virtual bookkeeping, tax, and CFO services for Canadian businesses.",
+    manifest: "/manifest.json",
+    themeColor: "#2cd4be",
+    viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+    appleWebApp: {
+        capable: true,
+        statusBarStyle: "default",
+        title: "TaxBuddy",
+    },
 };
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+import WhatsAppFab from "@/components/WhatsAppFab";
 
 export default function RootLayout({
     children,
@@ -27,6 +37,7 @@ export default function RootLayout({
                 <Navbar />
                 {children}
                 <Footer />
+                <WhatsAppFab />
             </body>
         </html>
     );

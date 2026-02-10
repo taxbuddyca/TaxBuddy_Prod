@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Target, BarChart3, Dna, CheckCircle2, Zap, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import GlassCard from "./GlassCard";
 
 const services = [
@@ -80,9 +81,9 @@ export default function ServiceTabs() {
                                     <p className="text-xl text-navy-900/70 leading-relaxed font-medium mb-10">
                                         {s.desc}
                                     </p>
-                                    <button className="bg-navy-950 text-white px-10 py-5 rounded-xl font-black flex items-center gap-3 hover:bg-navy-900 hover:scale-105 transition-all shadow-xl">
+                                    <Link href="/contact" className="bg-navy-950 text-white px-10 py-5 rounded-xl font-black flex items-center gap-3 hover:bg-navy-900 hover:scale-105 transition-all shadow-xl w-fit">
                                         Get started with {s.id} <ArrowRight size={20} />
-                                    </button>
+                                    </Link>
                                 </div>
                                 <div className="space-y-6 bg-blue-50/50 rounded-[2rem] p-10 border border-blue-100">
                                     <div className="text-xs font-black text-navy-900/30 uppercase tracking-widest mb-6">What's Included</div>

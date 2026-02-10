@@ -54,15 +54,15 @@ export default function FAQAccordion() {
                         className="w-full p-8 flex items-center justify-between text-left group"
                     >
                         <div className="flex items-center gap-6">
-                            <div className={`p-3 rounded-xl transition-all duration-500 ${openIndex === i ? 'bg-growth text-white rotate-12' : 'bg-gray-100 text-white/50'}`}>
+                            <div className={`p-3 rounded-xl transition-all duration-500 ${openIndex === i ? 'bg-growth text-white rotate-12' : 'bg-gray-100 text-navy-900/50'}`}>
                                 <HelpCircle size={20} />
                             </div>
                             <div>
-                                <div className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em] mb-1">{faq.category}</div>
-                                <h4 className={`text-xl font-black tracking-tight transition-colors ${openIndex === i ? 'text-growth' : 'text-white group-hover:text-growth'}`}>{faq.question}</h4>
+                                <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-1">{faq.category}</div>
+                                <h4 className={`text-xl font-black tracking-tight transition-colors ${openIndex === i ? 'text-growth' : 'text-navy-950 group-hover:text-growth'}`}>{faq.question}</h4>
                             </div>
                         </div>
-                        <div className={`text-white/20 group-hover:text-growth transition-all ${openIndex === i ? 'rotate-180 text-growth' : ''}`}>
+                        <div className={`text-navy-900/30 group-hover:text-growth transition-all ${openIndex === i ? 'rotate-180 text-growth' : ''}`}>
                             <ChevronDown size={24} />
                         </div>
                     </button>
@@ -70,7 +70,7 @@ export default function FAQAccordion() {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                         <div className="px-8 pb-8 pt-0 ml-16">
                             <div className="w-full h-px bg-gray-100/20 mb-6" />
-                            <p className="text-white/60 text-lg font-medium leading-relaxed">
+                            <p className="text-navy-900/70 text-lg font-medium leading-relaxed">
                                 {faq.answer}
                             </p>
                         </div>
