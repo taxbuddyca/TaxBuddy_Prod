@@ -14,7 +14,7 @@ import {
     CheckCircle2,
     Clock
 } from "lucide-react";
-import { supabase } from "@/lib/supabase"; // Consistent client
+import { createClient } from '@/utils/supabase/client';
 import { format } from "date-fns";
 
 interface Document {
@@ -35,6 +35,7 @@ interface Client {
 }
 
 export default function AdminDocumentList({ documents: initialDocs, clients }: { documents: any[], clients: Client[] }) {
+    const supabase = createClient();
     const [documents, setDocuments] = useState<Document[]>(initialDocs);
     const [filter, setFilter] = useState("");
     const [downloading, setDownloading] = useState<string | null>(null);

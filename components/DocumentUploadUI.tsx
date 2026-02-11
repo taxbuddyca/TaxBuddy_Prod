@@ -29,8 +29,13 @@ export default function DocumentUploadUI() {
                     </div>
                     <input
                         type="file"
+                        multiple
                         className="hidden"
-                        onChange={(e) => e.target.files?.[0] && mockUpload(e.target.files[0].name)}
+                        onChange={(e) => {
+                            if (e.target.files) {
+                                Array.from(e.target.files).forEach(file => mockUpload(file.name));
+                            }
+                        }}
                     />
                 </label>
             </div>

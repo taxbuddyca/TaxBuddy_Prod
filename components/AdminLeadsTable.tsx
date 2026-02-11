@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import { Search, Mail, Calendar, Trash2, Clock, CheckCircle2 } from 'lucide-react';
 
 interface Lead {
@@ -22,6 +22,7 @@ interface Lead {
 }
 
 export default function AdminLeadsTable() {
+    const supabase = createClient();
     const [leads, setLeads] = useState<Lead[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
