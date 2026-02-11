@@ -2,11 +2,51 @@
 
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, FileText, X, ShieldCheck, CheckCircle, Info } from 'lucide-react';
+import { Upload, FileText, X, ShieldCheck, CheckCircle, Info, AlertCircle } from 'lucide-react';
 import GlassCard from './GlassCard';
+import { createClient } from '@/utils/supabase/client';
 
 export default function SecureUploadPortal() {
-    const [files, setFiles] = useState<{ id: string; name: string; size: string; status: 'uploading' | 'complete' | 'error'; progress: number }[]>([]);
+    const [files, setFiles] = useState<{ id: string; name: string; size: string; status: 'uploading' | 'complete' | 'error'; progress: number; path?: string }[]>([]);
+    const supabase = createClient();
+
+    const uploadFile = async (file: File, fileId: string) => {
+        try {
+            const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+
+            // 1. Upload to Storage
+            const { error: uploadError } = await supabase.storage
+                .from('client-documents')
+                .upload(fileName, file, {
+                    cacheControl: '3600',
+                    upsert: false
+                });
+
+            if (uploadError) throw uploadError;
+
+            // 2. Insert into Database
+            const { error: dbError } = await supabase
+                .from('documents')
+                .insert([{
+                    file_name: file.name,
+                    file_path: fileName,
+                    size: (file.size / 1024).toFixed(1) + ' KB',
+                    document_type: file.type || 'unknown',
+                    status: 'uploaded',
+                }]);
+
+            if (dbError) {
+                console.error('Database record creation failed:', dbError);
+                throw dbError;
+            }
+
+            setFiles(prev => prev.map(f => f.id === fileId ? { ...f, status: 'complete', progress: 100, path: fileName } : f));
+
+        } catch (error) {
+            console.error('Upload failed:', error);
+            setFiles(prev => prev.map(f => f.id === fileId ? { ...f, status: 'error', progress: 0 } : f));
+        }
+    };
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         acceptedFiles.forEach(file => {
@@ -21,20 +61,15 @@ export default function SecureUploadPortal() {
 
             setFiles(prev => [...prev, newFile]);
 
-            // Mock upload progress
-            let p = 0;
-            const interval = setInterval(() => {
-                p += 10;
-                setFiles(prev => prev.map(f => f.id === fileId ? { ...f, progress: p } : f));
-                if (p >= 100) {
-                    clearInterval(interval);
-                    setFiles(prev => prev.map(f => f.id === fileId ? { ...f, status: 'complete', progress: 100 } : f));
-                }
-            }, 200);
+            // Start upload
+            uploadFile(file, fileId);
         });
     }, []);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        multiple: true // Explicitly allow multiple files
+    });
 
     const removeFile = (id: string) => {
         setFiles(prev => prev.filter(f => f.id !== id));
@@ -79,6 +114,8 @@ export default function SecureUploadPortal() {
                                 <div className="flex items-center gap-4">
                                     {file.status === 'complete' ? (
                                         <CheckCircle className="w-5 h-5 text-growth" />
+                                    ) : file.status === 'error' ? (
+                                        <AlertCircle className="w-5 h-5 text-red-500" />
                                     ) : (
                                         <div className="w-5 h-5 border-2 border-growth border-t-transparent rounded-full animate-spin" />
                                     )}
