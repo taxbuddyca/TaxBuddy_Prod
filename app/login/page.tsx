@@ -67,7 +67,7 @@ export default function LoginPage() {
                                 <input
                                     type="email"
                                     required
-                                    placeholder="your-email@taxbuddy.ca"
+                                    placeholder="your-email@mytaxbuddy4u.com"
                                     className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-navy-950 placeholder:text-navy-900/20 outline-none focus:ring-2 focus:ring-growth transition font-medium"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}

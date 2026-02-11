@@ -4,7 +4,7 @@ import { MetadataRoute } from 'next';
 import { createClient } from '@supabase/supabase-js';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://taxbuddy.ca';
+    const baseUrl = 'https://mytaxbuddy4u.com';
 
     // Core pages
     const routes = [

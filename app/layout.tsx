@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://taxbuddy.ca'),
+    metadataBase: new URL('https://mytaxbuddy4u.com'),
     title: "TaxBuddy Canada | Modern Accounting for Startups",
     description: "Virtual bookkeeping, tax, and CFO services for Canadian businesses.",
     manifest: "/manifest.json",

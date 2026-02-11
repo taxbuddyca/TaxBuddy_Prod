@@ -59,7 +59,7 @@ export default async function Image() {
                     opacity: 0.6
                 }}>
                     <div style={{ fontSize: 24, color: '#0A192F', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em' }}>
-                        taxbuddy.ca
+                        mytaxbuddy4u.com
                     </div>
                 </div>
             </div>
