@@ -105,15 +105,52 @@ export default function AdminPricingManager() {
                                         onChange={(e) => setEditForm({ ...editForm, price: e.target.value })}
                                     />
                                 </div>
-                                <div className="flex items-center gap-2 pt-2">
-                                    <input
-                                        type="checkbox"
-                                        id="popular"
-                                        checked={editForm.popular}
-                                        onChange={(e) => setEditForm({ ...editForm, popular: e.target.checked })}
-                                        className="w-4 h-4 rounded border-gray-300 text-growth focus:ring-growth"
-                                    />
                                     <label htmlFor="popular" className="text-sm font-bold text-navy-950">Featured / Popular</label>
+                                </div>
+
+                                <div>
+                                    <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Plan Tag (e.g. "Best Value")</label>
+                                    <input
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm font-bold text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
+                                        value={editForm.tag}
+                                        onChange={(e) => setEditForm({ ...editForm, tag: e.target.value })}
+                                    />
+                                </div>
+
+                                <div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Features List</label>
+                                        <button
+                                            onClick={() => setEditForm({ ...editForm, features: [...(editForm.features || []), ""] })}
+                                            className="text-[10px] font-black bg-gray-100 px-2 py-1 rounded hover:bg-growth hover:text-white transition"
+                                        >
+                                            + ADD
+                                        </button>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {editForm.features?.map((feature, idx) => (
+                                            <div key={idx} className="flex gap-2">
+                                                <input
+                                                    className="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
+                                                    value={feature}
+                                                    onChange={(e) => {
+                                                        const newFeatures = [...(editForm.features || [])];
+                                                        newFeatures[idx] = e.target.value;
+                                                        setEditForm({ ...editForm, features: newFeatures });
+                                                    }}
+                                                />
+                                                <button
+                                                    onClick={() => {
+                                                        const newFeatures = (editForm.features || []).filter((_, i) => i !== idx);
+                                                        setEditForm({ ...editForm, features: newFeatures });
+                                                    }}
+                                                    className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition"
+                                                >
+                                                    <Trash2 size={12} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                                 <button
                                     onClick={() => handleSave(plan.id!)}
@@ -122,23 +159,23 @@ export default function AdminPricingManager() {
                                     <Save size={16} /> Update Plan
                                 </button>
                             </div>
-                        ) : (
-                            <div>
-                                <h3 className="text-xl font-black text-navy-950">{plan.name}</h3>
-                                <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-4">{plan.tag}</div>
-                                <div className="text-3xl font-black text-navy-950 mb-6">{plan.price}</div>
-                                <div className="space-y-2">
-                                    {plan.features.map((f, i) => (
-                                        <div key={i} className="flex items-center gap-2 text-[11px] font-bold text-navy-900/60 uppercase tracking-tight">
-                                            <CheckCircle2 size={12} className="text-growth flex-shrink-0" /> {f}
-                                        </div>
-                                    ))}
-                                </div>
+                ) : (
+                <div>
+                    <h3 className="text-xl font-black text-navy-950">{plan.name}</h3>
+                    <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-4">{plan.tag}</div>
+                    <div className="text-3xl font-black text-navy-950 mb-6">{plan.price}</div>
+                    <div className="space-y-2">
+                        {plan.features.map((f, i) => (
+                            <div key={i} className="flex items-center gap-2 text-[11px] font-bold text-navy-900/60 uppercase tracking-tight">
+                                <CheckCircle2 size={12} className="text-growth flex-shrink-0" /> {f}
                             </div>
+                        ))}
+                    </div>
+                </div>
                         )}
-                    </GlassCard>
+            </GlassCard>
                 ))}
-            </div>
         </div>
+        </div >
     );
 }
