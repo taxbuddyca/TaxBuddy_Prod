@@ -18,20 +18,15 @@ import GlassCard from "@/components/GlassCard";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
 import FAQAccordion from "@/components/FAQAccordion";
 import Testimonials from "@/components/Testimonials";
+import PageBackground from "@/components/PageBackground";
 
 export default function Home() {
     return (
         <main className="min-h-screen bg-white text-navy-950 selection:bg-growth selection:text-white">
+            <PageBackground />
 
             {/* Compact Light Blue Hero with CSS Texture */}
-            <section className="relative min-h-screen flex items-center pt-20 pb-12 overflow-hidden bg-blue-50/50 border-b border-blue-100">
-                {/* CSS Texture Background */}
-                <div className="absolute inset-0 opacity-100 pointer-events-none">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-blue-50/30 to-blue-100/20" />
-                    <div className="absolute inset-0 opacity-[0.4] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#3b82f61a_1px,transparent_1px),linear-gradient(to_bottom,#3b82f61a_1px,transparent_1px)] bg-[size:24px_24px]" />
-                    <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-blue-400/20 opacity-50 blur-[100px]" />
-                </div>
+            <section className="relative min-h-screen flex items-center pt-20 pb-12 overflow-hidden border-b border-blue-100">
 
                 <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center h-full text-center">
                     <div className="max-w-4xl flashy-reveal flex flex-col items-center">

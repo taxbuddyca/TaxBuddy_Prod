@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Link from "next/link";
 import PricingTable from "@/components/PricingTable";
 import { CheckCircle2, Building, Car, Calculator, Stethoscope, Activity, FileSpreadsheet, GraduationCap, BookOpen, ArrowRight, ShieldCheck } from "lucide-react";
+import PageBackground from "@/components/PageBackground";
 
 type Industry = 'general' | 'real-estate' | 'medical' | 'students';
 
@@ -82,12 +83,8 @@ export default function PricingPage() {
 
     return (
         <main className="min-h-screen pt-32 bg-white selection:bg-growth selection:text-white">
-            <section className="py-24 relative overflow-hidden bg-blue-50/50">
-                <div className="absolute inset-0 opacity-100 pointer-events-none">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-blue-50/30 to-blue-100/20" />
-                    <div className="absolute inset-0 opacity-[0.4] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#3b82f61a_1px,transparent_1px),linear-gradient(to_bottom,#3b82f61a_1px,transparent_1px)] bg-[size:24px_24px]" />
-                </div>
+            <PageBackground />
+            <section className="py-24 relative overflow-hidden">
 
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="text-center mb-16 flashy-reveal">
@@ -104,8 +101,8 @@ export default function PricingPage() {
                                     key={ind.id}
                                     onClick={() => setActiveIndustry(ind.id as Industry)}
                                     className={`px-6 py-3 rounded-full border text-xs font-black uppercase tracking-widest transition-all shadow-sm flex items-center gap-2 ${activeIndustry === ind.id
-                                            ? 'bg-navy-950 text-white border-navy-950 scale-105 shadow-lg'
-                                            : 'bg-white text-navy-900/60 border-gray-200 hover:border-growth hover:text-growth'
+                                        ? 'bg-navy-950 text-white border-navy-950 scale-105 shadow-lg'
+                                        : 'bg-white text-navy-900/60 border-gray-200 hover:border-growth hover:text-growth'
                                         }`}
                                 >
                                     {ind.icon && <ind.icon size={14} />}
