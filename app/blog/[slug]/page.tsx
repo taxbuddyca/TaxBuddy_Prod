@@ -1,5 +1,6 @@
 
 import { createClient } from "@/utils/supabase/server";
+import { createClient as createBrowserClient } from "@/utils/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -12,7 +13,8 @@ import ReactMarkdown from 'react-markdown';
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-    const supabase = await createClient();
+    // Use browser client for static generation to avoid cookie issues during build
+    const supabase = createBrowserClient();
     const { data: posts } = await supabase.from('posts').select('slug');
     return posts?.map(({ slug }) => ({ slug })) || [];
 }
