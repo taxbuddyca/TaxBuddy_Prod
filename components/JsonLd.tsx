@@ -17,20 +17,40 @@ export default function JsonLd() {
         priceRange: '$$',
         address: {
             '@type': 'PostalAddress',
-            streetAddress: '201 21st St E',
-            addressLocality: 'Saskatoon',
-            addressRegion: 'SK',
-            postalCode: 'S7K 0B8',
+            streetAddress: 'Unit 608 - 569 Washmill Lake Dr',
+            addressLocality: 'Halifax',
+            addressRegion: 'NS',
+            postalCode: 'B3S 0E3',
             addressCountry: 'CA',
         },
         geo: {
             '@type': 'GeoCoordinates',
-            latitude: 52.1289,
-            longitude: -106.6617,
+            latitude: 44.6464,
+            longitude: -63.6360,
         },
-        areaServed: {
-            '@type': 'Country',
-            name: 'Canada'
+        areaServed: [
+            {
+                '@type': 'City',
+                name: 'Halifax'
+            },
+            {
+                '@type': 'State',
+                name: 'Nova Scotia'
+            },
+            {
+                '@type': 'Country',
+                name: 'Canada'
+            }
+        ],
+        availableChannel: {
+            '@type': 'ServiceChannel',
+            name: 'Virtual Consultation',
+            serviceUrl: 'https://mytaxbuddy4u.com/contact',
+            providesService: {
+                '@type': 'Service',
+                name: 'Remote Accounting and Tax Planning'
+            },
+            availableLanguage: ['English']
         },
         hasOfferCatalog: {
             '@type': 'OfferCatalog',

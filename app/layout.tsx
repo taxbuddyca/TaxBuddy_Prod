@@ -17,8 +17,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://mytaxbuddy4u.com'),
-    title: "TaxBuddy Canada | Modern Accounting for Startups",
-    description: "Virtual bookkeeping, tax, and CFO services for Canadian businesses.",
+    title: "TaxBuddy Canada | Halifax Accountants & Virtual CFOs",
+    description: "Modern virtual bookkeeping, tax planning, and CFO services for Halifax and Canadian startups. Expert CPAs available via Zoom/Phone.",
     manifest: "/manifest.json",
     appleWebApp: {
         capable: true,
