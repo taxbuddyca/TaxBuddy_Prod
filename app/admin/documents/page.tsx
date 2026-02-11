@@ -17,17 +17,24 @@ export default async function AdminDocumentsPage() {
     const { data: documents } = await supabase
         .from("documents")
         .select("*")
-        .order("uploaded_at", { ascending: false });
+        .order("created_at", { ascending: false });
+
+    const { data: clients } = await supabase
+        .from("clients")
+        .select("*");
 
     return (
         <div className="min-h-screen bg-gray-50/50 p-6 md:p-12">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-black text-navy-950 tracking-tight">Client Documents</h1>
-                    <p className="text-navy-900/60 font-medium mt-2">Manage and review all client uploads.</p>
+                    <h1 className="text-3xl font-black text-navy-950 tracking-tight">Document Repository</h1>
+                    <p className="text-navy-900/60 font-medium mt-2">Manage and review all client and guest uploads.</p>
                 </div>
 
-                <AdminDocumentList documents={documents || []} />
+                <AdminDocumentList
+                    documents={documents || []}
+                    clients={clients || []}
+                />
             </div>
         </div>
     );
