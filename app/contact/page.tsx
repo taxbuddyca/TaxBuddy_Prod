@@ -14,11 +14,9 @@ export default function ContactPage() {
         email: "",
         phone: "",
         company_name: "",
-        current_accounting_system: "",
+
         services_interested: [] as string[],
-        website: "",
         revenue_range: "",
-        referral_source: "",
         message: ""
     });
 
@@ -142,33 +140,10 @@ export default function ContactPage() {
                                                     <option value="$5M+">$5M+</option>
                                                 </select>
                                             </div>
-                                            <div className="space-y-2">
-                                                <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] ml-1">How did you hear?</label>
-                                                <select name="referral_source" value={formData.referral_source} onChange={handleChange} className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-growth outline-none transition font-medium text-sm text-navy-950">
-                                                    <option value="">Select Source</option>
-                                                    <option value="Google">Google Search</option>
-                                                    <option value="LinkedIn">LinkedIn</option>
-                                                    <option value="Referral">Client Referral</option>
-                                                    <option value="Clutch">Clutch.co</option>
-                                                    <option value="Other">Other</option>
-                                                </select>
-                                            </div>
+
                                         </div>
 
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] ml-1">Current Accounting System?</label>
-                                            <select name="current_accounting_system" value={formData.current_accounting_system} onChange={handleChange} className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-growth outline-none transition font-medium text-sm text-navy-950">
-                                                <option value="">Select System</option>
-                                                <option value="QuickBooks Online">QuickBooks Online</option>
-                                                <option value="Xero">Xero</option>
-                                                <option value="Sage">Sage</option>
-                                                <option value="Freshbooks">Freshbooks</option>
-                                                <option value="Wave">Wave</option>
-                                                <option value="Excel/Spreadsheets">Excel/Spreadsheets</option>
-                                                <option value="None">None</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
+
 
                                         <div className="space-y-4 pt-2">
                                             <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] ml-1">Services of Interest</label>
@@ -204,10 +179,7 @@ export default function ContactPage() {
                                                 ))}
                                             </div>
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] ml-1">Company Website</label>
-                                            <input name="website" value={formData.website} onChange={handleChange} className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-growth outline-none transition font-medium text-sm" placeholder="https://" />
-                                        </div>
+
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] ml-1">How can we help?</label>
                                             <textarea name="message" value={formData.message} onChange={handleChange} rows={2} className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-growth outline-none transition font-medium resize-none text-sm" />
