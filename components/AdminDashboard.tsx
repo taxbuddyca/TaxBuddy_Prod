@@ -54,17 +54,7 @@ export default function AdminDashboard() {
         }
     }, [activeTab]);
 
-    const fetchClients = async () => {
-        setLoading(true);
-        try {
-            const data = await getClients();
-            setClients(data);
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
+
 
     const handleStatusUpdate = async (id: string, newStatus: string) => {
         try {
