@@ -65,7 +65,7 @@ export default function AdminBlogEditor({ post }: AdminBlogEditorProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6">
+        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 pt-32">
             <div className="flex items-center justify-between mb-8">
                 <Link href="/admin/blog" className="flex items-center gap-2 text-navy-900/40 hover:text-navy-950 transition font-bold">
                     <ArrowLeft size={18} /> Back

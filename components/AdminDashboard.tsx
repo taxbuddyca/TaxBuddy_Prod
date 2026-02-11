@@ -6,23 +6,23 @@ import { Search, FileArchive, CheckCircle2, Clock, AlertCircle, FolderOpen } fro
 import AdminPricingManager from './AdminPricingManager';
 import AdminClientFiles from './AdminClientFiles';
 import AdminChecklistManager from './AdminChecklistManager';
+import AdminDocumentManager from './AdminDocumentManager';
 
 export default function AdminDashboard() {
     const [clients, setClients] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
-    type AdminTab = 'clients' | 'leads' | 'pricing' | 'checklists' | 'blog';
+    type AdminTab = 'clients' | 'leads' | 'pricing' | 'checklists' | 'documents' | 'blog';
     const [activeTab, setActiveTab] = useState<AdminTab>('clients');
     const [selectedClientForFiles, setSelectedClientForFiles] = useState<{ id: string, name: string } | null>(null);
 
     useEffect(() => {
-        if (activeTab === 'clients') {
-            fetchClients();
-        }
-    }, [activeTab]);
+        // Fetch clients on mount so we have them for the Documents tab too
+        fetchClients();
+    }, []);
 
     const fetchClients = async () => {
-        setLoading(true);
+        // setLoading(true); // Don't reset loading on every tab switch if we want
         try {
             const data = await getClients();
             setClients(data);
@@ -32,33 +32,6 @@ export default function AdminDashboard() {
             setLoading(false);
         }
     };
-
-    // ... rest of helper functions ... Note: Since I am replacing the whole file logic or big chunk, I need to be careful.
-    // Actually, I should use lighter edits.
-
-    // Let's rely on multiple replaces if needed or just replace the tab logic.
-    // I need to start from imports.
-
-    // ... (imports) ...
-    // import AdminBlogManager from './AdminBlogManager';
-
-    // ... (inside component) ...   
-    // const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing' | 'blog'>('clients');
-
-    // ... (render tabs) ...
-    // Add button for Blog
-
-    // ... (render content) ...
-    // Add condition for blog
-
-
-    useEffect(() => {
-        if (activeTab === 'clients') {
-            fetchClients();
-        }
-    }, [activeTab]);
-
-
 
     const handleStatusUpdate = async (id: string, newStatus: string) => {
         try {
@@ -94,37 +67,23 @@ export default function AdminDashboard() {
 
     return (
         <div className="w-full bg-white p-6 sm:p-10 rounded-[3rem] border border-gray-100 shadow-premium text-navy-900">
-            <div className="flex gap-4 mb-10 p-1 bg-gray-50 rounded-2xl w-fit">
-                <button
-                    onClick={() => setActiveTab('clients')}
-                    className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'clients' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
-                >
-                    Client Management
-                </button>
-                <button
-                    onClick={() => setActiveTab('leads')}
-                    className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'leads' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
-                >
-                    Leads Management
-                </button>
-                <button
-                    onClick={() => setActiveTab('pricing')}
-                    className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'pricing' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
-                >
-                    Pricing Control
-                </button>
-                <button
-                    onClick={() => setActiveTab('checklists')}
-                    className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'checklists' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
-                >
-                    Checklists
-                </button>
-                <button
-                    onClick={() => setActiveTab('blog')}
-                    className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'blog' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
-                >
-                    Blog & Content
-                </button>
+            <div className="flex flex-wrap gap-2 mb-10 p-1 bg-gray-50 rounded-2xl w-fit">
+                {[
+                    { id: 'clients', label: 'Clients' },
+                    { id: 'leads', label: 'Leads' },
+                    { id: 'pricing', label: 'Pricing' },
+                    { id: 'checklists', label: 'Checklists' },
+                    { id: 'documents', label: 'Documents' },
+                    { id: 'blog', label: 'Blog' }
+                ].map((tab) => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id as AdminTab)}
+                        className={`px-6 py-3 rounded-xl text-sm font-black transition-all ${activeTab === tab.id ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
             </div>
 
             {activeTab === 'clients' ? (
@@ -211,6 +170,8 @@ export default function AdminDashboard() {
                 <AdminPricingManager />
             ) : activeTab === 'checklists' ? (
                 <AdminChecklistManager />
+            ) : activeTab === 'documents' ? (
+                <AdminDocumentManager clients={clients} />
             ) : (
                 <AdminBlogManager />
             )}
