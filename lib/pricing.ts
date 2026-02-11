@@ -7,6 +7,7 @@ export interface PricingPlan {
     tag: string;
     popular: boolean;
     features: string[];
+    frequency?: string;
     order_index?: number;
 }
 

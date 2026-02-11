@@ -99,14 +99,32 @@ export default function AdminPricingManager() {
                                 </div>
                                 <div>
                                     <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Price</label>
-                                    <input
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-lg font-black text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
-                                        value={editForm.price}
-                                        onChange={(e) => setEditForm({ ...editForm, price: e.target.value })}
-                                    />
+                                    <div className="flex gap-2">
+                                        <input
+                                            className="w-2/3 px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-lg font-black text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
+                                            value={editForm.price}
+                                            onChange={(e) => setEditForm({ ...editForm, price: e.target.value })}
+                                            placeholder="$0"
+                                        />
+                                        <input
+                                            className="w-1/3 px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-lg font-bold text-navy-950 outline-none focus:ring-2 focus:ring-growth transition text-center"
+                                            value={editForm.frequency}
+                                            onChange={(e) => setEditForm({ ...editForm, frequency: e.target.value })}
+                                            placeholder="/mo"
+                                        />
+                                    </div>
                                 </div>
+                                <div className="flex items-center gap-2 pt-2">
+                                    <input
+                                        type="checkbox"
+                                        id="popular"
+                                        checked={editForm.popular}
+                                        onChange={(e) => setEditForm({ ...editForm, popular: e.target.checked })}
+                                        className="w-4 h-4 rounded border-gray-300 text-growth focus:ring-growth"
+                                    />
                                     <label htmlFor="popular" className="text-sm font-bold text-navy-950">Featured / Popular</label>
                                 </div>
+
 
                                 <div>
                                     <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Plan Tag (e.g. "Best Value")</label>
@@ -159,23 +177,25 @@ export default function AdminPricingManager() {
                                     <Save size={16} /> Update Plan
                                 </button>
                             </div>
-                ) : (
-                <div>
-                    <h3 className="text-xl font-black text-navy-950">{plan.name}</h3>
-                    <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-4">{plan.tag}</div>
-                    <div className="text-3xl font-black text-navy-950 mb-6">{plan.price}</div>
-                    <div className="space-y-2">
-                        {plan.features.map((f, i) => (
-                            <div key={i} className="flex items-center gap-2 text-[11px] font-bold text-navy-900/60 uppercase tracking-tight">
-                                <CheckCircle2 size={12} className="text-growth flex-shrink-0" /> {f}
+                        ) : (
+                            <div>
+                                <h3 className="text-xl font-black text-navy-950">{plan.name}</h3>
+                                <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-4">{plan.tag}</div>
+                                <div className="text-3xl font-black text-navy-950 mb-6">
+                                    {plan.price}<span className="text-lg text-navy-900/40 font-bold">{plan.frequency || '/mo'}</span>
+                                </div>
+                                <div className="space-y-2">
+                                    {plan.features.map((f, i) => (
+                                        <div key={i} className="flex items-center gap-2 text-[11px] font-bold text-navy-900/60 uppercase tracking-tight">
+                                            <CheckCircle2 size={12} className="text-growth flex-shrink-0" /> {f}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
                         )}
-            </GlassCard>
+                    </GlassCard>
                 ))}
-        </div>
+            </div>
         </div >
     );
 }

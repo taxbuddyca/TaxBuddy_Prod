@@ -90,7 +90,7 @@ export default function PricingTable() {
 
                     <div className="text-5xl font-black text-navy-950 mb-10 tracking-tighter">
                         {plan.price}
-                        {plan.price !== "Custom" && !plan.price.includes("Custom") && <span className="text-lg text-navy-900/40 font-bold ml-1">/mo</span>}
+                        {plan.price !== "Custom" && !plan.price.includes("Custom") && <span className="text-lg text-navy-900/40 font-bold ml-1">{plan.frequency || '/mo'}</span>}
                     </div>
 
                     <div className="w-full space-y-4 mb-12">

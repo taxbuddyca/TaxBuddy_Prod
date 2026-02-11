@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import { CheckSquare, Square, Download, Printer, Share2, FileText, User, Briefcase, Home, DollarSign } from "lucide-react";
 
