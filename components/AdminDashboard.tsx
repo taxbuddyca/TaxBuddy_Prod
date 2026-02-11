@@ -11,7 +11,8 @@ export default function AdminDashboard() {
     const [clients, setClients] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
-    const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing' | 'checklists' | 'blog'>('clients');
+    type AdminTab = 'clients' | 'leads' | 'pricing' | 'checklists' | 'blog';
+    const [activeTab, setActiveTab] = useState<AdminTab>('clients');
     const [selectedClientForFiles, setSelectedClientForFiles] = useState<{ id: string, name: string } | null>(null);
 
     useEffect(() => {
