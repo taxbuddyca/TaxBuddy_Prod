@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 
 import WhatsAppFab from "@/components/WhatsAppFab";
 
@@ -44,6 +45,7 @@ export default function RootLayout({
                 {children}
                 <Footer />
                 <WhatsAppFab />
+                <JsonLd />
             </body>
         </html>
     );

@@ -23,10 +23,10 @@ export default function Navbar() {
         { name: "Services", href: "/services" },
         { name: "Process", href: "/process" },
         { name: "Pricing", href: "/pricing" },
-        { name: "Customers", href: "/customers" },
+        { name: "Calculator", href: "/tools/tax-calculator" },
+        { name: "Checklist", href: "/tools/tax-checklist" },
+        // { name: "Customers", href: "/customers" },
         { name: "FAQ", href: "/faq" },
-        { name: "About", href: "/about" },
-        { name: "Team", href: "/team" },
         { name: "Portal", href: "/portal/documents" },
     ];
 

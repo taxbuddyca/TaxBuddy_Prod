@@ -49,6 +49,7 @@ export default function Footer() {
                             <Link href="/about" className="hover:text-growth transition">About Us</Link>
                             <Link href="/team" className="hover:text-growth transition">Team</Link>
                             <Link href="/careers" className="hover:text-growth transition">Careers</Link>
+                            <Link href="/blog" className="hover:text-growth transition">Blog</Link>
                             <Link href="/faq" className="hover:text-growth transition">FAQ</Link>
                         </div>
                     </div>
@@ -59,6 +60,7 @@ export default function Footer() {
                             <Link href="/privacy" className="hover:text-growth transition">Privacy Policy</Link>
                             <Link href="/terms" className="hover:text-growth transition">Terms of Service</Link>
                             <Link href="/cookies" className="hover:text-growth transition">Cookie Policy</Link>
+                            <Link href="/resources/tax-dates" className="hover:text-growth transition">Important Tax Dates</Link>
                         </div>
                     </div>
                 </div>

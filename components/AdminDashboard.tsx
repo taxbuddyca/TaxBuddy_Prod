@@ -1,16 +1,52 @@
-"use client";
-
-import React, { useState, useEffect } from 'react';
-import { Search, Download, MoreVertical, CheckCircle2, Clock, AlertCircle, FileArchive } from 'lucide-react';
-import AdminPricingManager from './AdminPricingManager';
 import AdminLeadsTable from './AdminLeadsTable';
+import AdminBlogManager from './AdminBlogManager';
 import { getClients, updateClientStatus, Client } from '@/lib/clients';
+import { useState, useEffect } from 'react';
+import { Search, FileArchive, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
+import AdminPricingManager from './AdminPricingManager';
 
 export default function AdminDashboard() {
     const [clients, setClients] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
-    const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing'>('clients');
+    const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing' | 'blog'>('clients');
+
+    useEffect(() => {
+        if (activeTab === 'clients') {
+            fetchClients();
+        }
+    }, [activeTab]);
+
+    const fetchClients = async () => {
+        setLoading(true);
+        try {
+            const data = await getClients();
+            setClients(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // ... rest of helper functions ... Note: Since I am replacing the whole file logic or big chunk, I need to be careful.
+    // Actually, I should use lighter edits.
+
+    // Let's rely on multiple replaces if needed or just replace the tab logic.
+    // I need to start from imports.
+
+    // ... (imports) ...
+    // import AdminBlogManager from './AdminBlogManager';
+
+    // ... (inside component) ...   
+    // const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing' | 'blog'>('clients');
+
+    // ... (render tabs) ...
+    // Add button for Blog
+
+    // ... (render content) ...
+    // Add condition for blog
+
 
     useEffect(() => {
         if (activeTab === 'clients') {
@@ -82,6 +118,12 @@ export default function AdminDashboard() {
                     className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'pricing' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
                 >
                     Pricing Control
+                </button>
+                <button
+                    onClick={() => setActiveTab('blog')}
+                    className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'blog' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
+                >
+                    Blog & Content
                 </button>
             </div>
 
@@ -160,8 +202,10 @@ export default function AdminDashboard() {
                 </>
             ) : activeTab === 'leads' ? (
                 <AdminLeadsTable />
-            ) : (
+            ) : activeTab === 'pricing' ? (
                 <AdminPricingManager />
+            ) : (
+                <AdminBlogManager />
             )}
         </div>
     );

@@ -16,6 +16,8 @@ import Link from "next/link";
 import { SlantDivider, WaveDivider } from "@/components/VisualElements";
 import GlassCard from "@/components/GlassCard";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
+import FAQAccordion from "@/components/FAQAccordion";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
     return (
@@ -48,8 +50,16 @@ export default function Home() {
                                 Explore Services
                             </Link>
                         </div>
-                        <div className="inline-flex items-center gap-3 px-4 py-2 bg-blue-100/50 border border-blue-200 rounded-full text-growth font-bold text-[10px] uppercase tracking-[0.3em] shadow-sm backdrop-blur-md">
-                            <ShieldCheck size={14} /> 100% Virtual. 100% Canadian.
+                        <div className="flex flex-col sm:flex-row items-center gap-4 text-xs font-bold uppercase tracking-wider text-navy-900/40">
+                            <div className="flex items-center gap-2 px-4 py-2 bg-blue-50/50 rounded-full border border-blue-100">
+                                <ShieldCheck size={16} className="text-growth" />
+                                Max Refund Guarantee
+                            </div>
+                            <div className="hidden sm:block w-1 h-1 bg-gray-300 rounded-full" />
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                100% Virtual & Secure
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -177,6 +187,28 @@ export default function Home() {
                                 </div>
                             </GlassCard>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Testimonials */}
+            <Testimonials />
+
+            {/* FAQ Section */}
+            <section className="py-24 bg-white relative">
+                <div className="container mx-auto px-6">
+                    <div className="max-w-4xl mx-auto text-center mb-16">
+                        <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block">Common Questions</span>
+                        <h2 className="text-3xl md:text-5xl font-black text-navy-950 mb-6 tracking-tighter">
+                            You've got questions. <br />
+                            <span className="text-growth">We've got answers.</span>
+                        </h2>
+                    </div>
+                    <FAQAccordion />
+                    <div className="text-center mt-12">
+                        <Link href="/faq" className="text-sm font-bold text-navy-900/40 hover:text-growth transition uppercase tracking-widest border-b border-transparent hover:border-growth inline-block pb-1">
+                            View All FAQs
+                        </Link>
                     </div>
                 </div>
             </section>

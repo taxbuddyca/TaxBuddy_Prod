@@ -9,6 +9,8 @@ export default function FileUpload() {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
+    const [uploaderName, setUploaderName] = useState("");
+    const [docType, setDocType] = useState("");
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -20,12 +22,23 @@ export default function FileUpload() {
 
     const handleUpload = async () => {
         if (!file) return;
+        if (!uploaderName.trim()) {
+            setError("Please enter your full name.");
+            return;
+        }
+        if (!docType.trim()) {
+            setError("Please specify the document type.");
+            return;
+        }
+
         setUploading(true);
         setError(null);
 
         try {
             const formData = new FormData();
             formData.append("file", file);
+            formData.append("uploaderName", uploaderName);
+            formData.append("docType", docType);
 
             const result = await uploadGuestFile(formData);
 
@@ -35,6 +48,8 @@ export default function FileUpload() {
 
             setSuccess(true);
             setFile(null);
+            setUploaderName(""); // Clear name? Maybe keep it for multiple uploads? Let's clear it.
+            setDocType("");
 
             // Reset success message after 3 seconds
             setTimeout(() => setSuccess(false), 3000);
@@ -65,6 +80,31 @@ export default function FileUpload() {
                     </div>
                 </div>
             ) : null}
+
+            <div className="flex flex-col gap-6 mb-8 max-w-lg mx-auto w-full">
+                <div>
+                    <label className="block text-base font-bold text-navy-950 mb-3 text-center">Your Full Name <span className="text-red-500">*</span></label>
+                    <input
+                        type="text"
+                        value={uploaderName}
+                        onChange={(e) => setUploaderName(e.target.value)}
+                        placeholder="e.g. John Doe"
+                        disabled={uploading}
+                        className="w-full px-6 py-4 text-lg bg-gray-50 border border-gray-200 rounded-xl text-navy-900 focus:outline-none focus:ring-2 focus:ring-growth/20 focus:border-growth transition-all text-center placeholder:text-center"
+                    />
+                </div>
+                <div>
+                    <label className="block text-base font-bold text-navy-950 mb-3 text-center">Document Type <span className="text-red-500">*</span></label>
+                    <input
+                        type="text"
+                        value={docType}
+                        onChange={(e) => setDocType(e.target.value)}
+                        placeholder="e.g. 2024 Tax Return"
+                        disabled={uploading}
+                        className="w-full px-6 py-4 text-lg bg-gray-50 border border-gray-200 rounded-xl text-navy-900 focus:outline-none focus:ring-2 focus:ring-growth/20 focus:border-growth transition-all text-center placeholder:text-center"
+                    />
+                </div>
+            </div>
 
             {!file ? (
                 <label className="border-2 border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer hover:border-growth hover:bg-growth/5 transition-all group">

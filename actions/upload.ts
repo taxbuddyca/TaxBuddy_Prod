@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 
 export async function uploadGuestFile(formData: FormData) {
     const file = formData.get("file") as File;
+    const uploaderName = formData.get("uploaderName") as string;
+    const docType = formData.get("docType") as string;
 
     if (!file) {
         return { error: "No file provided" };
@@ -14,6 +16,7 @@ export async function uploadGuestFile(formData: FormData) {
     const fileName = sanitizeFilename(file.name);
     const timestamp = Date.now();
     const filePath = `guest/${timestamp}_${fileName}`;
+
 
     try {
         // 1. Upload to Supabase Storage (Using Admin Client to bypass RLS)
@@ -30,13 +33,8 @@ export async function uploadGuestFile(formData: FormData) {
         }
 
         // 2. Insert into Record into Database (Using Admin Client)
-        // We might need a dummy user_id if the column is NOT NULL. 
-        // For now, we will try to insert without it, or use a "Guest" placeholder if we had one.
-        // If the table requires a UUID, this might fail if we don't have a guest user.
-        // Let's try to find a user or just insert. 
-        // Strategy: Use a known "Guest" UUID or leave NULL if allowed.
-        // Since we don't know if NULL is allowed, let's try to fetch *any* admin user to associate or just leave blank.
-        // Actually, better to just try insert.
+        // We are now inserting with user_id = null (after schema update)
+        // And capturing uploader_name and document_type
 
         const { error: dbError } = await supabase
             .from("documents")
@@ -46,13 +44,20 @@ export async function uploadGuestFile(formData: FormData) {
                 file_size: file.size,
                 content_type: file.type,
                 status: "pending",
-                // user_id: ... // Omitted, hoping it's nullable or we handle it
+                user_id: null,
+                uploader_name: uploaderName,
+                document_type: docType
             });
 
         if (dbError) {
             console.error("DB Insert Error:", dbError);
-            // If it fails due to user_id constraint, we might need a fallback
-            return { error: "Failed to save file record." };
+
+            // Write to debug log file
+            const fs = require('fs');
+            const log = `DB Error: ${JSON.stringify(dbError)}\n`;
+            fs.appendFileSync('debug.log', log);
+
+            return { error: `DB Insert Failed: ${dbError.message || JSON.stringify(dbError)}` };
         }
 
         revalidatePath("/admin/documents");
@@ -60,6 +65,12 @@ export async function uploadGuestFile(formData: FormData) {
 
     } catch (error: any) {
         console.error("Upload Action Error:", error);
+
+        // Write to debug log file
+        const fs = require('fs');
+        const log = `Error: ${JSON.stringify(error)}\n`;
+        fs.appendFileSync('debug.log', log);
+
         return { error: error.message || "An unexpected error occurred." };
     }
 }

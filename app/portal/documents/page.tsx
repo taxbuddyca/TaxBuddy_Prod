@@ -18,7 +18,7 @@ export default async function DocumentsPage() {
     const documents: any[] = [];
 
     return (
-        <div className="min-h-screen bg-gray-50/50 p-6 md:p-12">
+        <div className="min-h-screen bg-gray-50/50 p-6 md:p-12 pt-32 md:pt-40">
             <div className="max-w-5xl mx-auto">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                     <div>
