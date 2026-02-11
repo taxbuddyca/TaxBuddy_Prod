@@ -8,7 +8,7 @@ import PageBackground from "@/components/PageBackground";
 
 export default function ProcessPage() {
     return (
-        <main className="min-h-screen pt-32 bg-white selection:bg-growth selection:text-white">
+        <main className="min-h-screen pt-32 selection:bg-growth selection:text-white">
             <PageBackground />
             <section className="py-24 relative overflow-hidden">
                 <div className="container mx-auto px-6 relative z-10">

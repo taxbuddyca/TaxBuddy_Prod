@@ -22,7 +22,7 @@ import PageBackground from "@/components/PageBackground";
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-white text-navy-950 selection:bg-growth selection:text-white">
+        <main className="min-h-screen text-navy-950 selection:bg-growth selection:text-white">
             <PageBackground />
 
             {/* Compact Light Blue Hero with CSS Texture */}

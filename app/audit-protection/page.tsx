@@ -6,21 +6,16 @@ export default function AuditProtectionPage() {
     return (
         <main className="pt-24">
             {/* Hero Section */}
-            <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 overflow-hidden bg-navy-950 text-white">
-                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px]" />
-                </div>
-
-                <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl mx-auto">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 rounded-full text-blue-400 font-bold text-xs uppercase tracking-widest mb-8 border border-blue-500/20 backdrop-blur-sm">
+            <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 overflow-hidden bg-white/80 border-b border-gray-100">
+                <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full text-blue-600 font-bold text-xs uppercase tracking-widest mb-8 border border-blue-100">
                         <Shield size={16} /> Premium Protection Plan
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-tight">
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-tight text-navy-950">
                         Never Talk to the <br />
-                        <span className="text-blue-500">CRA Again.</span>
+                        <span className="text-blue-600">CRA Again.</span>
                     </h1>
-                    <p className="text-xl text-white/60 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
+                    <p className="text-xl text-navy-900/60 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
                         Audits are stressful, time-consuming, and expensive. With our Audit Protection Service, we handle everything. You sleep soundly.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -28,7 +23,7 @@ export default function AuditProtectionPage() {
                             Add Protection for $99/yr <ArrowRight size={20} />
                         </Link>
                     </div>
-                    <div className="mt-12 flex items-center justify-center gap-8 text-white/40 text-sm font-bold uppercase tracking-widest">
+                    <div className="mt-12 flex items-center justify-center gap-8 text-navy-900/40 text-sm font-bold uppercase tracking-widest">
                         <div className="flex items-center gap-2">
                             <CheckCircle2 size={16} className="text-growth" /> 100% Representation
                         </div>

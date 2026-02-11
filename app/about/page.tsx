@@ -3,6 +3,7 @@
 import GlassCard from "@/components/GlassCard";
 import { Zap, Users, Globe, ShieldCheck, Clock, Rocket, Send } from "lucide-react";
 import Link from "next/link";
+import PageBackground from "@/components/PageBackground";
 
 export default function AboutPage() {
     const milestones = [
@@ -13,13 +14,10 @@ export default function AboutPage() {
     ];
 
     return (
-        <main className="min-h-screen pt-32 bg-white selection:bg-growth selection:text-white">
-            <section className="bg-blue-50/50 py-24 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-100 pointer-events-none">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-blue-50/30 to-blue-100/20" />
-                    <div className="absolute inset-0 opacity-[0.4] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#3b82f61a_1px,transparent_1px),linear-gradient(to_bottom,#3b82f61a_1px,transparent_1px)] bg-[size:24px_24px]" />
-                </div>
+        <main className="min-h-screen pt-32 selection:bg-growth selection:text-white">
+            <PageBackground />
+            <section className="bg-transparent py-24 relative overflow-hidden">
+
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="max-w-4xl mx-auto text-center mb-24 flashy-reveal">
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100/50 border border-blue-200/50 rounded-full text-growth font-black uppercase tracking-[0.2em] mb-8 text-[10px] shadow-sm">

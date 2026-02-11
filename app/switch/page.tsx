@@ -6,21 +6,16 @@ export default function SwitchPage() {
     return (
         <main className="pt-24">
             {/* Hero Section */}
-            <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 overflow-hidden bg-navy-950 text-white">
-                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-growth/30 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px]" />
-                </div>
-
-                <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl mx-auto">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-growth font-bold text-xs uppercase tracking-widest mb-8 border border-white/10 backdrop-blur-sm">
+            <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 overflow-hidden bg-white/80 border-b border-gray-100">
+                <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full text-growth font-bold text-xs uppercase tracking-widest mb-8 border border-blue-100">
                         <MoveRight size={16} /> Concierge Switching Service
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-tight">
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-tight text-navy-950">
                         Breaking Up is Hard. <br />
                         <span className="text-growth">We Make it Easy.</span>
                     </h1>
-                    <p className="text-xl text-white/60 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
+                    <p className="text-xl text-navy-900/60 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
                         Feel stuck with an accountant who doesn't call you back? We handle the awkward conversations, the file transfers, and the setup. You just sign.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
