@@ -2,15 +2,31 @@
 
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, FileText, X, ShieldCheck, CheckCircle, Info, AlertCircle } from 'lucide-react';
+import { Upload, FileText, X, ShieldCheck, CheckCircle, Info, AlertCircle, ArrowRight, Trash2 } from 'lucide-react';
 import GlassCard from './GlassCard';
 import { createClient } from '@/utils/supabase/client';
 
 export default function SecureUploadPortal() {
-    const [files, setFiles] = useState<{ id: string; name: string; size: string; status: 'uploading' | 'complete' | 'error'; progress: number; path?: string }[]>([]);
+    const [files, setFiles] = useState<{ id: string; name: string; size: string; status: 'pending' | 'uploading' | 'complete' | 'error'; progress: number; path?: string }[]>([]);
     const supabase = createClient();
 
-    const uploadFile = async (file: File, fileId: string) => {
+    const uploadFile = async (fileId: string) => {
+        const fileObj = files.find(f => f.id === fileId);
+        // We need the actual File object here. 
+        // PROPOSAL: Store File object in state as well.
+        // Since we didn't store it before, we need to modify state to store 'file: File'.
+        return;
+    };
+
+    // REDESIGN: We need to store the File object to upload it later.
+    const [fileObjects, setFileObjects] = useState<{ [key: string]: File }>({});
+
+    const processUpload = async (fileId: string) => {
+        const file = fileObjects[fileId];
+        if (!file) return;
+
+        setFiles(prev => prev.map(f => f.id === fileId ? { ...f, status: 'uploading', progress: 0 } : f));
+
         try {
             const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
 
@@ -48,6 +64,12 @@ export default function SecureUploadPortal() {
         }
     };
 
+    const uploadAll = async () => {
+        const pendingFiles = files.filter(f => f.status === 'pending' || f.status === 'error');
+        // Execute sequentially or parallel? Parallel is better for UX usually, but let's do parallel.
+        await Promise.all(pendingFiles.map(f => processUpload(f.id)));
+    };
+
     const onDrop = useCallback((acceptedFiles: File[]) => {
         acceptedFiles.forEach(file => {
             const fileId = Math.random().toString(36).substring(7);
@@ -55,14 +77,12 @@ export default function SecureUploadPortal() {
                 id: fileId,
                 name: file.name,
                 size: (file.size / 1024).toFixed(1) + ' KB',
-                status: 'uploading' as const,
+                status: 'pending' as const,
                 progress: 0
             };
 
             setFiles(prev => [...prev, newFile]);
-
-            // Start upload
-            uploadFile(file, fileId);
+            setFileObjects(prev => ({ ...prev, [fileId]: file }));
         });
     }, []);
 
@@ -73,7 +93,19 @@ export default function SecureUploadPortal() {
 
     const removeFile = (id: string) => {
         setFiles(prev => prev.filter(f => f.id !== id));
+        setFileObjects(prev => {
+            const newState = { ...prev };
+            delete newState[id];
+            return newState;
+        });
     };
+
+    const clearAll = () => {
+        setFiles([]);
+        setFileObjects({});
+    };
+
+    const pendingCount = files.filter(f => f.status === 'pending').length;
 
     return (
         <div className="w-full max-w-3xl mx-auto space-y-8 p-1">
@@ -100,7 +132,17 @@ export default function SecureUploadPortal() {
 
             {files.length > 0 && (
                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
-                    <h4 className="text-sm font-bold text-growth uppercase tracking-widest px-2">Uploaded Documents</h4>
+                    <div className="flex items-center justify-between px-2">
+                        <h4 className="text-sm font-bold text-growth uppercase tracking-widest">
+                            {pendingCount > 0 ? `${pendingCount} File(s) Ready to Upload` : 'Documents'}
+                        </h4>
+                        {pendingCount > 0 && (
+                            <button onClick={clearAll} className="text-xs font-bold text-red-400 hover:text-red-500 flex items-center gap-1 transition-colors">
+                                <Trash2 size={12} /> Clear All
+                            </button>
+                        )}
+                    </div>
+
                     {files.map((file) => (
                         <div key={file.id} className="relative bg-white/80 backdrop-blur-md p-5 rounded-2xl border border-gray-200 shadow-sm group">
                             <div className="flex items-center gap-4 relative z-10">
@@ -109,13 +151,22 @@ export default function SecureUploadPortal() {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="font-bold text-navy-900 truncate">{file.name}</p>
-                                    <p className="text-xs text-navy-900/40 font-medium">{file.size} • {file.status === 'uploading' ? `Uploading ${file.progress}%` : 'Securely Stored'}</p>
+                                    <p className="text-xs text-navy-900/40 font-medium">
+                                        {file.size} • {
+                                            file.status === 'pending' ? <span className="text-amber-500 font-bold">Pending</span> :
+                                                file.status === 'uploading' ? `Uploading ${file.progress}%` :
+                                                    file.status === 'error' ? 'Failed' :
+                                                        'Securely Stored'
+                                        }
+                                    </p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     {file.status === 'complete' ? (
                                         <CheckCircle className="w-5 h-5 text-growth" />
                                     ) : file.status === 'error' ? (
                                         <AlertCircle className="w-5 h-5 text-red-500" />
+                                    ) : file.status === 'pending' ? (
+                                        <div className="w-2 h-2 rounded-full bg-amber-500" />
                                     ) : (
                                         <div className="w-5 h-5 border-2 border-growth border-t-transparent rounded-full animate-spin" />
                                     )}
@@ -130,6 +181,15 @@ export default function SecureUploadPortal() {
                             )}
                         </div>
                     ))}
+
+                    {pendingCount > 0 && (
+                        <button
+                            onClick={uploadAll}
+                            className="w-full py-4 bg-growth text-white rounded-2xl font-black text-lg shadow-lg shadow-growth/20 hover:bg-growth-600 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                        >
+                            <Upload className="w-5 h-5" /> Upload {pendingCount} Files
+                        </button>
+                    )}
                 </div>
             )}
         </div>
