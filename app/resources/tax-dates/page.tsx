@@ -1,6 +1,5 @@
 
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Calendar, AlertCircle } from "lucide-react";
 
 export const metadata = {
@@ -120,7 +119,7 @@ export default function TaxDatesPage() {
                 </div>
             </main>
 
-            <Footer />
+
         </div>
     );
 }

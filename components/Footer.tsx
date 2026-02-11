@@ -14,7 +14,7 @@ export default function Footer() {
                             <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center rotate-3 shadow-emerald">
                                 <Logo className="w-6 h-6" />
                             </div>
-                            <span className="text-3xl font-black tracking-tight text-navy-950 dark:text-white">Tax<span className="text-blue-600">Buddy</span></span>
+                            <span className="text-3xl font-black tracking-tight text-navy-950">Tax<span className="text-blue-600">Buddy</span></span>
                         </div>
                         <p className="text-navy-900/40 font-medium leading-relaxed mb-6 text-sm">
                             A different kind of CPA firm. 100% remote, 100% Canadian. Built for the modern entrepreneur.

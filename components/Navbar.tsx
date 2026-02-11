@@ -41,7 +41,7 @@ export default function Navbar() {
                             <Logo className="relative w-8 h-8 group-hover:scale-110 transition-transform" />
                         </div>
                         <div className="flex flex-col -gap-1">
-                            <span className="text-2xl font-black tracking-tighter text-navy-950 dark:text-white leading-none">Tax<span className="text-blue-600">Buddy</span></span>
+                            <span className="text-2xl font-black tracking-tighter text-navy-950 leading-none">Tax<span className="text-blue-600">Buddy</span></span>
                             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-navy-900/30">Advisory</span>
                         </div>
                     </Link>
