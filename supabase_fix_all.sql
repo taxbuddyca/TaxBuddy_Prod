@@ -53,6 +53,12 @@ ALTER TABLE public.documents
 ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending';
 ALTER TABLE public.documents
 ADD COLUMN IF NOT EXISTS url TEXT;
+ALTER TABLE public.documents
+ADD COLUMN IF NOT EXISTS storage_path TEXT;
+ALTER TABLE public.documents
+ADD COLUMN IF NOT EXISTS uploader_name TEXT;
+ALTER TABLE public.documents
+ADD COLUMN IF NOT EXISTS document_type TEXT;
 -- Documents RLS
 ALTER TABLE public.documents ENABLE ROW LEVEL SECURITY;
 DO $$ BEGIN -- Admin Access (Select All)

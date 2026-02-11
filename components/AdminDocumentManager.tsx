@@ -17,6 +17,9 @@ interface Document {
     status: string;
     url: string;
     created_at: string;
+    storage_path?: string;
+    uploader_name?: string;
+    document_type?: string;
 }
 
 export default function AdminDocumentManager({ clients }: AdminDocumentManagerProps) {
@@ -44,16 +47,33 @@ export default function AdminDocumentManager({ clients }: AdminDocumentManagerPr
         }
     };
 
+    const handleDownload = async (path: string) => {
+        try {
+            const { data, error } = await supabase.storage
+                .from('client-documents')
+                .createSignedUrl(path, 60); // Valid for 60 seconds
+
+            if (error) throw error;
+            if (data?.signedUrl) {
+                window.open(data.signedUrl, '_blank');
+            }
+        } catch (err) {
+            console.error("Error downloading file:", err);
+            alert("Could not generate download link.");
+        }
+    };
+
     const handleDelete = async (id: string, path: string) => {
         if (!confirm("Are you sure you want to delete this file? This cannot be undone.")) return;
 
         try {
-            // Delete from storage (if path exists - logic needs verification of path structure)
-            // Assuming 'path' or 'name' maps to storage path. 
-            // In AdminClientFiles, we might have used a different logic.
-            // Let's assume 'url' or 'name' helps.
-            // For now, just delete DB record to remove from list, or better, implement full delete.
-            // Using the deleteDocument from lib/clients requires path.
+            // Delete from storage
+            if (path) {
+                const { error: storageError } = await supabase.storage
+                    .from('client-documents')
+                    .remove([path]);
+                if (storageError) console.error("Storage delete error:", storageError);
+            }
 
             const { error: dbError } = await supabase.from('documents').delete().eq('id', id);
             if (dbError) throw dbError;
@@ -65,14 +85,17 @@ export default function AdminDocumentManager({ clients }: AdminDocumentManagerPr
         }
     };
 
-    const getClientName = (clientId: string) => {
-        const client = clients.find(c => c.id === clientId);
-        return client ? client.name : 'Unknown Client';
+    const getClientName = (doc: Document) => {
+        if (doc.client_id) {
+            const client = clients.find(c => c.id === doc.client_id);
+            return client ? client.name : 'Unknown Client';
+        }
+        return doc.uploader_name ? `${doc.uploader_name} (Guest)` : 'Unknown Guest';
     };
 
     const filteredDocs = documents.filter(doc =>
         doc.name.toLowerCase().includes(filter.toLowerCase()) ||
-        getClientName(doc.client_id).toLowerCase().includes(filter.toLowerCase())
+        getClientName(doc).toLowerCase().includes(filter.toLowerCase())
     );
 
     return (
@@ -109,18 +132,15 @@ export default function AdminDocumentManager({ clients }: AdminDocumentManagerPr
                                     <FileText size={20} />
                                 </div>
                                 <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <a
-                                        href={doc.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        download
+                                    <button
+                                        onClick={() => handleDownload(doc.storage_path || doc.url)}
                                         className="p-2 bg-gray-50 hover:bg-growth hover:text-white rounded-lg transition"
                                         title="Download"
                                     >
                                         <Download size={16} />
-                                    </a>
+                                    </button>
                                     <button
-                                        onClick={() => handleDelete(doc.id, doc.name)}
+                                        onClick={() => handleDelete(doc.id, doc.storage_path || '')}
                                         className="p-2 bg-red-50 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition"
                                         title="Delete"
                                     >
@@ -132,7 +152,7 @@ export default function AdminDocumentManager({ clients }: AdminDocumentManagerPr
                             <h3 className="font-bold text-navy-950 truncate mb-1" title={doc.name}>{doc.name}</h3>
                             <div className="flex items-center gap-2 mb-4">
                                 <User size={12} className="text-navy-900/30" />
-                                <span className="text-xs text-navy-900/50 font-medium truncate">{getClientName(doc.client_id)}</span>
+                                <span className="text-xs text-navy-900/50 font-medium truncate">{getClientName(doc)}</span>
                             </div>
 
                             <div className="flex items-center justify-between pt-4 border-t border-gray-50">

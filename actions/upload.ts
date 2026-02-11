@@ -33,18 +33,16 @@ export async function uploadGuestFile(formData: FormData) {
         }
 
         // 2. Insert into Record into Database (Using Admin Client)
-        // We are now inserting with user_id = null (after schema update)
-        // And capturing uploader_name and document_type
+        const sizeMB = (file.size / 1024 / 1024).toFixed(2) + " MB";
 
         const { error: dbError } = await supabase
             .from("documents")
             .insert({
-                file_name: file.name,
-                file_path: filePath,
-                file_size: file.size,
-                content_type: file.type,
+                name: file.name,
+                storage_path: filePath,
+                size: sizeMB,
                 status: "pending",
-                user_id: null,
+                client_id: null, // Guest upload
                 uploader_name: uploaderName,
                 document_type: docType
             });
