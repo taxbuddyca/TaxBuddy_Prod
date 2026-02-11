@@ -2,14 +2,16 @@ import AdminLeadsTable from './AdminLeadsTable';
 import AdminBlogManager from './AdminBlogManager';
 import { getClients, updateClientStatus, Client } from '@/lib/clients';
 import { useState, useEffect } from 'react';
-import { Search, FileArchive, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
+import { Search, FileArchive, CheckCircle2, Clock, AlertCircle, FolderOpen } from 'lucide-react';
 import AdminPricingManager from './AdminPricingManager';
+import AdminClientFiles from './AdminClientFiles';
 
 export default function AdminDashboard() {
     const [clients, setClients] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
     const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing' | 'blog'>('clients');
+    const [selectedClientForFiles, setSelectedClientForFiles] = useState<{ id: string, name: string } | null>(null);
 
     useEffect(() => {
         if (activeTab === 'clients') {
@@ -172,6 +174,11 @@ export default function AdminDashboard() {
                                             <td className="px-8 py-5 last:rounded-r-[1.5rem] border-y border-r border-gray-100 text-right">
                                                 <div className="flex items-center justify-end gap-2">
                                                     <button
+                                                        onClick={() => setSelectedClientForFiles({ id: client.id, name: client.name })}
+                                                        className="p-2 text-navy-900/20 hover:text-blue-500 hover:bg-white hover:shadow-sm rounded-lg transition" title="Manage Files">
+                                                        <FolderOpen className="w-5 h-5" />
+                                                    </button>
+                                                    <button
                                                         onClick={() => handleStatusUpdate(client.id, 'Reviewing')}
                                                         className="p-2 text-navy-900/20 hover:text-growth hover:bg-white hover:shadow-sm rounded-lg transition" title="Start Review">
                                                         <Clock className="w-5 h-5" />
@@ -196,6 +203,14 @@ export default function AdminDashboard() {
                 <AdminPricingManager />
             ) : (
                 <AdminBlogManager />
+            )}
+
+            {selectedClientForFiles && (
+                <AdminClientFiles
+                    clientId={selectedClientForFiles.id}
+                    clientName={selectedClientForFiles.name}
+                    onClose={() => setSelectedClientForFiles(null)}
+                />
             )}
         </div>
     );

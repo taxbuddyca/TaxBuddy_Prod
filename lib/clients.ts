@@ -75,5 +75,30 @@ export const getClientDocuments = async (clientId: string) => {
         throw error;
     }
 
+
     return data as Document[];
+};
+
+export const deleteDocument = async (docId: string, filePath: string) => {
+    // 1. Delete from Storage
+    const { error: storageError } = await supabase.storage
+        .from('documents')
+        .remove([filePath]);
+
+    if (storageError) {
+        console.error("Storage delete error:", storageError);
+        throw storageError;
+    }
+
+    // 2. Delete from DB
+    const { error: dbError } = await supabase
+        .from("documents")
+        .delete()
+        .eq("id", docId);
+
+    if (dbError) {
+        throw dbError;
+    }
+
+    return true;
 };
