@@ -112,6 +112,12 @@ export default function AdminDashboard() {
                     Pricing Control
                 </button>
                 <button
+                    onClick={() => setActiveTab('checklists')}
+                    className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'checklists' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
+                >
+                    Checklists
+                </button>
+                <button
                     onClick={() => setActiveTab('blog')}
                     className={`px-8 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'blog' ? 'bg-white shadow-sm text-navy-900' : 'text-navy-900/40 hover:text-navy-900'}`}
                 >

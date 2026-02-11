@@ -5,63 +5,54 @@ import React, { useState } from 'react';
 import Navbar from "@/components/Navbar";
 import { CheckSquare, Square, Download, Printer, Share2, FileText, User, Briefcase, Home, DollarSign } from "lucide-react";
 
-const checklistData = [
-    {
-        category: "Personal Information",
-        icon: <User size={20} />,
-        items: [
-            "Notice of Assessment from previous year",
-            "Marital status changes (marriage certificate, divorce decree)",
-            "List of dependents and their birth dates",
-            "Direct deposit information (void cheque)",
-            "If you moved: New address and moving date"
-        ]
-    },
-    {
-        category: "Income Slips",
-        icon: <DollarSign size={20} />,
-        items: [
-            "T4 - Employment Income",
-            "T4A - Pension, Retirement, Annuity, and Other Income",
-            "T4A(OAS) - Old Age Security",
-            "T4A(P) - Canada Pension Plan Benefits",
-            "T4E - Employment Insurance Benefits",
-            "T5 - Statement of Investment Income",
-            "T3 - Statement of Trust Income Allocations",
-            "T5007 - Workers Compensation / Social Assistance",
-            "T5008 - Statement of Securities Transactions (Crypto/Stocks)"
-        ]
-    },
-    {
-        category: "Deductions & Credits",
-        icon: <Home size={20} />,
-        items: [
-            "RRSP Contribution Receipts",
-            "Charitable Donation Receipts",
-            "Medical Expense Receipts (Pharmacies, Dental, Vision)",
-            "Child Care Expense Receipts",
-            "Tuition Slips (T2202)",
-            "Student Loan Interest Statement",
-            "Union or Professional Dues Receipts",
-            "Digital News Subscription Receipts"
-        ]
-    },
-    {
-        category: "Home & Work",
-        icon: <Briefcase size={20} />,
-        items: [
-            "T2200 - Declaration of Conditions of Employment (if WFH)",
-            "Home Office Expenses (Utilities, Internet, Rent)",
-            "Rental Income & Expenses (if you check properties)",
-            "Moving Expenses (if moved 40km+ for work)",
-            "Self-Employment Income & Expenses"
-        ]
-    }
-];
+import { supabase } from '@/lib/supabase';
+
+interface ChecklistCategory {
+    id: number;
+    category: string;
+    items: string[];
+    order_index: number;
+    icon?: React.ReactNode;
+}
+
+// Helper to map category names to icons (since icons aren't in DB)
+const getIcon = (category: string) => {
+    if (category.includes("Personal")) return <User size={20} />;
+    if (category.includes("Income")) return <DollarSign size={20} />;
+    if (category.includes("Deduction")) return <Home size={20} />;
+    if (category.includes("Home") || category.includes("Work")) return <Briefcase size={20} />;
+    return <FileText size={20} />;
+}
 
 export default function TaxChecklistPage() {
+    const [checklistData, setChecklistData] = useState<ChecklistCategory[]>([]);
+    const [loading, setLoading] = useState(true);
     // Track checked items state
     const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+
+    useEffect(() => {
+        const fetchChecklists = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('checklists')
+                    .select('*')
+                    .order('order_index', { ascending: true });
+
+                if (data) {
+                    setChecklistData(data.map(d => ({
+                        ...d,
+                        icon: getIcon(d.category)
+                    })));
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchChecklists();
+    }, []);
 
     const toggleItem = (item: string) => {
         setCheckedItems(prev => ({
@@ -109,34 +100,38 @@ export default function TaxChecklistPage() {
                     </div>
 
                     {/* Checklist Grid */}
-                    <div className="grid md:grid-cols-2 gap-8 mb-16">
-                        {checklistData.map((section, idx) => (
-                            <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm break-inside-avoid">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center text-growth">
-                                        {section.icon}
+                    {loading ? (
+                        <div className="text-center py-20 text-navy-900/30 font-bold animate-pulse">Loading Checklist...</div>
+                    ) : (
+                        <div className="grid md:grid-cols-2 gap-8 mb-16">
+                            {checklistData.map((section, idx) => (
+                                <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm break-inside-avoid">
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center text-growth">
+                                            {section.icon}
+                                        </div>
+                                        <h2 className="text-xl font-black text-navy-950">{section.category}</h2>
                                     </div>
-                                    <h2 className="text-xl font-black text-navy-950">{section.category}</h2>
+                                    <ul className="space-y-4">
+                                        {section.items.map((item) => (
+                                            <li
+                                                key={item}
+                                                className="flex items-start gap-3 group cursor-pointer"
+                                                onClick={() => toggleItem(item)}
+                                            >
+                                                <div className={`mt-1 shrink-0 transition-colors ${checkedItems[item] ? 'text-growth' : 'text-gray-300 group-hover:text-growth/50'}`}>
+                                                    {checkedItems[item] ? <CheckSquare size={20} /> : <Square size={20} />}
+                                                </div>
+                                                <span className={`text-sm font-medium transition-all ${checkedItems[item] ? 'text-navy-900 line-through opacity-50' : 'text-navy-900/80'}`}>
+                                                    {item}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <ul className="space-y-4">
-                                    {section.items.map((item) => (
-                                        <li
-                                            key={item}
-                                            className="flex items-start gap-3 group cursor-pointer"
-                                            onClick={() => toggleItem(item)}
-                                        >
-                                            <div className={`mt-1 shrink-0 transition-colors ${checkedItems[item] ? 'text-growth' : 'text-gray-300 group-hover:text-growth/50'}`}>
-                                                {checkedItems[item] ? <CheckSquare size={20} /> : <Square size={20} />}
-                                            </div>
-                                            <span className={`text-sm font-medium transition-all ${checkedItems[item] ? 'text-navy-900 line-through opacity-50' : 'text-navy-900/80'}`}>
-                                                {item}
-                                            </span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Footer / Call to Action */}
                     <div className="bg-navy-950 text-white rounded-[2.5rem] p-12 text-center relative overflow-hidden print:hidden">
