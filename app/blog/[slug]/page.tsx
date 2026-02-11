@@ -1,6 +1,6 @@
 
 import { createClient } from "@/utils/supabase/server";
-import { createClient as createBrowserClient } from "@/utils/supabase/client";
+// import { createClient as createBrowserClient } from "@/utils/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -12,9 +12,14 @@ import ReactMarkdown from 'react-markdown';
 // Revalidate every 60 seconds
 export const revalidate = 60;
 
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+
 export async function generateStaticParams() {
-    // Use browser client for static generation to avoid cookie issues during build
-    const supabase = createBrowserClient();
+    // specific client for static generation to avoid cookie issues during build
+    const supabase = createSupabaseClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
     const { data: posts } = await supabase.from('posts').select('slug');
     return posts?.map(({ slug }) => ({ slug })) || [];
 }
