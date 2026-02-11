@@ -5,12 +5,13 @@ import { useState, useEffect } from 'react';
 import { Search, FileArchive, CheckCircle2, Clock, AlertCircle, FolderOpen } from 'lucide-react';
 import AdminPricingManager from './AdminPricingManager';
 import AdminClientFiles from './AdminClientFiles';
+import AdminChecklistManager from './AdminChecklistManager';
 
 export default function AdminDashboard() {
     const [clients, setClients] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
-    const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing' | 'blog'>('clients');
+    const [activeTab, setActiveTab] = useState<'clients' | 'leads' | 'pricing' | 'checklists' | 'blog'>('clients');
     const [selectedClientForFiles, setSelectedClientForFiles] = useState<{ id: string, name: string } | null>(null);
 
     useEffect(() => {
@@ -207,6 +208,8 @@ export default function AdminDashboard() {
                 <AdminLeadsTable />
             ) : activeTab === 'pricing' ? (
                 <AdminPricingManager />
+            ) : activeTab === 'checklists' ? (
+                <AdminChecklistManager />
             ) : (
                 <AdminBlogManager />
             )}
