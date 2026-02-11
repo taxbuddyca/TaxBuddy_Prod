@@ -4,10 +4,13 @@ import React from 'react';
 export default function JsonLd() {
     const jsonLd = {
         '@context': 'https://schema.org',
-        '@type': 'AccountingService',
-        name: 'TaxBuddy Stats',
+        '@type': ['AccountingService', 'FinancialService'],
+        name: 'TaxBuddy Canada',
+        alternateName: 'TaxBuddy',
+        description: 'Professional virtual bookkeeping, tax planning, and CFO services for Canadian startups and businesses.',
+        logo: 'https://mytaxbuddy4u.com/logo.png',
         image: 'https://mytaxbuddy4u.com/icon.png',
-        '@id': 'https://mytaxbuddy4u.com',
+        '@id': 'https://mytaxbuddy4u.com/#organization',
         url: 'https://mytaxbuddy4u.com',
         telephone: '+13068804017',
         email: 'taxbuddyca4u@gmail.com',
@@ -24,6 +27,37 @@ export default function JsonLd() {
             '@type': 'GeoCoordinates',
             latitude: 52.1289,
             longitude: -106.6617,
+        },
+        areaServed: {
+            '@type': 'Country',
+            name: 'Canada'
+        },
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: 'Accounting and Tax Services',
+            itemListElement: [
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Corporate Tax Filing'
+                    }
+                },
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Virtual CFO Services'
+                    }
+                },
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Bookkeeping'
+                    }
+                }
+            ]
         },
         openingHoursSpecification: {
             '@type': 'OpeningHoursSpecification',

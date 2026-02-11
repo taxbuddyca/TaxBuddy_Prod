@@ -41,6 +41,49 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="min-h-screen bg-gray-50 font-sans selection:bg-growth selection:text-white">
             <Navbar />
 
+            {/* Structured Data for GEO */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'BlogPosting',
+                        headline: post.title,
+                        description: post.summary || post.excerpt,
+                        image: post.cover_image || 'https://mytaxbuddy4u.com/og-image.png',
+                        datePublished: post.published_at,
+                        dateModified: post.updated_at || post.published_at,
+                        author: {
+                            '@type': 'Organization',
+                            name: 'TaxBuddy Canada',
+                            url: 'https://mytaxbuddy4u.com'
+                        },
+                        publisher: {
+                            '@type': 'Organization',
+                            name: 'TaxBuddy Canada',
+                            logo: {
+                                '@type': 'ImageObject',
+                                url: 'https://mytaxbuddy4u.com/logo.png'
+                            }
+                        },
+                        mainEntityOfPage: {
+                            '@type': 'WebPage',
+                            '@id': `https://mytaxbuddy4u.com/blog/${post.slug}`
+                        },
+                        ...(post.faq_items && post.faq_items.length > 0 && {
+                            mainEntity: post.faq_items.map((item: any) => ({
+                                '@type': 'Question',
+                                name: item.question,
+                                acceptedAnswer: {
+                                    '@type': 'Answer',
+                                    text: item.answer
+                                }
+                            }))
+                        })
+                    })
+                }}
+            />
+
             <main className="pt-32 pb-24">
                 <article className="container mx-auto px-6 max-w-4xl">
                     {/* Back Link */}
