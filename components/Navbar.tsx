@@ -25,7 +25,7 @@ export default function Navbar() {
         { name: "Pricing", href: "/pricing" },
         { name: "Calculator", href: "/tools/tax-calculator" },
         { name: "Checklist", href: "/tools/tax-checklist" },
-        // { name: "Customers", href: "/customers" },
+
         { name: "FAQ", href: "/faq" },
         { name: "Portal", href: "/portal/documents" },
     ];
