@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import { Plus, Trash2, Save, GripVertical, Loader2 } from 'lucide-react';
 import GlassCard from './GlassCard';
 
@@ -14,6 +14,7 @@ interface ChecklistCategory {
 }
 
 export default function AdminChecklistManager() {
+    const supabase = createClient();
     const [categories, setCategories] = useState<ChecklistCategory[]>([]);
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState<number | null>(null);

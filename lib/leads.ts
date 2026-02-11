@@ -17,8 +17,7 @@ export interface Lead {
 export const submitLead = async (lead: Lead) => {
     const { data, error } = await supabase
         .from("leads")
-        .insert([lead])
-        .select();
+        .insert([lead]);
 
     if (error) {
         console.error("Error submitting lead:", error);
