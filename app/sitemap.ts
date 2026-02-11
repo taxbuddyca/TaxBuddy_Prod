@@ -1,7 +1,9 @@
 
 import { MetadataRoute } from 'next';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+import { createClient } from '@supabase/supabase-js';
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://taxbuddy.ca';
 
     // Core pages
@@ -17,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/audit-protection',
         '/tools/tax-calculator',
         '/tools/tax-checklist',
+        '/blog',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -24,5 +27,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: route === '' ? 1 : 0.8,
     }));
 
-    return routes;
+    // Fetch dynamic blog posts
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    const { data: posts } = await supabase
+        .from('posts')
+        .select('slug, published_at');
+
+    const blogRoutes: MetadataRoute.Sitemap = posts?.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.published_at),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+    })) || [];
+
+    return [...routes, ...blogRoutes];
 }
