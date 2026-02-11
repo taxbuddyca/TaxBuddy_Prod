@@ -12,64 +12,63 @@ export async function uploadGuestFile(formData: FormData) {
         return { error: "No file provided" };
     }
 
+    console.log(`Starting guest upload: Name=${uploaderName}, Type=${docType}, File=${file.name}, Size=${file.size}`);
+
+    // Debug: Check if Admin Key is available
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        console.error("CRITICAL: SUPABASE_SERVICE_ROLE_KEY is missing.");
+        return { error: "Server Configuration Error: Admin Key missing." };
+    }
+
     const supabase = createAdminClient();
-    const fileName = sanitizeFilename(file.name);
+    const fileName = sanitizeFilename(file.name || "unnamed_file");
     const timestamp = Date.now();
     const filePath = `guest/${timestamp}_${fileName}`;
 
-
     try {
-        // 1. Upload to Supabase Storage (Using Admin Client to bypass RLS)
+        // 1. Upload to Supabase Storage
         const { error: uploadError } = await supabase.storage
             .from("client-documents")
             .upload(filePath, file, {
-                contentType: file.type,
+                contentType: file.type || 'application/octet-stream',
                 upsert: false
             });
 
         if (uploadError) {
             console.error("Storage Upload Error:", uploadError);
-            return { error: "Failed to upload file to storage." };
+            return { error: `Storage Upload Failed: ${uploadError.message}` };
         }
 
-        // 2. Insert into Record into Database (Using Admin Client)
+        // 2. Insert Record into Database
         const sizeMB = (file.size / 1024 / 1024).toFixed(2) + " MB";
+
+        const insertData = {
+            name: file.name || fileName,
+            storage_path: filePath,
+            size: sizeMB,
+            status: "pending",
+            client_id: null, // Explicit Guest upload
+            uploader_name: uploaderName || "Anonymous Guest",
+            document_type: docType || "Other"
+        };
+
+        console.log("Inserting into DB:", insertData);
 
         const { error: dbError } = await supabase
             .from("documents")
-            .insert({
-                name: file.name,
-                storage_path: filePath,
-                size: sizeMB,
-                status: "pending",
-                client_id: null, // Guest upload
-                uploader_name: uploaderName,
-                document_type: docType
-            });
+            .insert(insertData);
 
         if (dbError) {
             console.error("DB Insert Error:", dbError);
-
-            // Write to debug log file
-            const fs = require('fs');
-            const log = `DB Error: ${JSON.stringify(dbError)}\n`;
-            fs.appendFileSync('debug.log', log);
-
-            return { error: `DB Insert Failed: ${dbError.message || JSON.stringify(dbError)}` };
+            return { error: `DB Insert Failed: ${dbError.message} (Code: ${dbError.code})` };
         }
 
         revalidatePath("/admin/documents");
         return { success: true };
 
     } catch (error: any) {
-        console.error("Upload Action Error:", error);
-
-        // Write to debug log file
-        const fs = require('fs');
-        const log = `Error: ${JSON.stringify(error)}\n`;
-        fs.appendFileSync('debug.log', log);
-
-        return { error: error.message || "An unexpected error occurred." };
+        console.error("Upload Action Exception:", error);
+        return { error: error.message || "An unexpected error occurred during upload." };
     }
 }
 

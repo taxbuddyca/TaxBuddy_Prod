@@ -3,7 +3,7 @@
 import ServiceTabs from "@/components/ServiceTabs";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
 import Link from "next/link";
-import { XeroLogo, QuickBooksLogo, StripeLogo, ShopifyLogo, WagepointLogo, DeelLogo, HubdocLogo, DextLogo, KarbonLogo, SlackLogo, ZoomLogo, NotionLogo } from "@/components/BrandLogos";
+
 
 export default function ServicesPage() {
     return (
@@ -25,31 +25,40 @@ export default function ServicesPage() {
 
                     <ServiceTabs />
 
-                    {/* Tech Stack Integration */}
+                    {/* Why Choose TaxBuddy - Replaced Tech Ecosystem */}
                     <div className="mt-40">
                         <div className="text-center mb-16 flashy-reveal">
-                            <h3 className="text-3xl font-black text-navy-950 mb-4 tracking-tight">The Tech Ecosystem</h3>
-                            <p className="text-navy-900/40 text-sm font-medium italic">We integrate your world with modern finance</p>
+                            <h3 className="text-3xl font-black text-navy-950 mb-4 tracking-tight">Why Choose TaxBuddy?</h3>
+                            <p className="text-navy-900/40 text-sm font-medium italic">Modern accounting designed for Canadian businesses</p>
                         </div>
-                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                            {[
-                                { name: 'Xero', Logo: XeroLogo },
-                                { name: 'QuickBooks', Logo: QuickBooksLogo },
-                                { name: 'Stripe', Logo: StripeLogo },
-                                { name: 'Shopify', Logo: ShopifyLogo },
-                                { name: 'Wagepoint', Logo: WagepointLogo },
-                                { name: 'Deel', Logo: DeelLogo },
-                                { name: 'Hubdoc', Logo: HubdocLogo },
-                                { name: 'Dext', Logo: DextLogo },
-                                { name: 'Karbon', Logo: KarbonLogo },
-                                { name: 'Slack', Logo: SlackLogo },
-                                { name: 'Zoom', Logo: ZoomLogo },
-                                { name: 'Notion', Logo: NotionLogo }
-                            ].map((tool) => (
-                                <div key={tool.name} className="bg-white p-6 rounded-2xl border border-gray-100 flex items-center justify-center text-navy-950 hover:border-growth hover:text-growth transition-all shadow-sm hover-flash group">
-                                    <tool.Logo className="h-8 w-auto text-navy-900 group-hover:text-growth transition-colors grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100" />
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-6 group-hover:scale-110 transition-transform">
+                                    <span className="font-black text-xl">01.</span>
                                 </div>
-                            ))}
+                                <h4 className="text-xl font-black text-navy-950 mb-3">Expert-Led, Always.</h4>
+                                <p className="text-navy-900/70 font-medium leading-relaxed">
+                                    No bots or offshore call centers. You get a dedicated Canadian CPA team that understands your local tax laws.
+                                </p>
+                            </div>
+                            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-6 group-hover:scale-110 transition-transform">
+                                    <span className="font-black text-xl">02.</span>
+                                </div>
+                                <h4 className="text-xl font-black text-navy-950 mb-3">Proactive Planning.</h4>
+                                <p className="text-navy-900/70 font-medium leading-relaxed">
+                                    We don't just file taxes; we plan them. Our year-round advisory helps you keep more of what you earn.
+                                </p>
+                            </div>
+                            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-6 group-hover:scale-110 transition-transform">
+                                    <span className="font-black text-xl">03.</span>
+                                </div>
+                                <h4 className="text-xl font-black text-navy-950 mb-3">Secure & Paperless.</h4>
+                                <p className="text-navy-900/70 font-medium leading-relaxed">
+                                    Upload documents securely from your phone. Bank-level encryption keeps your financial data safe.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -68,7 +77,7 @@ export default function ServicesPage() {
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
                             <Link href="/contact" className="bg-growth text-white px-10 py-5 rounded-2xl font-black hover:scale-105 transition-all text-lg shadow-lg shadow-growth/20">
-                                Talk to a CPA
+                                Talk to Advisor
                             </Link>
                             <Link href="/pricing" className="bg-white/10 text-white px-10 py-5 rounded-2xl font-black hover:bg-white/20 transition-all text-lg border border-white/10">
                                 View Plans

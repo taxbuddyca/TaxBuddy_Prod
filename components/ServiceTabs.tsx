@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Target, BarChart3, Dna, CheckCircle2, Zap, ArrowRight } from "lucide-react";
+import { Target, BarChart3, Users, CheckCircle2, Zap, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import GlassCard from "./GlassCard";
 
@@ -35,17 +35,17 @@ const services = [
         ]
     },
     {
-        id: "tech",
-        title: "Tech Consulting & Strategy",
-        icon: <Dna className="w-8 h-8" />,
-        desc: "Optimizing your SaaS stack for seamless financial workflows.",
+        id: "payroll",
+        title: "Payroll & Benefits",
+        icon: <Users className="w-8 h-8" />,
+        desc: "Seamless payroll management ensures your team is paid on time, every time.",
         features: [
-            "Xero & QBO Migration & Implementation",
-            "Stripe & Shopify Integration",
-            "Automated Accounts Payable (Dext/Hubdoc)",
-            "E-commerce Inventory Workflows",
-            "Custom API Connections",
-            "Ongoing Software Training & Support"
+            "Direct Deposit & Pay Stubs",
+            "Source Deduction Remittances",
+            "T4, T4A & T5 Preparation",
+            "ROE (Record of Employment) Filing",
+            "WCB / WSIB Reporting",
+            "Employee Portal Access"
         ]
     }
 ];

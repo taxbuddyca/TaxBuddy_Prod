@@ -11,7 +11,7 @@ interface AdminDocumentManagerProps {
 
 interface Document {
     id: string;
-    client_id: string;
+    client_id: string | null;
     name: string;
     size: string;
     status: string;
