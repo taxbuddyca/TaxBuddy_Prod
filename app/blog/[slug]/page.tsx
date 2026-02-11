@@ -1,5 +1,5 @@
 
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -12,17 +12,18 @@ import ReactMarkdown from 'react-markdown';
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: posts } = await supabase.from('posts').select('slug');
     return posts?.map(({ slug }) => ({ slug })) || [];
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-    const supabase = createClient();
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const supabase = await createClient();
     const { data: post } = await supabase
         .from('posts')
         .select('*')
-        .eq('slug', params.slug)
+        .eq('slug', slug)
         .single();
 
     if (!post) {

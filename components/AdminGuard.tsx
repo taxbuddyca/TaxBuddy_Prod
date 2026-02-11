@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/utils/supabase/client"; // Use consistent SSR client
 import { Lock } from "lucide-react";
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
@@ -12,6 +12,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
     useEffect(() => {
         const checkAuth = async () => {
+            const supabase = createClient();
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
                 router.push("/login");

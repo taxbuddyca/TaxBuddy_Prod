@@ -40,12 +40,15 @@ export const updateClientStatus = async (id: string, status: string) => {
 
 export interface Document {
     id?: string;
-    client_id: string;
+    client_id: string | null;
     name: string;
     size: string;
     status: string;
     url?: string;
     created_at?: string;
+    uploader_name?: string;
+    document_type?: string;
+    storage_path?: string;
 }
 
 export const uploadDocument = async (doc: Document) => {
@@ -58,8 +61,10 @@ export const uploadDocument = async (doc: Document) => {
         throw error;
     }
 
-    // Increment client's file count
-    await supabase.rpc('increment_client_file_count', { client_id_input: doc.client_id });
+    // Increment client's file count only if client_id exists
+    if (doc.client_id) {
+        await supabase.rpc('increment_client_file_count', { client_id_input: doc.client_id });
+    }
 
     return data;
 };

@@ -24,7 +24,7 @@ export default async function AdminDocumentsPage() {
         .select("*");
 
     return (
-        <div className="min-h-screen bg-gray-50/50 p-6 md:p-12">
+        <div className="min-h-screen bg-gray-50/50 p-6 md:p-12 pt-32">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-8">
                     <h1 className="text-3xl font-black text-navy-950 tracking-tight">Document Repository</h1>

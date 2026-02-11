@@ -1,3 +1,5 @@
+"use client";
+
 import AdminLeadsTable from './AdminLeadsTable';
 import AdminBlogManager from './AdminBlogManager';
 import { getClients, updateClientStatus, Client } from '@/lib/clients';
@@ -6,23 +8,34 @@ import { Search, FileArchive, CheckCircle2, Clock, AlertCircle, FolderOpen } fro
 import AdminPricingManager from './AdminPricingManager';
 import AdminClientFiles from './AdminClientFiles';
 import AdminChecklistManager from './AdminChecklistManager';
-import AdminDocumentManager from './AdminDocumentManager';
+import AdminDocumentList from './admin/AdminDocumentList'; // Import the new List
+import { createClient } from '@/utils/supabase/client'; // Use consistent client
 
 export default function AdminDashboard() {
+    const supabase = createClient();
     const [clients, setClients] = useState<Client[]>([]);
+    const [documents, setDocuments] = useState<any[]>([]); // Documents state
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
     type AdminTab = 'clients' | 'leads' | 'pricing' | 'checklists' | 'documents' | 'blog';
     const [activeTab, setActiveTab] = useState<AdminTab>('clients');
     const [selectedClientForFiles, setSelectedClientForFiles] = useState<{ id: string, name: string } | null>(null);
 
+
     useEffect(() => {
-        // Fetch clients on mount so we have them for the Documents tab too
+        // Fetch clients on mount
         fetchClients();
+        fetchDocuments();
     }, []);
 
+    // Fetch documents when tab changes to 'documents'
+    useEffect(() => {
+        if (activeTab === 'documents') {
+            fetchDocuments();
+        }
+    }, [activeTab]);
+
     const fetchClients = async () => {
-        // setLoading(true); // Don't reset loading on every tab switch if we want
         try {
             const data = await getClients();
             setClients(data);
@@ -30,6 +43,25 @@ export default function AdminDashboard() {
             console.error(err);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchDocuments = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('documents')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+            console.log("AdminDashboard: Fetched documents:", data);
+            setDocuments(data || []);
+        } catch (err) {
+            console.error("Error fetching documents:", err);
+            // innovative logging for debugging
+            if (typeof err === 'object' && err !== null) {
+                console.error("Full error details:", JSON.stringify(err, null, 2));
+            }
         }
     };
 
@@ -171,7 +203,7 @@ export default function AdminDashboard() {
             ) : activeTab === 'checklists' ? (
                 <AdminChecklistManager />
             ) : activeTab === 'documents' ? (
-                <AdminDocumentManager clients={clients} />
+                <AdminDocumentList documents={documents} clients={clients} />
             ) : (
                 <AdminBlogManager />
             )}

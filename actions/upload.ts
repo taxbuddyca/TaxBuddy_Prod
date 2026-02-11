@@ -43,8 +43,8 @@ export async function uploadGuestFile(formData: FormData) {
         const sizeMB = (file.size / 1024 / 1024).toFixed(2) + " MB";
 
         const insertData = {
-            name: file.name || fileName,
-            storage_path: filePath,
+            file_name: file.name || fileName, // Changed from name to file_name
+            file_path: filePath, // Changed from storage_path to file_path
             size: sizeMB,
             status: "pending",
             client_id: null, // Explicit Guest upload

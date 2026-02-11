@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from 'next/navigation';
-import { Save, ArrowLeft, Image as ImageIcon } from 'lucide-react';
+import { Save, ArrowLeft, Image as ImageIcon, X } from 'lucide-react';
 import Link from 'next/link';
 
 interface AdminBlogEditorProps {
@@ -15,14 +15,28 @@ export default function AdminBlogEditor({ post }: AdminBlogEditorProps) {
     const router = useRouter();
     const supabase = createClient();
     const [loading, setLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
     const [formData, setFormData] = useState({
-        title: post?.title || '',
-        slug: post?.slug || '',
-        content: post?.content || '',
-        excerpt: post?.excerpt || '',
-        category: post?.category || 'General',
-        cover_image: post?.cover_image || ''
+        title: '',
+        slug: '',
+        content: '',
+        excerpt: '',
+        category: 'General',
+        cover_image: ''
     });
+
+    useEffect(() => {
+        if (post) {
+            setFormData({
+                title: post.title || '',
+                slug: post.slug || '',
+                content: post.content || '',
+                excerpt: post.excerpt || '',
+                category: post.category || 'General',
+                cover_image: post.cover_image || ''
+            });
+        }
+    }, [post]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -138,19 +152,72 @@ export default function AdminBlogEditor({ post }: AdminBlogEditorProps) {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-black text-navy-900 uppercase tracking-wider mb-2">Cover Image URL</label>
-                        <div className="flex gap-2">
-                            <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center shrink-0 border border-gray-200 text-gray-400">
-                                <ImageIcon size={20} />
+                        <label className="block text-xs font-black text-navy-900 uppercase tracking-wider mb-2">Cover Image</label>
+                        <div className="space-y-4">
+                            {formData.cover_image && (
+                                <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+                                    <img src={formData.cover_image} alt="Cover" className="w-full h-full object-cover" />
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, cover_image: '' }))}
+                                        className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition"
+                                    >
+                                        <X size={16} />
+                                    </button>
+                                </div>
+                            )}
+
+                            <div className="flex gap-2">
+                                <div className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center shrink-0 border border-gray-200 text-gray-400">
+                                    <ImageIcon size={20} />
+                                </div>
+                                <div className="flex-1">
+                                    <input
+                                        type="text"
+                                        name="cover_image"
+                                        value={formData.cover_image}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-growth focus:ring-2 focus:ring-growth/20 outline-none transition mb-2"
+                                        placeholder="https://... or upload below"
+                                    />
+                                    <div className="relative">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={async (e) => {
+                                                if (!e.target.files || e.target.files.length === 0) return;
+                                                setUploading(true);
+                                                const file = e.target.files[0];
+                                                const fileExt = file.name.split('.').pop();
+                                                const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
+                                                const filePath = `${fileName}`;
+
+                                                const { error: uploadError } = await supabase.storage
+                                                    .from('blog-images')
+                                                    .upload(filePath, file);
+
+                                                if (uploadError) {
+                                                    alert(uploadError.message);
+                                                } else {
+                                                    const { data: { publicUrl } } = supabase.storage
+                                                        .from('blog-images')
+                                                        .getPublicUrl(filePath);
+                                                    setFormData(prev => ({ ...prev, cover_image: publicUrl }));
+                                                }
+                                                setUploading(false);
+                                            }}
+                                            className="block w-full text-sm text-slate-500
+                                                file:mr-4 file:py-2 file:px-4
+                                                file:rounded-full file:border-0
+                                                file:text-xs file:font-semibold
+                                                file:bg-blue-50 file:text-blue-700
+                                                hover:file:bg-blue-100
+                                            "
+                                        />
+                                        {uploading && <span className="absolute right-0 top-0 text-xs text-blue-600 font-bold">Uploading...</span>}
+                                    </div>
+                                </div>
                             </div>
-                            <input
-                                type="text"
-                                name="cover_image"
-                                value={formData.cover_image}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-growth focus:ring-2 focus:ring-growth/20 outline-none transition"
-                                placeholder="https://..."
-                            />
                         </div>
                     </div>
                 </div>

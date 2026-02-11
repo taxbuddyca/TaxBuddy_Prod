@@ -5,10 +5,13 @@ import GlassCard from "@/components/GlassCard";
 import { ShieldCheck, Zap, ArrowRight, Lock, Mail, Key } from "lucide-react";
 import Link from "next/link";
 
+import { createClient } from "@/utils/supabase/client";
+
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const supabase = createClient();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -16,15 +19,17 @@ export default function LoginPage() {
 
         // Real Supabase Auth
         try {
-            const { error } = await import("@/lib/supabase").then(m => m.supabase.auth.signInWithPassword({
+            const { error } = await supabase.auth.signInWithPassword({
                 email,
                 password
-            }));
+            });
 
             if (error) throw error;
 
             // Check if admin (for now, simply redirect to admin if email matches, AdminGuard will verify actual session)
+            // Check if admin (for now, simply redirect to admin if email matches, AdminGuard will verify actual session)
             if (email.toLowerCase().includes("admin") || email.toLowerCase().includes("taxbuddy")) {
+                // Use window.location to force a hard refresh to ensure middleware/cookies pick up the new session
                 window.location.href = "/admin";
             } else {
                 window.location.href = "/portal";

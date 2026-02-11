@@ -1,6 +1,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import Link from 'next/link';
+import DeletePostButton from '@/components/admin/DeletePostButton';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 
 export const dynamic = "force-dynamic";
@@ -13,7 +14,7 @@ export default async function AdminBlogPage() {
         .order('published_at', { ascending: false });
 
     return (
-        <div className="p-8">
+        <div className="p-8 pt-32">
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="text-2xl font-black text-navy-950">Blog Manager</h1>
@@ -54,17 +55,15 @@ export default async function AdminBlogPage() {
                                     {new Date(post.published_at).toLocaleDateString()}
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <Link href={`/blog/${post.slug}`} target="_blank" className="p-2 text-navy-900/40 hover:text-navy-950 hover:bg-white rounded-lg border border-transparent hover:border-gray-200 transition-all">
-                                            <Eye size={16} />
+                                    <div className="flex items-center justify-end gap-2">
+                                        <Link href={`/blog/${post.slug}`} target="_blank" className="p-2 text-navy-600 hover:text-navy-950 hover:bg-white rounded-lg border border-transparent hover:border-gray-200 transition-all" title="View Post">
+                                            <Eye size={18} />
                                         </Link>
-                                        <Link href={`/admin/blog/${post.id}`} className="p-2 text-navy-900/40 hover:text-blue-600 hover:bg-blue-50 rounded-lg border border-transparent hover:border-blue-100 transition-all">
-                                            <Edit size={16} />
+                                        <Link href={`/admin/blog/${post.id}`} className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg border border-transparent hover:border-blue-100 transition-all" title="Edit Post">
+                                            <Edit size={18} />
                                         </Link>
                                         {/* TODO: Add delete functionality */}
-                                        <button className="p-2 text-navy-900/40 hover:text-red-600 hover:bg-red-50 rounded-lg border border-transparent hover:border-red-100 transition-all">
-                                            <Trash2 size={16} />
-                                        </button>
+                                        <DeletePostButton postId={post.id} />
                                     </div>
                                 </td>
                             </tr>
