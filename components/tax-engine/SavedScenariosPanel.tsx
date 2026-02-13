@@ -152,8 +152,8 @@ export default function SavedScenariosPanel({
                     <button
                         onClick={() => setSelectedFilter(null)}
                         className={`px-4 py-2 rounded-xl font-bold text-sm transition-colors ${selectedFilter === null
-                                ? 'bg-navy-950 text-white'
-                                : 'bg-gray-100 text-navy-900/60 hover:bg-gray-200'
+                            ? 'bg-navy-950 text-white'
+                            : 'bg-gray-100 text-navy-900/60 hover:bg-gray-200'
                             }`}
                     >
                         All
@@ -161,8 +161,8 @@ export default function SavedScenariosPanel({
                     <button
                         onClick={() => setSelectedFilter('life')}
                         className={`px-4 py-2 rounded-xl font-bold text-sm transition-colors ${selectedFilter === 'life'
-                                ? 'bg-emerald-600 text-white'
-                                : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
                             }`}
                     >
                         Life
@@ -170,8 +170,8 @@ export default function SavedScenariosPanel({
                     <button
                         onClick={() => setSelectedFilter('growth')}
                         className={`px-4 py-2 rounded-xl font-bold text-sm transition-colors ${selectedFilter === 'growth'
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
                             }`}
                     >
                         Growth
@@ -179,8 +179,8 @@ export default function SavedScenariosPanel({
                     <button
                         onClick={() => setSelectedFilter('niche')}
                         className={`px-4 py-2 rounded-xl font-bold text-sm transition-colors ${selectedFilter === 'niche'
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
                             }`}
                     >
                         Niche
@@ -231,28 +231,28 @@ export default function SavedScenariosPanel({
                                     </div>
 
                                     {/* Results */}
-                                    <div className="flex items-center gap-4 text-sm mb-3">
-                                        <span className="font-bold text-navy-950">
+                                    <div className="flex flex-wrap items-center gap-4 text-sm mb-3">
+                                        <span className="font-bold text-navy-950 whitespace-nowrap">
                                             ${scenario.results.total_savings?.toLocaleString() || 0} savings
                                         </span>
-                                        <span className={`font-bold ${getRiskColor(scenario.results.risk_score?.level)}`}>
+                                        <span className={`font-bold whitespace-nowrap ${getRiskColor(scenario.results.risk_score?.level)}`}>
                                             {scenario.results.risk_score?.level || 'N/A'} risk
                                         </span>
                                     </div>
 
                                     {/* Actions */}
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-wrap gap-2">
                                         {onLoadScenario && (
                                             <button
                                                 onClick={() => onLoadScenario(scenario)}
-                                                className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-sm font-bold hover:bg-emerald-700 transition-colors"
+                                                className="flex-1 sm:flex-none justify-center px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-sm font-bold hover:bg-emerald-700 transition-colors"
                                             >
                                                 Load
                                             </button>
                                         )}
                                         <button
                                             onClick={() => handleDelete(scenario.id)}
-                                            className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-bold hover:bg-red-100 transition-colors flex items-center gap-1"
+                                            className="flex-1 sm:flex-none justify-center px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-bold hover:bg-red-100 transition-colors flex items-center gap-1"
                                         >
                                             <Trash2 size={14} />
                                             Delete

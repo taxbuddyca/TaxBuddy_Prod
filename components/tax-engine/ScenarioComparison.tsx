@@ -135,7 +135,7 @@ export default function ScenarioComparison() {
     const winnerIndex = getWinnerIndex();
 
     return (
-        <div className="min-h-screen pt-32 pb-24 bg-gray-50">
+        <div className="min-h-screen pt-24 lg:pt-32 pb-24 bg-gray-50">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Header */}
                 <div className="mb-8">
@@ -155,7 +155,7 @@ export default function ScenarioComparison() {
                 </div>
 
                 {/* Comparison Grid */}
-                <div className={`grid ${scenarios.length === 2 ? 'md:grid-cols-2' : scenarios.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'} gap-6`}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {scenarios.map((scenario, idx) => {
                         const isWinner = idx === winnerIndex;
 
