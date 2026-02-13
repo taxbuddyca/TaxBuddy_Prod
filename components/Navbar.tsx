@@ -40,8 +40,9 @@ export default function Navbar() {
     }));
 
     const resourcesItems = [
-        { title: "Tax Calculator", href: "/tools/tax-calculator", description: "Estimate your 2025 refund instantly.", icon: CalcIcon },
-        { title: "RRSP Savings Tool", href: "/tools/rrsp-calculator", description: "Maximize your tax savings.", icon: Target },
+        { title: "3-Brain Tax Engine", href: "/tools/tax-engine", description: "Advanced tax optimization & strategy.", icon: CalcIcon },
+        { title: "Tax Calculator", href: "/tools/tax-calculator", description: "Estimate your 2025 refund instantly.", icon: Target },
+        { title: "RRSP Savings Tool", href: "/tools/rrsp-calculator", description: "Maximize your tax savings.", icon: TrendingUp },
         { title: "Tax Resources", href: "/resources/tax-brackets", description: "Learn about Canadian tax rules.", icon: BookOpen },
         { title: "FAQ", href: "/faq", description: "Answers to common questions.", icon: HelpCircle },
         { title: "Case Studies", href: "/case-studies", description: "See how we help businesses grow.", icon: Briefcase },

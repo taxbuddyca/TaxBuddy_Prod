@@ -11,6 +11,10 @@ import Link from 'next/link';
 import { TaxRulesEngine, TaxFacts } from '@/lib/tax-engine/rules-engine';
 import { NicheCalculator } from '@/lib/tax-engine/calculators/niche-calculator';
 import SaveScenarioButton from './SaveScenarioButton';
+import SavedScenariosPanel from './SavedScenariosPanel';
+import TabNavigation from './TabNavigation';
+import PDFExportButton from './PDFExportButton';
+import { LayoutDashboard, Save } from 'lucide-react';
 
 type ScenarioType = 'crypto' | 'real_estate' | 'cross_border' | null;
 
@@ -22,6 +26,7 @@ export default function NicheEngine() {
     });
     const [results, setResults] = useState<any>(null);
     const [isCalculating, setIsCalculating] = useState(false);
+    const [activeTab, setActiveTab] = useState('calculator');
 
     const engine = new TaxRulesEngine();
     const calculator = new NicheCalculator();
@@ -121,55 +126,72 @@ export default function NicheEngine() {
         <div className="min-h-screen pt-32 pb-24 bg-gray-50">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="mb-8">
-                    <button
-                        onClick={() => {
-                            setScenario(null);
-                            setResults(null);
-                            setFacts({ income: 0, province: 'ON' });
-                        }}
-                        className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-4 transition-colors"
-                    >
+                    <Link href="/tools/tax-engine" className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-4 transition-colors">
                         <ArrowLeft size={20} />
                         Change Scenario
-                    </button>
+                    </Link>
                     <h2 className="text-4xl font-black text-navy-950 mb-2">
                         {scenario === 'crypto' && 'Crypto Auditor'}
                         {scenario === 'real_estate' && 'Real Estate Flipper'}
                         {scenario === 'cross_border' && 'Cross-Border Tax'}
                     </h2>
-                    <p className="text-navy-900/60 font-bold">
+                    <p className="text-navy-900/60 font-bold mb-6">
                         Answer the questions below to understand your specialized tax situation
                     </p>
+
+                    <TabNavigation
+                        tabs={[
+                            { id: 'calculator', label: 'Calculator', icon: <LayoutDashboard /> },
+                            { id: 'saved', label: 'Saved Scenarios', icon: <Save /> }
+                        ]}
+                        activeTab={activeTab}
+                        onTabChange={setActiveTab}
+                    />
                 </div>
 
-                <div className="grid lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-2">
-                        <div className="bg-white rounded-3xl border border-gray-200 p-8 shadow-sm">
-                            {scenario === 'crypto' && <CryptoForm facts={facts} updateFact={updateFact} />}
-                            {scenario === 'real_estate' && <RealEstateForm facts={facts} updateFact={updateFact} />}
-                            {scenario === 'cross_border' && <CrossBorderForm facts={facts} updateFact={updateFact} />}
+                {activeTab === 'calculator' ? (
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2">
+                            <div className="bg-white rounded-3xl border border-gray-200 p-8 shadow-sm">
+                                {scenario === 'crypto' && <CryptoForm facts={facts} updateFact={updateFact} />}
+                                {scenario === 'real_estate' && <RealEstateForm facts={facts} updateFact={updateFact} />}
+                                {scenario === 'cross_border' && <CrossBorderForm facts={facts} updateFact={updateFact} />}
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-1">
+                            {results ? (
+                                <ResultsPanel
+                                    results={results}
+                                    isCalculating={isCalculating}
+                                    brainType="niche"
+                                    scenarioType={scenario || ''}
+                                    facts={facts}
+                                    scenarioName={`${scenario === 'crypto' ? 'Crypto Auditor' : scenario === 'real_estate' ? 'Real Estate Flipper' : 'Cross-Border Tax'}`}
+                                />
+                            ) : (
+                                <div className="bg-white rounded-3xl border border-gray-200 p-8 text-center">
+                                    <Calculator size={48} className="mx-auto text-gray-300 mb-4" />
+                                    <p className="text-navy-900/40 font-bold">
+                                        Fill out the form to see your specialized tax analysis
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
-
-                    <div className="lg:col-span-1">
-                        {results ? (
-                            <ResultsPanel
-                                results={results}
-                                isCalculating={isCalculating}
-                                brainType="niche"
-                                scenarioType={scenario || ''}
-                                facts={facts}
-                            />
-                        ) : (
-                            <div className="bg-white rounded-3xl border border-gray-200 p-8 text-center">
-                                <Calculator size={48} className="mx-auto text-gray-300 mb-4" />
-                                <p className="text-navy-900/40 font-bold">
-                                    Fill out the form to see your specialized tax analysis
-                                </p>
-                            </div>
-                        )}
+                ) : (
+                    <div className="bg-white rounded-3xl border border-gray-200 p-8 shadow-sm">
+                        <SavedScenariosPanel
+                            brainType="niche"
+                            onLoadScenario={(loadedScenario) => {
+                                setScenario(loadedScenario.scenario_type as ScenarioType);
+                                setFacts(loadedScenario.facts);
+                                setResults(loadedScenario.results);
+                                setActiveTab('calculator');
+                            }}
+                        />
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );
@@ -333,7 +355,7 @@ const FormField = ({ label, type, value, onChange, prefix, helpText }: any) => (
     </div>
 );
 
-const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts }: any) => {
+const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts, scenarioName }: any) => {
     if (isCalculating) {
         return (
             <div className="bg-white rounded-3xl border border-gray-200 p-8">
@@ -413,14 +435,25 @@ const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts }
                 </div>
             )}
 
-            {/* Save Scenario Button */}
-            <div className="flex justify-center">
-                <SaveScenarioButton
-                    brainType={brainType}
-                    scenarioType={scenarioType}
-                    facts={facts}
-                    results={results}
-                />
+            {/* Save and Export Buttons */}
+            <div className="flex flex-col gap-3">
+                <div className="flex justify-center">
+                    <SaveScenarioButton
+                        brainType={brainType}
+                        scenarioType={scenarioType}
+                        facts={facts}
+                        results={results}
+                    />
+                </div>
+                <div className="flex justify-center">
+                    <PDFExportButton
+                        scenarioName={scenarioName}
+                        brainType={brainType}
+                        scenarioType={scenarioType}
+                        facts={facts}
+                        results={results}
+                    />
+                </div>
             </div>
         </div>
     );

@@ -11,6 +11,10 @@ import Link from 'next/link';
 import { TaxRulesEngine, TaxFacts } from '@/lib/tax-engine/rules-engine';
 import { LifeCalculator } from '@/lib/tax-engine/calculators/life-calculator';
 import SaveScenarioButton from './SaveScenarioButton';
+import SavedScenariosPanel from './SavedScenariosPanel';
+import TabNavigation from './TabNavigation';
+import PDFExportButton from './PDFExportButton';
+import { LayoutDashboard, Save } from 'lucide-react';
 
 type ScenarioType = 'family' | 'student' | 'newcomer' | null;
 
@@ -22,6 +26,7 @@ export default function LifeEngine() {
     });
     const [results, setResults] = useState<any>(null);
     const [isCalculating, setIsCalculating] = useState(false);
+    const [activeTab, setActiveTab] = useState('calculator');
 
     const engine = new TaxRulesEngine();
     const calculator = new LifeCalculator();
@@ -385,7 +390,7 @@ const FormField = ({ label, type, value, onChange, prefix, helpText }: any) => (
 );
 
 // Results Panel Component
-const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts }: any) => {
+const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts, scenarioName }: any) => {
     if (isCalculating) {
         return (
             <div className="bg-white rounded-3xl border border-gray-200 p-8">
@@ -465,14 +470,25 @@ const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts }
                 </div>
             )}
 
-            {/* Save Scenario Button */}
-            <div className="flex justify-center">
-                <SaveScenarioButton
-                    brainType={brainType}
-                    scenarioType={scenarioType}
-                    facts={facts}
-                    results={results}
-                />
+            {/* Save and Export Buttons */}
+            <div className="flex flex-col gap-3">
+                <div className="flex justify-center">
+                    <SaveScenarioButton
+                        brainType={brainType}
+                        scenarioType={scenarioType}
+                        facts={facts}
+                        results={results}
+                    />
+                </div>
+                <div className="flex justify-center">
+                    <PDFExportButton
+                        scenarioName={scenarioName}
+                        brainType={brainType}
+                        scenarioType={scenarioType}
+                        facts={facts}
+                        results={results}
+                    />
+                </div>
             </div>
         </div>
     );
