@@ -68,7 +68,7 @@ export class LifeCalculator {
         const riskScore = this.riskAnalyzer.calculateRiskScore(facts);
 
         return {
-            total_savings: totalSavings,
+            total_savings: parseFloat(totalSavings.toFixed(3)),
             recommendations: events,
             risk_score: riskScore,
             summary: this.generateSummary(events, totalSavings),
@@ -81,7 +81,7 @@ export class LifeCalculator {
 
         // Simplified calculation: ~15% tax savings on income difference
         const potentialContribution = Math.min(facts.income_difference * 0.18, 31560); // 2025 RRSP limit
-        return potentialContribution * 0.15;
+        return parseFloat((potentialContribution * 0.15).toFixed(3));
     }
 
     private calculatePensionSplittingSavings(facts: TaxFacts): number {
@@ -95,7 +95,7 @@ export class LifeCalculator {
         const higherRate = this.getMarginalRate(facts.income);
         const lowerRate = this.getMarginalRate(facts.spouse_income || 0);
 
-        return splitAmount * (higherRate - lowerRate);
+        return parseFloat((splitAmount * (higherRate - lowerRate)).toFixed(3));
     }
 
     private calculateChildcareSavings(facts: TaxFacts): number {
@@ -105,7 +105,7 @@ export class LifeCalculator {
         const lowerIncome = Math.min(facts.income, facts.spouse_income || 0);
         const marginalRate = this.getMarginalRate(lowerIncome);
 
-        return facts.childcare_expenses * marginalRate;
+        return parseFloat((facts.childcare_expenses * marginalRate).toFixed(3));
     }
 
     private calculateTuitionSavings(facts: TaxFacts): number {
@@ -115,7 +115,7 @@ export class LifeCalculator {
         const futureRate = 0.30; // Assume 30% marginal rate at $60k+
         const currentRate = this.getMarginalRate(facts.income);
 
-        return facts.tuition_credits_available * (futureRate - currentRate);
+        return parseFloat((facts.tuition_credits_available * (futureRate - currentRate)).toFixed(3));
     }
 
     private calculateMovingExpenseSavings(facts: TaxFacts): number {
@@ -123,7 +123,7 @@ export class LifeCalculator {
         const estimatedMovingCosts = 3000;
         const marginalRate = this.getMarginalRate(facts.income);
 
-        return estimatedMovingCosts * marginalRate;
+        return parseFloat((estimatedMovingCosts * marginalRate).toFixed(3));
     }
 
     private getMarginalRate(income: number): number {

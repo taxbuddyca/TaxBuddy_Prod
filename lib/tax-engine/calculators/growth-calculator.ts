@@ -11,6 +11,14 @@ export interface GrowthEngineResult {
         ev_writeoff_value?: number;
         salary_vs_dividend_savings?: number;
         vehicle_optimization_savings?: number;
+        vehicle_matrix?: {
+            corporate_net_benefit: number;
+            personal_reimbursement: number;
+            recommendation: string;
+        };
+        meal_deduction_savings?: number;
+        home_office_savings?: number;
+        hst_regular_method_itcs?: number;
     };
 }
 
@@ -28,9 +36,10 @@ export class GrowthCalculator {
         events.forEach(event => {
             switch (event.type) {
                 case 'hst_quick_method_recommendation':
-                    const hstSavings = this.calculateHSTQuickMethodSavings(facts);
-                    breakdown.hst_quick_method_savings = hstSavings;
-                    totalSavings += hstSavings;
+                    const hstResult = this.calculateHSTComparison(facts);
+                    breakdown.hst_quick_method_savings = hstResult.quickMethodSavings;
+                    breakdown.hst_regular_method_itcs = hstResult.regularMethodITCs;
+                    totalSavings += Math.max(0, hstResult.quickMethodSavings - hstResult.regularMethodITCs);
                     break;
 
                 case 'ev_class_54_writeoff':
@@ -46,17 +55,32 @@ export class GrowthCalculator {
                     break;
 
                 case 'vehicle_ownership_warning':
-                    const vehicleSavings = this.calculateVehicleOptimizationSavings(facts);
-                    breakdown.vehicle_optimization_savings = vehicleSavings;
-                    totalSavings += vehicleSavings;
+                    const vehicleResult = this.calculateVehicleMatrix(facts);
+                    breakdown.vehicle_matrix = vehicleResult;
+                    breakdown.vehicle_optimization_savings = Math.max(vehicleResult.corporate_net_benefit, vehicleResult.personal_reimbursement);
+                    totalSavings += breakdown.vehicle_optimization_savings;
                     break;
             }
         });
 
+        // Add deduction-specific savings even if they don't trigger a specific rule
+        // Add deduction-specific savings even if they don't trigger a specific rule
+        if (facts.meals_expenses) {
+            const mealSavings = facts.meals_expenses * 0.50 * 0.125;
+            breakdown.meal_deduction_savings = parseFloat(mealSavings.toFixed(3));
+            totalSavings += mealSavings;
+        }
+
+        if (facts.home_office_percentage && facts.total_home_expenses) {
+            const homeOfficeSavings = (facts.total_home_expenses * facts.home_office_percentage / 100) * 0.125;
+            breakdown.home_office_savings = parseFloat(homeOfficeSavings.toFixed(3));
+            totalSavings += homeOfficeSavings;
+        }
+
         const riskScore = this.riskAnalyzer.calculateRiskScore(facts);
 
         return {
-            total_savings: totalSavings,
+            total_savings: parseFloat(totalSavings.toFixed(3)),
             recommendations: events,
             risk_score: riskScore,
             summary: this.generateSummary(events, totalSavings),
@@ -64,11 +88,32 @@ export class GrowthCalculator {
         };
     }
 
-    private calculateHSTQuickMethodSavings(facts: TaxFacts): number {
-        if (!facts.revenue) return 0;
+    private calculateHSTComparison(facts: TaxFacts): { quickMethodSavings: number; regularMethodITCs: number } {
+        if (!facts.revenue) return { quickMethodSavings: 0, regularMethodITCs: 0 };
 
-        // Quick Method saves ~3% of revenue for service businesses
-        return facts.revenue * 0.03;
+        // 1. Quick Method (Ontario Service Rate: 8.8% on Gross Revenue)
+        const hstCollected = facts.revenue * 0.13;
+        const grossRevenue = facts.revenue + hstCollected;
+
+        // Remittance = 8.8% of gross
+        const rawRemittance = grossRevenue * 0.088;
+
+        // 1% credit on first 30k of gross (incl. tax)
+        const credit = Math.min(grossRevenue, 30000) * 0.01;
+
+        const netQuickRemittance = rawRemittance - credit;
+        const quickMethodSavings = hstCollected - netQuickRemittance;
+
+        // 2. Regular Method ITCs (Input Tax Credits)
+        // ITCs = (Business Expenses + 50% Meals + Home Office portion) * 0.13
+        const homeOfficeExpenses = (facts.total_home_expenses || 0) * ((facts.home_office_percentage || 0) / 100);
+        const totalEligibleExpenses = (facts.business_expenses || 0) + ((facts.meals_expenses || 0) * 0.5) + homeOfficeExpenses;
+        const regularMethodITCs = totalEligibleExpenses * 0.13;
+
+        return {
+            quickMethodSavings: parseFloat(quickMethodSavings.toFixed(3)),
+            regularMethodITCs: parseFloat(regularMethodITCs.toFixed(3))
+        };
     }
 
     private calculateEVWriteoffValue(facts: TaxFacts): number {
@@ -78,29 +123,75 @@ export class GrowthCalculator {
         const eligibleAmount = Math.min(facts.vehicle_cost, 61000);
         const corporateRate = 0.125; // 12.5% small business rate
 
-        return eligibleAmount * corporateRate;
+        return parseFloat((eligibleAmount * corporateRate).toFixed(3));
     }
 
     private calculateSalaryVsDividendSavings(facts: TaxFacts): number {
-        if (!facts.spouse_income) return 0;
+        if (!facts.hiring_spouse) return 0;
 
-        // Estimate reasonable salary vs dividend tax difference
-        const reasonableSalary = 40000; // Estimate
-        const dividendTax = reasonableSalary * 0.48; // TOSI rate
-        const salaryTax = reasonableSalary * 0.25; // Lower marginal rate
+        const targetSalary = facts.target_spouse_salary || 40000;
 
-        return dividendTax - salaryTax;
+        // If owner is in high bracket (assume 45%) and spouse is in low (assume 20%)
+        // Savings = Salary * (OwnerRate - SpouseRate)
+        const ownerRate = 0.45;
+        const spouseRate = 0.20;
+
+        // Also account for payroll tax cost (employer portion of CPP ~5.95%)
+        const payrollTaxCost = targetSalary * 0.0595;
+
+        const incomeTaxSavings = targetSalary * (ownerRate - spouseRate);
+
+        return Math.max(0, incomeTaxSavings - payrollTaxCost);
     }
 
-    private calculateVehicleOptimizationSavings(facts: TaxFacts): number {
-        if (!facts.vehicle_cost || !facts.business_use_percentage) return 0;
+    private calculateVehicleMatrix(facts: TaxFacts): any {
+        const isEV = facts.vehicle_type === 'zero_emission';
+        const cost = facts.vehicle_cost || 0;
+        const bizUse = (facts.business_use_percentage || 0) / 100;
+        const isLease = facts.vehicle_financing_type === 'lease';
+        const leasePayment = facts.monthly_lease_payment || 0;
 
-        // Savings from avoiding taxable benefit
-        const standbyCharge = facts.vehicle_cost * 0.02 * 12; // 2% per month
-        const operatingBenefit = 3000; // Estimated annual
-        const totalBenefit = standbyCharge + operatingBenefit;
+        // 1. Corporate Model (Buy or Lease)
+        let deduction = 0;
+        if (isLease) {
+            // Lease limit: $950/mo + tax (simplified)
+            const deductibleLease = Math.min(leasePayment, 950);
+            deduction = deductibleLease * 12 * bizUse;
+        } else {
+            // Purchase CCA
+            if (isEV) {
+                deduction = Math.min(cost, 61000) * bizUse; // 100% write-off
+            } else {
+                deduction = Math.min(cost, 37000) * 0.30 * 0.5 * bizUse; // 30% rate, half-year
+            }
+        }
 
-        return totalBenefit * 0.30; // Tax on benefit avoided
+        const ccaOrLeaseSavings = deduction * 0.125; // 12.5% corp rate
+        const operatingSavings = (facts.vehicle_expenses || 0) * bizUse * 0.125;
+        const totalCorpTaxSavings = ccaOrLeaseSavings + operatingSavings;
+
+        // Taxable Benefits
+        const standbyCharge = cost * 0.02 * 12;
+        const operatingBenefit = (facts.total_annual_mileage || 10000) * 0.33;
+        const personalTaxOnBenefits = (standbyCharge + operatingBenefit) * (1 - bizUse) * 0.40;
+
+        const corporateNetBenefit = totalCorpTaxSavings - personalTaxOnBenefits;
+
+        // 2. Personal Model (Mileage)
+        const personalReimbursement = (facts.business_mileage || 0) * 0.70;
+
+        let recommendation = "";
+        if (personalReimbursement > corporateNetBenefit) {
+            recommendation = "Keep vehicle personal and pay mileage per km. It's more tax-efficient.";
+        } else {
+            recommendation = "Put vehicle in corporation. Tax write-offs outweigh the personal benefit tax.";
+        }
+
+        return {
+            corporate_net_benefit: parseFloat(corporateNetBenefit.toFixed(3)),
+            personal_reimbursement: parseFloat(personalReimbursement.toFixed(3)),
+            recommendation
+        };
     }
 
     private generateSummary(events: TaxEvent[], totalSavings: number): string {

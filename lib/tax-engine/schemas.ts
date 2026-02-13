@@ -25,11 +25,16 @@ export const TaxFactsSchema = z.object({
     hiring_spouse: z.boolean().optional(),
     spouse_hours_per_week: z.number().min(0).optional(),
     spouse_age: z.number().min(0).optional(),
+    target_spouse_salary: z.number().min(0).optional(),
     business_expenses: z.number().min(0).optional(),
     revenue: z.number().min(0).optional(),
     industry: z.string().optional(),
     vehicle_type: z.enum(['zero_emission', 'gas', 'hybrid']).optional(),
     vehicle_cost: z.number().min(0).optional(),
+    vehicle_financing_type: z.enum(['lease', 'purchase']).optional(),
+    monthly_lease_payment: z.number().min(0).optional(),
+    total_annual_mileage: z.number().min(0).optional(),
+    business_mileage: z.number().min(0).optional(),
     business_use_percentage: z.number().min(0).max(100).optional(),
 
     // Niche Engine facts
@@ -44,8 +49,29 @@ export const TaxFactsSchema = z.object({
     // Risk factors
     meals_expenses: z.number().min(0).optional(),
     home_office_percentage: z.number().min(0).max(100).optional(),
+    total_home_expenses: z.number().min(0).optional(),
     vehicle_expenses: z.number().min(0).optional(),
     cash_revenue_percentage: z.number().min(0).max(100).optional(),
+
+    // Advanced Audit Triggers (Tier 1-3)
+    gst_revenue: z.number().min(0).optional(),
+    total_t_slips_income: z.number().min(0).optional(),
+    reported_medical_expenses: z.number().min(0).optional(),
+    num_vehicles_owned: z.number().int().min(0).optional(),
+    family_remittance_transfer_confirmed: z.boolean().optional(),
+    lifestyle_gap_detected: z.boolean().optional(),
+    property_sold_within_365_days: z.boolean().optional(),
+    is_principal_residence_claim: z.boolean().optional(),
+    cash_deposits_frequency_high: z.boolean().optional(),
+    business_loss_years_consecutive: z.number().int().min(0).optional(),
+    subcontractor_fees: z.number().min(0).optional(),
+    t4a_slips_issued: z.boolean().optional(),
+    crypto_cashout_amount: z.number().min(0).optional(),
+    donations_amount: z.number().min(0).optional(),
+    late_filing_years: z.number().int().min(0).optional(),
+    irregular_mileage_log: z.boolean().optional(),
+    unpaid_shareholder_loan: z.boolean().optional(),
+    union_dues_claim_mismatch: z.boolean().optional(),
 });
 
 export type TaxFacts = z.infer<typeof TaxFactsSchema>;

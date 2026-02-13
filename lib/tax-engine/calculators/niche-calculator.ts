@@ -61,7 +61,7 @@ export class NicheCalculator {
         const riskScore = this.riskAnalyzer.calculateRiskScore(facts);
 
         return {
-            total_savings: totalSavings,
+            total_savings: parseFloat(totalSavings.toFixed(3)),
             recommendations: events,
             risk_score: riskScore,
             summary: this.generateSummary(events, totalSavings),
@@ -77,11 +77,11 @@ export class NicheCalculator {
             // 50% inclusion rate
             const taxableAmount = estimatedGains * 0.50;
             const marginalRate = this.getMarginalRate(facts.income);
-            return estimatedGains - (taxableAmount * marginalRate);
+            return parseFloat((estimatedGains - (taxableAmount * marginalRate)).toFixed(3));
         } else {
             // 100% inclusion rate (business income)
             const marginalRate = this.getMarginalRate(facts.income);
-            return -(estimatedGains * marginalRate); // Negative = cost
+            return parseFloat((-(estimatedGains * marginalRate)).toFixed(3)); // Negative = cost
         }
     }
 
@@ -92,11 +92,11 @@ export class NicheCalculator {
         if (exemptionApplies) {
             // Principal residence exemption applies
             const marginalRate = this.getMarginalRate(facts.income);
-            return estimatedGain * marginalRate; // Tax saved
+            return parseFloat((estimatedGain * marginalRate).toFixed(3)); // Tax saved
         } else {
             // Anti-flipping tax: 100% business income
             const marginalRate = this.getMarginalRate(facts.income);
-            return -(estimatedGain * marginalRate); // Negative = cost
+            return parseFloat((-(estimatedGain * marginalRate)).toFixed(3)); // Negative = cost
         }
     }
 
@@ -104,7 +104,7 @@ export class NicheCalculator {
         // Foreign tax credit can reduce double taxation
         // Estimate US tax paid that can be credited
         const estimatedUSTax = 5000; // Placeholder
-        return estimatedUSTax * 0.80; // 80% of US tax can typically be credited
+        return parseFloat((estimatedUSTax * 0.80).toFixed(3)); // 80% of US tax can typically be credited
     }
 
     private getMarginalRate(income: number): number {
