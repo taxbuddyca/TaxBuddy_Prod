@@ -65,11 +65,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     )}
                 </div>
 
-                {/* Cover Image (Placeholder) */}
-                <div className="w-full h-[400px] bg-navy-900/5 rounded-3xl mb-12 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-navy-900/10 via-transparent to-transparent opacity-50" />
-                    {/* <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" /> */}
-                </div>
+                {/* Cover Image */}
+                {post.cover_image && (
+                    <div className="w-full h-[400px] bg-navy-900/5 rounded-3xl mb-12 overflow-hidden relative shadow-2xl">
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 to-transparent z-10" />
+                        <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
+                    </div>
+                )}
 
                 {/* Content */}
                 <div className="prose prose-lg prose-headings:font-black prose-headings:text-navy-950 prose-p:text-navy-900/80 prose-a:text-growth prose-strong:text-navy-950 max-w-none">

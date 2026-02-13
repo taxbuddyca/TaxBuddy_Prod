@@ -1,4 +1,4 @@
-import { supabase } from "./supabase";
+import { createClient } from "@/utils/supabase/client";
 
 export interface PricingPlan {
     id?: number;
@@ -12,6 +12,7 @@ export interface PricingPlan {
 }
 
 export const getPricingPlans = async () => {
+    const supabase = createClient();
     const { data, error } = await supabase
         .from("pricing_plans")
         .select("*")
@@ -26,14 +27,18 @@ export const getPricingPlans = async () => {
 };
 
 export const updatePricingPlan = async (id: number, plan: Partial<PricingPlan>) => {
+    const supabase = createClient();
+    // Sanitize payload to remove restricted fields
+    const { id: _, created_at: __, ...updateData } = plan as any;
+
     const { data, error } = await supabase
         .from("pricing_plans")
-        .update(plan)
+        .update(updateData)
         .eq("id", id)
         .select();
 
     if (error) {
-        console.error("Error updating pricing plan:", error);
+        console.error("Error updating pricing plan:", JSON.stringify(error, null, 2));
         throw error;
     }
 
@@ -41,13 +46,17 @@ export const updatePricingPlan = async (id: number, plan: Partial<PricingPlan>) 
 };
 
 export const createPricingPlan = async (plan: PricingPlan) => {
+    const supabase = createClient();
+    // Sanitize payload to remove restricted fields that might be passed accidentally
+    const { id: _, created_at: __, ...insertData } = plan as any;
+
     const { data, error } = await supabase
         .from("pricing_plans")
-        .insert([plan])
+        .insert([insertData])
         .select();
 
     if (error) {
-        console.error("Error creating pricing plan:", error);
+        console.error("Error creating pricing plan:", JSON.stringify(error, null, 2));
         throw error;
     }
 
@@ -55,6 +64,7 @@ export const createPricingPlan = async (plan: PricingPlan) => {
 };
 
 export const deletePricingPlan = async (id: number) => {
+    const supabase = createClient();
     const { error } = await supabase
         .from("pricing_plans")
         .delete()

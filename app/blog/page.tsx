@@ -33,11 +33,14 @@ export default async function BlogIndexPage() {
                     {posts?.map((post: any) => (
                         <Link key={post.id} href={`/blog/${post.slug}`} className="group h-full">
                             <GlassCard className="h-full flex flex-col overflow-hidden hover:-translate-y-2 transition-transform duration-300" intensity="light">
-                                {/* Cover Image Placeholder - In real app, use post.cover_image */}
+                                {/* Cover Image */}
                                 <div className="h-48 bg-navy-900/5 w-full relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-navy-950/0 group-hover:bg-navy-950/10 transition-colors" />
-                                    {/* If we had images, we'd put <img /> here. For now, a pattern. */}
-                                    <div className="w-full h-full opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-navy-900 via-transparent to-transparent" />
+                                    <div className="absolute inset-0 bg-navy-950/0 group-hover:bg-navy-950/10 transition-colors z-10" />
+                                    {post.cover_image ? (
+                                        <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+                                    ) : (
+                                        <div className="w-full h-full opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-navy-900 via-transparent to-transparent" />
+                                    )}
                                 </div>
 
                                 <div className="p-8 flex flex-col flex-grow">

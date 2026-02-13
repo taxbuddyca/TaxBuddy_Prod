@@ -89,6 +89,9 @@ export default function AdminBlogManager() {
                                             <Link href={`/blog/${post.slug}`} target="_blank" className="p-2 text-navy-900/20 hover:text-navy-950 hover:bg-white hover:shadow-sm rounded-lg transition" title="View">
                                                 <Eye size={20} />
                                             </Link>
+                                            <Link href={`/admin/blog/${post.id}`} className="p-2 text-navy-900/20 hover:text-blue-600 hover:bg-white hover:shadow-sm rounded-lg transition" title="Edit">
+                                                <Edit size={20} />
+                                            </Link>
                                             {/* We can re-use the 'new' page logic for edit if we add ID param, 
                                                 but for now let's just allow View/Delete to start. 
                                                 Editing can be added later or simply implemented by populating the form. 

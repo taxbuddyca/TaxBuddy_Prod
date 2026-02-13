@@ -37,7 +37,8 @@ export default function AdminPricingManager() {
             setEditingId(null);
             fetchPlans();
         } catch (err) {
-            alert("Error saving plan");
+            console.error("AdminPricingManager: detailed save error:", err);
+            alert("Error saving plan. Check console for details.");
         }
     };
 
@@ -108,7 +109,7 @@ export default function AdminPricingManager() {
                                         />
                                         <input
                                             className="w-1/3 px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-lg font-bold text-navy-950 outline-none focus:ring-2 focus:ring-growth transition text-center"
-                                            value={editForm.frequency}
+                                            value={editForm.frequency || ''}
                                             onChange={(e) => setEditForm({ ...editForm, frequency: e.target.value })}
                                             placeholder="/mo"
                                         />
@@ -118,7 +119,7 @@ export default function AdminPricingManager() {
                                     <input
                                         type="checkbox"
                                         id="popular"
-                                        checked={editForm.popular}
+                                        checked={editForm.popular || false}
                                         onChange={(e) => setEditForm({ ...editForm, popular: e.target.checked })}
                                         className="w-4 h-4 rounded border-gray-300 text-growth focus:ring-growth"
                                     />
@@ -130,7 +131,7 @@ export default function AdminPricingManager() {
                                     <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Plan Tag (e.g. "Best Value")</label>
                                     <input
                                         className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm font-bold text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
-                                        value={editForm.tag}
+                                        value={editForm.tag || ''}
                                         onChange={(e) => setEditForm({ ...editForm, tag: e.target.value })}
                                     />
                                 </div>
