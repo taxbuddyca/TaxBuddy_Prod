@@ -8,8 +8,7 @@ import {
     TrendingUp, DollarSign, Shield, ArrowLeft
 } from 'lucide-react';
 import Link from 'next/link';
-import { TaxRulesEngine, TaxFacts } from '@/lib/tax-engine/rules-engine';
-import { NicheCalculator } from '@/lib/tax-engine/calculators/niche-calculator';
+import { TaxFacts } from '@/lib/tax-engine/schemas';
 import SaveScenarioButton from './SaveScenarioButton';
 import SavedScenariosPanel from './SavedScenariosPanel';
 import TabNavigation from './TabNavigation';
@@ -35,8 +34,7 @@ export default function NicheEngine() {
     const [isCalculating, setIsCalculating] = useState(false);
     const [activeTab, setActiveTab] = useState('calculator');
 
-    const engine = new TaxRulesEngine();
-    const calculator = new NicheCalculator();
+
 
     useEffect(() => {
         if (scenario && facts.income && facts.income > 0) {
@@ -47,9 +45,14 @@ export default function NicheEngine() {
     const calculateResults = async () => {
         setIsCalculating(true);
         try {
-            const events = await engine.evaluate('niche', facts as TaxFacts);
-            const calculatedResults = calculator.calculate(facts as TaxFacts, events);
-            setResults(calculatedResults);
+            const response = await fetch('/api/tax-engine/calculate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ brainType: 'niche', facts }),
+            });
+            if (!response.ok) throw new Error('Calculation failed');
+            const data = await response.json();
+            setResults(data);
         } catch (error) {
             console.error('Calculation error:', error);
         } finally {
@@ -174,7 +177,7 @@ export default function NicheEngine() {
                                     brainType="niche"
                                     scenarioType={scenario || ''}
                                     facts={facts}
-                                    scenarioName={`${scenario === 'crypto' ? 'Crypto Auditor' : scenario === 'real_estate' ? 'Real Estate Flipper' : 'Cross-Border Tax'}`}
+                                    scenarioName={scenario === 'crypto' ? 'Crypto Tax' : scenario === 'real_estate' ? 'Real Estate Flipper' : 'Cross-Border Tax'}
                                 />
                             ) : (
                                 <div className="bg-white rounded-3xl border border-gray-200 p-8 text-center">
@@ -230,7 +233,7 @@ const CryptoForm = ({ facts, updateFact }: any) => (
             label="Your Annual Income"
             type="number"
             value={facts.income || ''}
-            onChange={(e) => updateFact('income', parseFloat(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('income', parseFloat(e.target.value) || 0)}
             prefix="$"
         />
 
@@ -238,7 +241,7 @@ const CryptoForm = ({ facts, updateFact }: any) => (
             label="Number of Crypto Trades This Year"
             type="number"
             value={facts.crypto_trades_per_year || ''}
-            onChange={(e) => updateFact('crypto_trades_per_year', parseInt(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('crypto_trades_per_year', parseInt(e.target.value) || 0)}
             helpText="Total buy/sell transactions across all exchanges"
         />
 
@@ -246,9 +249,11 @@ const CryptoForm = ({ facts, updateFact }: any) => (
             label="Average Holding Period (Days)"
             type="number"
             value={facts.average_holding_period_days || ''}
-            onChange={(e) => updateFact('average_holding_period_days', parseInt(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('average_holding_period_days', parseInt(e.target.value) || 0)}
             helpText="How long do you typically hold crypto before selling?"
         />
+
+        <AuditRiskSection facts={facts} updateFact={updateFact} />
     </div>
 );
 
@@ -258,7 +263,7 @@ const RealEstateForm = ({ facts, updateFact }: any) => (
             label="Your Annual Income"
             type="number"
             value={facts.income || ''}
-            onChange={(e) => updateFact('income', parseFloat(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('income', parseFloat(e.target.value) || 0)}
             prefix="$"
         />
 
@@ -266,7 +271,7 @@ const RealEstateForm = ({ facts, updateFact }: any) => (
             label="Property Ownership Period (Days)"
             type="number"
             value={facts.property_ownership_days || ''}
-            onChange={(e) => updateFact('property_ownership_days', parseInt(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('property_ownership_days', parseInt(e.target.value) || 0)}
             helpText="How many days did you own the property before selling?"
         />
 
@@ -274,7 +279,7 @@ const RealEstateForm = ({ facts, updateFact }: any) => (
             label="Properties Sold This Year"
             type="number"
             value={facts.properties_sold_in_year || ''}
-            onChange={(e) => updateFact('properties_sold_in_year', parseInt(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('properties_sold_in_year', parseInt(e.target.value) || 0)}
         />
 
         <div>
@@ -283,7 +288,7 @@ const RealEstateForm = ({ facts, updateFact }: any) => (
             </label>
             <select
                 value={facts.sale_reason || ''}
-                onChange={(e) => updateFact('sale_reason', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFact('sale_reason', e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-400 focus:outline-none font-bold text-navy-950"
             >
                 <option value="">Select reason</option>
@@ -295,6 +300,8 @@ const RealEstateForm = ({ facts, updateFact }: any) => (
                 <option value="other">Other/Investment</option>
             </select>
         </div>
+
+        <AuditRiskSection facts={facts} updateFact={updateFact} />
     </div>
 );
 
@@ -304,7 +311,7 @@ const CrossBorderForm = ({ facts, updateFact }: any) => (
             label="Canadian Income"
             type="number"
             value={facts.income || ''}
-            onChange={(e) => updateFact('income', parseFloat(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('income', parseFloat(e.target.value) || 0)}
             prefix="$"
         />
 
@@ -313,7 +320,7 @@ const CrossBorderForm = ({ facts, updateFact }: any) => (
                 type="checkbox"
                 id="has_us_income"
                 checked={facts.has_us_income || false}
-                onChange={(e) => updateFact('has_us_income', e.target.checked)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('has_us_income', e.target.checked)}
                 className="w-5 h-5 rounded border-gray-300"
             />
             <label htmlFor="has_us_income" className="font-bold text-navy-950">
@@ -327,7 +334,7 @@ const CrossBorderForm = ({ facts, updateFact }: any) => (
                     type="checkbox"
                     id="filed_us_taxes"
                     checked={facts.filed_us_taxes || false}
-                    onChange={(e) => updateFact('filed_us_taxes', e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('filed_us_taxes', e.target.checked)}
                     className="w-5 h-5 rounded border-gray-300"
                 />
                 <label htmlFor="filed_us_taxes" className="font-bold text-navy-950">
@@ -335,30 +342,78 @@ const CrossBorderForm = ({ facts, updateFact }: any) => (
                 </label>
             </div>
         )}
+
+        <AuditRiskSection facts={facts} updateFact={updateFact} />
     </div>
 );
 
-const FormField = ({ label, type, value, onChange, prefix, helpText }: any) => (
-    <div>
-        <label className="block text-sm font-black text-navy-950 mb-2 uppercase tracking-wider">
-            {label}
-        </label>
-        <div className="relative">
-            {prefix && (
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-navy-900/40 font-bold">
-                    {prefix}
-                </span>
+const FormField = ({ label, type, value, onChange, prefix, suffix, helpText }: any) => {
+    const id = React.useId();
+    return (
+        <div>
+            <label htmlFor={id} className="block text-sm font-black text-navy-950 mb-2 uppercase tracking-wider">
+                {label}
+            </label>
+            <div className="relative">
+                {prefix && (
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-navy-900/40 font-bold">
+                        {prefix}
+                    </span>
+                )}
+                <input
+                    id={id}
+                    type={type}
+                    value={value}
+                    onChange={onChange}
+                    className={`w-full ${prefix ? 'pl-10' : 'pl-4'} ${suffix ? 'pr-10' : 'pr-4'} py-3 rounded-xl border-2 border-gray-200 focus:border-purple-400 focus:outline-none font-bold text-navy-950 transition-colors`}
+                />
+                {suffix && (
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-navy-900/40 font-bold">
+                        {suffix}
+                    </span>
+                )}
+            </div>
+            {helpText && (
+                <p className="mt-1 text-xs text-navy-900/40 font-bold">{helpText}</p>
             )}
-            <input
-                type={type}
-                value={value}
-                onChange={onChange}
-                className={`w-full ${prefix ? 'pl-10' : 'pl-4'} pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-400 focus:outline-none font-bold text-navy-950 transition-colors`}
+        </div>
+    );
+};
+
+const AuditRiskSection = ({ facts, updateFact }: any) => (
+    <div className="pt-6 border-t border-gray-100">
+        <h4 className="text-sm font-black text-navy-900/40 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <Shield size={14} />
+            Audit Risk Factors (Optional)
+        </h4>
+
+        <div className="grid md:grid-cols-2 gap-4">
+            <FormField
+                label="Annual Meal Expenses"
+                type="number"
+                value={facts.meals_expenses || ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('meals_expenses', parseFloat(e.target.value) || 0)}
+                prefix="$"
+                helpText="Flagged if >= 10% of revenue"
+            />
+            <FormField
+                label="Home Office %"
+                type="number"
+                value={facts.home_office_percentage ? facts.home_office_percentage * 100 : ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('home_office_percentage', (parseFloat(e.target.value) || 0) / 100)}
+                suffix="%"
+                helpText="Flagged if >= 20%"
             />
         </div>
-        {helpText && (
-            <p className="mt-1 text-xs text-navy-900/40 font-bold">{helpText}</p>
-        )}
+
+        <FormField
+            label="Cash Revenue %"
+            type="number"
+            value={facts.cash_revenue_percentage ? facts.cash_revenue_percentage * 100 : ''}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('cash_revenue_percentage', (parseFloat(e.target.value) || 0) / 100)}
+            suffix="%"
+            helpText="High cash intake triggers scrutiny"
+        />
     </div>
 );
 

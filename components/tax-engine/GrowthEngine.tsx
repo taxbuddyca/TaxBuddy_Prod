@@ -8,8 +8,7 @@ import {
     TrendingUp, DollarSign, Shield, ArrowLeft
 } from 'lucide-react';
 import Link from 'next/link';
-import { TaxRulesEngine, TaxFacts } from '@/lib/tax-engine/rules-engine';
-import { GrowthCalculator } from '@/lib/tax-engine/calculators/growth-calculator';
+import { TaxFacts } from '@/lib/tax-engine/schemas';
 import SaveScenarioButton from './SaveScenarioButton';
 import SavedScenariosPanel from './SavedScenariosPanel';
 import TabNavigation from './TabNavigation';
@@ -37,8 +36,7 @@ export default function GrowthEngine() {
     const [isCalculating, setIsCalculating] = useState(false);
     const [activeTab, setActiveTab] = useState('calculator');
 
-    const engine = new TaxRulesEngine();
-    const calculator = new GrowthCalculator();
+
 
     useEffect(() => {
         if (scenario && facts.revenue && facts.revenue > 0) {
@@ -49,9 +47,16 @@ export default function GrowthEngine() {
     const calculateResults = async () => {
         setIsCalculating(true);
         try {
-            const events = await engine.evaluate('growth', facts as TaxFacts);
-            const calculatedResults = calculator.calculate(facts as TaxFacts, events);
-            setResults(calculatedResults);
+            const response = await fetch('/api/tax-engine/calculate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ brainType: 'growth', facts }),
+            });
+            if (!response.ok) {
+                throw new Error('Calculation failed');
+            }
+            const data = await response.json();
+            setResults(data);
         } catch (error) {
             console.error('Calculation error:', error);
         } finally {
@@ -173,6 +178,7 @@ export default function GrowthEngine() {
                                 brainType="growth"
                                 scenarioType={scenario || ''}
                                 facts={facts}
+                                scenarioName={scenario === 'hiring' ? 'Hiring Logic' : scenario === 'hst' ? 'HST Optimizer' : 'Vehicle Matrix'}
                             />
                         ) : (
                             <div className="bg-white rounded-3xl border border-gray-200 p-8 text-center">
@@ -260,7 +266,7 @@ const HSTForm = ({ facts, updateFact }: any) => (
             label="Annual Business Revenue"
             type="number"
             value={facts.revenue || ''}
-            onChange={(e) => updateFact('revenue', parseFloat(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('revenue', parseFloat(e.target.value) || 0)}
             prefix="$"
         />
 
@@ -268,7 +274,7 @@ const HSTForm = ({ facts, updateFact }: any) => (
             label="Annual Business Expenses"
             type="number"
             value={facts.business_expenses || ''}
-            onChange={(e) => updateFact('business_expenses', parseFloat(e.target.value) || 0)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('business_expenses', parseFloat(e.target.value) || 0)}
             prefix="$"
         />
 
@@ -278,7 +284,7 @@ const HSTForm = ({ facts, updateFact }: any) => (
             </label>
             <select
                 value={facts.industry || ''}
-                onChange={(e) => updateFact('industry', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFact('industry', e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none font-bold text-navy-950"
             >
                 <option value="">Select industry</option>
@@ -288,6 +294,41 @@ const HSTForm = ({ facts, updateFact }: any) => (
                 <option value="Retail">Retail</option>
                 <option value="Other">Other</option>
             </select>
+        </div>
+
+        <div className="pt-6 border-t border-gray-100">
+            <h4 className="text-sm font-black text-navy-900/40 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <Shield size={14} />
+                Audit Risk Factors (Optional)
+            </h4>
+
+            <div className="grid md:grid-cols-2 gap-4">
+                <FormField
+                    label="Annual Meal Expenses"
+                    type="number"
+                    value={facts.meals_expenses || ''}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('meals_expenses', parseFloat(e.target.value) || 0)}
+                    prefix="$"
+                    helpText="Flagged if >= 10% of revenue"
+                />
+                <FormField
+                    label="Home Office %"
+                    type="number"
+                    value={facts.home_office_percentage ? facts.home_office_percentage * 100 : ''}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('home_office_percentage', (parseFloat(e.target.value) || 0) / 100)}
+                    suffix="%"
+                    helpText="Flagged if >= 20%"
+                />
+            </div>
+
+            <FormField
+                label="Cash Revenue %"
+                type="number"
+                value={facts.cash_revenue_percentage ? facts.cash_revenue_percentage * 100 : ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('cash_revenue_percentage', (parseFloat(e.target.value) || 0) / 100)}
+                suffix="%"
+                helpText="High cash intake triggers scrutiny"
+            />
         </div>
     </div>
 );
@@ -308,7 +349,7 @@ const VehicleForm = ({ facts, updateFact }: any) => (
             </label>
             <select
                 value={facts.vehicle_type || ''}
-                onChange={(e) => updateFact('vehicle_type', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFact('vehicle_type', e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none font-bold text-navy-950"
             >
                 <option value="">Select type</option>
@@ -338,34 +379,38 @@ const VehicleForm = ({ facts, updateFact }: any) => (
     </div>
 );
 
-const FormField = ({ label, type, value, onChange, prefix, suffix, helpText }: any) => (
-    <div>
-        <label className="block text-sm font-black text-navy-950 mb-2 uppercase tracking-wider">
-            {label}
-        </label>
-        <div className="relative">
-            {prefix && (
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-navy-900/40 font-bold">
-                    {prefix}
-                </span>
-            )}
-            <input
-                type={type}
-                value={value}
-                onChange={onChange}
-                className={`w-full ${prefix ? 'pl-10' : 'pl-4'} ${suffix ? 'pr-10' : 'pr-4'} py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none font-bold text-navy-950 transition-colors`}
-            />
-            {suffix && (
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-navy-900/40 font-bold">
-                    {suffix}
-                </span>
+const FormField = ({ label, type, value, onChange, prefix, suffix, helpText }: any) => {
+    const id = React.useId();
+    return (
+        <div>
+            <label htmlFor={id} className="block text-sm font-black text-navy-950 mb-2 uppercase tracking-wider">
+                {label}
+            </label>
+            <div className="relative">
+                {prefix && (
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-navy-900/40 font-bold">
+                        {prefix}
+                    </span>
+                )}
+                <input
+                    id={id}
+                    type={type}
+                    value={value}
+                    onChange={onChange}
+                    className={`w-full ${prefix ? 'pl-10' : 'pl-4'} ${suffix ? 'pr-10' : 'pr-4'} py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none font-bold text-navy-950 transition-colors`}
+                />
+                {suffix && (
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-navy-900/40 font-bold">
+                        {suffix}
+                    </span>
+                )}
+            </div>
+            {helpText && (
+                <p className="mt-1 text-xs text-navy-900/40 font-bold">{helpText}</p>
             )}
         </div>
-        {helpText && (
-            <p className="mt-1 text-xs text-navy-900/40 font-bold">{helpText}</p>
-        )}
-    </div>
-);
+    );
+};
 
 const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts, scenarioName }: any) => {
     if (isCalculating) {

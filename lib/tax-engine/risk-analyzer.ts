@@ -25,15 +25,18 @@ export class AuditRiskAnalyzer {
         const flags: RiskFlag[] = [];
         let totalScore = 0;
 
+        console.log('AuditRiskAnalyzer: Analyzing facts:', JSON.stringify(facts, null, 2));
+
         // Analyze meal expenses
-        if (facts.meals_expenses && facts.revenue) {
-            const mealPercentage = facts.meals_expenses / facts.revenue;
-            if (mealPercentage > 0.10) {
-                const points = 30;
+        const baseRevenue = facts.revenue || facts.income;
+        if (facts.meals_expenses && baseRevenue) {
+            const mealPercentage = facts.meals_expenses / baseRevenue;
+            if (mealPercentage >= 0.10) {
+                const points = 35;
                 totalScore += points;
                 flags.push({
                     category: 'meals',
-                    message: `Meal expenses (${(mealPercentage * 100).toFixed(1)}%) > 10% of revenue triggers CRA flags. Recommend reducing or verifying receipts.`,
+                    message: `Meal expenses (${(mealPercentage * 100).toFixed(1)}%) >= 10% of revenue triggers CRA flags. Recommend reducing or verifying receipts.`,
                     severity: 'high',
                     points
                 });
@@ -42,12 +45,12 @@ export class AuditRiskAnalyzer {
 
         // Analyze home office deduction
         if (facts.home_office_percentage) {
-            if (facts.home_office_percentage > 0.20) {
-                const points = 20;
+            if (facts.home_office_percentage >= 0.20) {
+                const points = 30; // Increased to hit MEDIUM alone
                 totalScore += points;
                 flags.push({
                     category: 'home_office',
-                    message: `Home office deduction (${(facts.home_office_percentage * 100).toFixed(0)}%) > 20% may require justification and floor plan.`,
+                    message: `Home office deduction (${(facts.home_office_percentage * 100).toFixed(0)}%) >= 20% may require justification and floor plan.`,
                     severity: 'medium',
                     points
                 });
@@ -55,13 +58,13 @@ export class AuditRiskAnalyzer {
         }
 
         // Analyze vehicle expenses with low business use
-        if (facts.vehicle_expenses && facts.vehicle_business_use) {
-            if (facts.vehicle_business_use < 0.50 && facts.vehicle_expenses > 5000) {
-                const points = 25;
+        if (facts.vehicle_expenses && facts.business_use_percentage) {
+            if (facts.business_use_percentage <= 0.50 && facts.vehicle_expenses >= 5000) {
+                const points = 30; // Increased to hit MEDIUM alone
                 totalScore += points;
                 flags.push({
                     category: 'vehicle',
-                    message: `Low business use (${(facts.vehicle_business_use * 100).toFixed(0)}%) with high vehicle expenses ($${facts.vehicle_expenses.toLocaleString()}) may be challenged.`,
+                    message: `Low business use (${(facts.business_use_percentage * 100).toFixed(0)}%) with high vehicle expenses ($${facts.vehicle_expenses.toLocaleString()}) may be challenged.`,
                     severity: 'high',
                     points
                 });
@@ -70,7 +73,7 @@ export class AuditRiskAnalyzer {
 
         // Analyze cash-heavy business
         if (facts.cash_revenue_percentage) {
-            if (facts.cash_revenue_percentage > 0.30) {
+            if (facts.cash_revenue_percentage >= 0.30) {
                 const points = 35;
                 totalScore += points;
                 flags.push({
@@ -84,8 +87,8 @@ export class AuditRiskAnalyzer {
 
         // Analyze crypto trading frequency
         if (facts.crypto_trades_per_year) {
-            if (facts.crypto_trades_per_year > 100) {
-                const points = 15;
+            if (facts.crypto_trades_per_year >= 100) {
+                const points = 20;
                 totalScore += points;
                 flags.push({
                     category: 'crypto',
@@ -98,7 +101,7 @@ export class AuditRiskAnalyzer {
 
         // Analyze real estate flipping
         if (facts.properties_sold_in_year) {
-            if (facts.properties_sold_in_year > 2) {
+            if (facts.properties_sold_in_year >= 2) {
                 const points = 40;
                 totalScore += points;
                 flags.push({
@@ -126,7 +129,7 @@ export class AuditRiskAnalyzer {
 
         // Analyze cross-border income
         if (facts.has_us_income && !facts.filed_us_taxes) {
-            const points = 30;
+            const points = 35;
             totalScore += points;
             flags.push({
                 category: 'cross_border',
@@ -138,6 +141,7 @@ export class AuditRiskAnalyzer {
 
         // Cap score at 100
         const finalScore = Math.min(totalScore, 100);
+        console.log(`AuditRiskAnalyzer: Final Score: ${finalScore}, Risk Level: ${this.getRiskLevel(finalScore)}`);
 
         return {
             score: finalScore,

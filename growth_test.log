@@ -1,0 +1,15 @@
+[1A[2K[2m[WebServer] [22m[33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+Error: item focused with '.only' is not allowed due to the 'forbidOnly' option in '..\playwright.config.ts': "tax-engine.spec.ts Tax Engine Tests Growth Engine - HST Optimizer Calculation"
+
+   at tax-engine.spec.ts:50
+
+  48 |     });
+  49 |
+> 50 |     test.only('Growth Engine - HST Optimizer Calculation', async ({ page }) => {
+     |          ^
+  51 |         // Navigate to Growth Engine
+  52 |         console.log('Clicking Business Owner (Growth Engine)');
+  53 |         await page.getByRole('heading', { name: 'Business Owner' }).click();
+
+[1A[2K

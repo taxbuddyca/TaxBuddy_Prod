@@ -8,8 +8,9 @@ import { Search, FileArchive, CheckCircle2, Clock, AlertCircle, FolderOpen } fro
 import AdminPricingManager from './AdminPricingManager';
 import AdminClientFiles from './AdminClientFiles';
 import AdminChecklistManager from './AdminChecklistManager';
-import AdminDocumentList from './admin/AdminDocumentList'; // Import the new List
-import { createClient } from '@/utils/supabase/client'; // Use consistent client
+import AdminDocumentList from './admin/AdminDocumentList';
+import AdminScenariosTable from './AdminScenariosTable';
+import { createClient } from '@/utils/supabase/client';
 
 export default function AdminDashboard() {
     const supabase = createClient();
@@ -17,7 +18,7 @@ export default function AdminDashboard() {
     const [documents, setDocuments] = useState<any[]>([]); // Documents state
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');
-    type AdminTab = 'clients' | 'leads' | 'pricing' | 'checklists' | 'documents' | 'blog';
+    type AdminTab = 'clients' | 'leads' | 'pricing' | 'checklists' | 'documents' | 'blog' | 'scenarios';
     const [activeTab, setActiveTab] = useState<AdminTab>('clients');
     const [selectedClientForFiles, setSelectedClientForFiles] = useState<{ id: string, name: string } | null>(null);
 
@@ -106,7 +107,8 @@ export default function AdminDashboard() {
                     { id: 'pricing', label: 'Pricing' },
                     { id: 'checklists', label: 'Checklists' },
                     { id: 'documents', label: 'Documents' },
-                    { id: 'blog', label: 'Blog' }
+                    { id: 'blog', label: 'Blog' },
+                    { id: 'scenarios', label: 'Scenarios' }
                 ].map((tab) => (
                     <button
                         key={tab.id}
@@ -204,6 +206,8 @@ export default function AdminDashboard() {
                 <AdminChecklistManager />
             ) : activeTab === 'documents' ? (
                 <AdminDocumentList documents={documents} clients={clients} />
+            ) : activeTab === 'scenarios' ? (
+                <AdminScenariosTable />
             ) : (
                 <AdminBlogManager />
             )}
