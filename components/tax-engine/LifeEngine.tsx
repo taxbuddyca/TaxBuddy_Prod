@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { TaxRulesEngine, TaxFacts } from '@/lib/tax-engine/rules-engine';
 import { LifeCalculator } from '@/lib/tax-engine/calculators/life-calculator';
+import SaveScenarioButton from './SaveScenarioButton';
 
 type ScenarioType = 'family' | 'student' | 'newcomer' | null;
 
@@ -384,7 +385,7 @@ const FormField = ({ label, type, value, onChange, prefix, helpText }: any) => (
 );
 
 // Results Panel Component
-const ResultsPanel = ({ results, isCalculating }: any) => {
+const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts }: any) => {
     if (isCalculating) {
         return (
             <div className="bg-white rounded-3xl border border-gray-200 p-8">
@@ -463,6 +464,16 @@ const ResultsPanel = ({ results, isCalculating }: any) => {
                     </div>
                 </div>
             )}
+
+            {/* Save Scenario Button */}
+            <div className="flex justify-center">
+                <SaveScenarioButton
+                    brainType={brainType}
+                    scenarioType={scenarioType}
+                    facts={facts}
+                    results={results}
+                />
+            </div>
         </div>
     );
 };
