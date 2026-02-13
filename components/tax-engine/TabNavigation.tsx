@@ -37,7 +37,7 @@ export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavig
                             `}
                         >
                             <div className="flex items-center gap-2">
-                                {React.cloneElement(tab.icon, {
+                                {React.cloneElement(tab.icon as any, {
                                     size: 18,
                                     className: isActive ? 'text-emerald-600' : 'text-navy-900/40'
                                 })}

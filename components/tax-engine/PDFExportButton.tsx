@@ -227,8 +227,8 @@ export default function PDFExportButton({
                 let formattedValue = value;
                 if (typeof value === 'boolean') {
                     formattedValue = value ? 'Yes' : 'No';
-                } else if (typeof value === 'number' && key.includes('income') || key.includes('expense') || key.includes('cost')) {
-                    formattedValue = `$${value.toLocaleString()}`;
+                } else if (typeof value === 'number' && (key.includes('income') || key.includes('expense') || key.includes('cost'))) {
+                    formattedValue = `$${(value as number).toLocaleString()}`;
                 }
 
                 doc.text(`${formattedKey}: ${formattedValue}`, 20, yPos);
@@ -236,7 +236,7 @@ export default function PDFExportButton({
             });
 
             // Footer
-            const pageCount = doc.getNumberOfPages();
+            const pageCount = (doc as any).internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
                 doc.setFontSize(8);

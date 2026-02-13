@@ -1,0 +1,23 @@
+﻿
+build-errors.txt:1:c
+omponents/tax-engine
+/PDFExportButton.tsx
+(231,42): error 
+TS18046: 'value' is 
+of type 'unknown'.
+build-errors.txt:2:c
+omponents/tax-engine
+/PDFExportButton.tsx
+(239,35): error 
+TS2339: Property 
+'getNumberOfPages' 
+does not exist on 
+type 'jsPDF'.
+build-errors.txt:3:c
+omponents/tax-engine
+/TabNavigation.tsx(4
+1,37): error 
+TS2769: No overload 
+matches this call.
+
+
