@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit3, Tag, CheckCircle2, Zap, Save, X } from 'lucide-react';
 import GlassCard from './GlassCard';
 import { getPricingPlans, updatePricingPlan, createPricingPlan, deletePricingPlan, PricingPlan } from '@/lib/pricing';
+import { services } from '@/lib/data/services';
 
 export default function AdminPricingManager() {
     const [plans, setPlans] = useState<PricingPlan[]>([]);
@@ -17,8 +18,15 @@ export default function AdminPricingManager() {
 
     const fetchPlans = async () => {
         try {
-            const data = await getPricingPlans();
-            setPlans(data);
+            // Fetch all plans for admin management (both global and service-specific)
+            const supabase = (await import('@/utils/supabase/client')).createClient();
+            const { data, error } = await supabase
+                .from("pricing_plans")
+                .select("*")
+                .order("order_index", { ascending: true });
+
+            if (error) throw error;
+            setPlans(data || []);
         } catch (err) {
             console.error(err);
         } finally {
@@ -137,6 +145,20 @@ export default function AdminPricingManager() {
                                 </div>
 
                                 <div>
+                                    <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Service Association</label>
+                                    <select
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm font-bold text-navy-950 outline-none focus:ring-2 focus:ring-growth transition"
+                                        value={editForm.service_slug || ''}
+                                        onChange={(e) => setEditForm({ ...editForm, service_slug: e.target.value || null })}
+                                    >
+                                        <option value="">Global (Pricing Page)</option>
+                                        {services.filter(s => s.slug).map(s => (
+                                            <option key={s.slug} value={s.slug}>{s.title} ({s.slug})</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
                                     <div className="flex justify-between items-center mb-2">
                                         <label className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest pl-1">Features List</label>
                                         <button
@@ -181,7 +203,12 @@ export default function AdminPricingManager() {
                         ) : (
                             <div>
                                 <h3 className="text-xl font-black text-navy-950">{plan.name}</h3>
-                                <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-4">{plan.tag}</div>
+                                <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.2em] mb-2">{plan.tag}</div>
+                                {plan.service_slug && (
+                                    <div className="inline-block px-2 py-1 bg-blue-50 text-blue-600 text-[10px] font-bold rounded mb-4">
+                                        Service: {plan.service_slug}
+                                    </div>
+                                )}
                                 <div className="text-3xl font-black text-navy-950 mb-6">
                                     {plan.price}<span className="text-lg text-navy-900/40 font-bold">{plan.frequency || '/mo'}</span>
                                 </div>

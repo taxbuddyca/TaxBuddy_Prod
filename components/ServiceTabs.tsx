@@ -1,60 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { Target, BarChart3, Users, CheckCircle2, Zap, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import GlassCard from "./GlassCard";
-
-const services = [
-    {
-        id: "bookkeeping",
-        title: "Bookkeeping & Controllership",
-        icon: <Target className="w-8 h-8" />,
-        desc: "A full back-office finance team handling your daily operations.",
-        features: [
-            "Accounts Payable & Receivable",
-            "Real-time Bookkeeping (Xero/QBO)",
-            "Monthly Management Reports",
-            "Payroll Administration (up to 100 employees)",
-            "Sales Tax (GST/HST/PST) Filings",
-            "Dedicated Controller Level Support"
-        ]
-    },
-    {
-        id: "tax",
-        title: "Tax & Advisory",
-        icon: <BarChart3 className="w-8 h-8" />,
-        desc: "Strategic tax planning to protect your capital and ensure compliance.",
-        features: [
-            "Corporate Tax Returns (T2)",
-            "Personal Tax Returns for Owners (T1)",
-            "Scientific Research & Experimental Development (SR&ED)",
-            "Multi-Province Tax Planning",
-            "Corporate Restructuring & Rollovers",
-            "Audit Defence & Representation"
-        ]
-    },
-    {
-        id: "payroll",
-        title: "Payroll & Benefits",
-        icon: <Users className="w-8 h-8" />,
-        desc: "Seamless payroll management ensures your team is paid on time, every time.",
-        features: [
-            "Direct Deposit & Pay Stubs",
-            "Source Deduction Remittances",
-            "T4, T4A & T5 Preparation",
-            "ROE (Record of Employment) Filing",
-            "WCB / WSIB Reporting",
-            "Employee Portal Access"
-        ]
-    }
-];
+import { services } from "@/lib/data/services";
 
 export default function ServiceTabs() {
+    const searchParams = useSearchParams();
+    const displayServices = services;
     const [activeTab, setActiveTab] = useState(services[0].id);
 
+    useEffect(() => {
+        const tab = searchParams.get("tab");
+        if (tab && services.some(s => s.id === tab)) {
+            setActiveTab(tab);
+            // Scroll to tabs if a specific tab is requested
+            const element = document.getElementById("service-tabs-section");
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, [searchParams]);
+
     return (
-        <div className="w-full">
+        <div className="w-full" id="service-tabs-section">
             <div className="flex flex-wrap justify-center gap-4 mb-16">
                 {services.map((s) => (
                     <button
@@ -62,20 +33,20 @@ export default function ServiceTabs() {
                         onClick={() => setActiveTab(s.id)}
                         className={`px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300 flex items-center gap-3 ${activeTab === s.id ? 'bg-growth text-white shadow-lg shadow-growth/20 scale-105' : 'bg-gray-50 text-navy-900/40 hover:bg-gray-100 hover:text-navy-900'}`}
                     >
-                        {s.icon}
+                        <s.icon className="w-6 h-6" />
                         {s.title}
                     </button>
                 ))}
             </div>
 
             <div className="max-w-6xl mx-auto">
-                {services.map((s) => (
+                {displayServices.map((s) => (
                     <div key={s.id} className={`${activeTab === s.id ? 'block animate-in fade-in slide-in-from-bottom-5 duration-500' : 'hidden'}`}>
                         <GlassCard className="p-16 border-2 border-gray-100 bg-white shadow-sm" intensity="light">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
                                 <div>
                                     <div className="w-20 h-20 bg-blue-50 rounded-[1.5rem] flex items-center justify-center text-growth mb-8 shadow-sm border border-blue-100">
-                                        {s.icon}
+                                        <s.icon className="w-10 h-10" />
                                     </div>
                                     <h3 className="text-4xl font-black text-navy-950 mb-6 tracking-tight">{s.title}</h3>
                                     <p className="text-xl text-navy-900/70 leading-relaxed font-medium mb-10">
@@ -87,7 +58,7 @@ export default function ServiceTabs() {
                                 </div>
                                 <div className="space-y-6 bg-blue-50/50 rounded-[2rem] p-10 border border-blue-100">
                                     <div className="text-xs font-black text-navy-900/30 uppercase tracking-widest mb-6">What's Included</div>
-                                    {s.features.map((feat, i) => (
+                                    {(s.features || s.content?.servicesList?.items.map(i => i.title))?.slice(0, 6).map((feat, i) => (
                                         <div key={i} className="flex gap-4 items-start">
                                             <div className="mt-1 w-5 h-5 rounded-full bg-growth/10 flex items-center justify-center text-growth flex-shrink-0">
                                                 <CheckCircle2 size={12} />

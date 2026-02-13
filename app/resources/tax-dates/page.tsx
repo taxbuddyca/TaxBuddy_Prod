@@ -9,9 +9,7 @@ export const metadata = {
 
 export default function TaxDatesPage() {
     return (
-        <div className="min-h-screen bg-gray-50 font-sans selection:bg-growth selection:text-white">
-            <Navbar />
-
+        <>
             <main className="pt-32 pb-24">
                 {/* Header */}
                 <section className="container mx-auto px-6 mb-16 text-center">
@@ -120,6 +118,6 @@ export default function TaxDatesPage() {
             </main>
 
 
-        </div>
+        </ >
     );
 }

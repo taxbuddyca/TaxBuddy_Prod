@@ -30,7 +30,7 @@ export default function Home() {
 
                 <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center h-full text-center">
                     <div className="max-w-4xl flashy-reveal flex flex-col items-center">
-                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-navy-950 leading-[1.1] tracking-tighter mb-8 transition-all duration-700 hover:tracking-wide">
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-navy-950 leading-[1.1] tracking-tight mb-8 transition-all duration-700 hover:tracking-wide">
                             The Finance Team <br />
                             <span className="text-growth">for Growth.</span>
                         </h1>

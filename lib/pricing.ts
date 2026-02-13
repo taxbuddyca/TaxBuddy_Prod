@@ -9,14 +9,22 @@ export interface PricingPlan {
     features: string[];
     frequency?: string;
     order_index?: number;
+    service_slug?: string | null;
 }
 
-export const getPricingPlans = async () => {
+export const getPricingPlans = async (serviceSlug?: string) => {
     const supabase = createClient();
-    const { data, error } = await supabase
+    let query = supabase
         .from("pricing_plans")
-        .select("*")
-        .order("order_index", { ascending: true });
+        .select("*");
+
+    if (serviceSlug) {
+        query = query.eq("service_slug", serviceSlug);
+    } else {
+        query = query.is("service_slug", null);
+    }
+
+    const { data, error } = await query.order("order_index", { ascending: true });
 
     if (error) {
         console.error("Error fetching pricing plans:", error);

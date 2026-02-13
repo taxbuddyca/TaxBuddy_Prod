@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Check, Zap, Rocket, Shield, ArrowRight } from 'lucide-react';
 import GlassCard from './GlassCard';
 import { getPricingPlans, PricingPlan } from '@/lib/pricing';
@@ -105,9 +106,9 @@ export default function PricingTable() {
                         ))}
                     </div>
 
-                    <button className={`w-full py-5 rounded-xl font-black text-lg transition-all flex items-center justify-center gap-3 mt-auto ${plan.popular ? 'bg-growth text-white hover:bg-growth-600 hover:shadow-lg shadow-growth/20' : 'bg-navy-950 text-white hover:bg-navy-900 hover:scale-[1.02]'}`}>
+                    <Link href="/contact" className={`w-full py-5 rounded-xl font-black text-lg transition-all flex items-center justify-center gap-3 mt-auto ${plan.popular ? 'bg-growth text-white hover:bg-growth-600 hover:shadow-lg shadow-growth/20' : 'bg-navy-950 text-white hover:bg-navy-900 hover:scale-[1.02]'}`}>
                         {plan.price.includes("Custom") ? "Contact Sales" : "Get Started"} <ArrowRight size={20} />
-                    </button>
+                    </Link>
 
                     <div className="mt-6 w-full text-center">
                         <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest italic leading-relaxed">

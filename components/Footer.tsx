@@ -38,6 +38,8 @@ export default function Footer() {
                         <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
                             <Link href="/services" className="hover:text-growth transition">Services</Link>
                             <Link href="/pricing" className="hover:text-growth transition">Pricing</Link>
+                            <Link href="/tools/tax-calculator" className="hover:text-growth transition">Tax Calculator</Link>
+                            <Link href="/tools/rrsp-calculator" className="hover:text-growth transition">RRSP Tool</Link>
                             <Link href="/process" className="hover:text-growth transition">Process</Link>
 
                         </div>

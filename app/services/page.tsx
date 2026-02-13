@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import ServiceTabs from "@/components/ServiceTabs";
 import ExpertiseGrid from "@/components/ExpertiseGrid";
 import Link from "next/link";
@@ -14,14 +15,15 @@ export default function ServicesPage() {
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="text-center mb-24 flashy-reveal">
                         <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Our Expertise</span>
-                        <h2 className="text-4xl md:text-5xl font-black text-navy-950 tracking-tighter mb-8">Full-Service Financial Management.</h2>
+                        <h2 className="text-4xl md:text-5xl font-black text-navy-950 tracking-tight mb-8">Full-Service Financial Management.</h2>
                         <p className="text-lg text-navy-900/70 max-w-2xl mx-auto font-medium leading-relaxed">
                             Choose the level of support your business needs. We act as your entire finance department, seamlessly integrated with your existing tech.
                         </p>
                     </div>
 
-                    <ServiceTabs />
-
+                    <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="w-8 h-8 border-4 border-growth border-t-transparent rounded-full animate-spin"></div></div>}>
+                        <ServiceTabs />
+                    </Suspense>
                     {/* Why Choose TaxBuddy - Replaced Tech Ecosystem */}
                     <div className="mt-40">
                         <div className="text-center mb-16 flashy-reveal">

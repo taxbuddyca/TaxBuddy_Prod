@@ -1,208 +1,363 @@
-
 "use client";
 
-import React, { useState } from 'react';
-import { DollarSign, RefreshCw, Calculator, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import {
+    DollarSign,
+    RefreshCw,
+    Calculator as CalcIcon,
+    ArrowRight,
+    ChevronDown,
+    Info,
+    ShieldCheck,
+    Zap,
+    HelpCircle,
+    TrendingUp
+} from 'lucide-react';
 import Link from 'next/link';
 
+// 2025 Tax Year Data (Filing in 2026)
+const FEDERAL_RATES = {
+    brackets: [57375, 114750, 177882, 253414],
+    rates: [0.145, 0.205, 0.26, 0.29, 0.33],
+    bpa: 15705 // 2025 Federal Basic Personal Amount
+};
+
+const CPP_2025 = {
+    ympe: 71300,
+    yampe: 81200,
+    exemption: 3500,
+    rate1: 0.0595,
+    rate2: 0.04,
+    max1: 4034.10,
+    max2: 396.00
+};
+
+const EI_2025 = {
+    mie: 65700,
+    rate: 0.0164,
+    rateQC: 0.0131,
+    max: 1077.48,
+    maxQC: 860.67
+};
+
+const PROVINCIAL_DATA: Record<string, { name: string, brackets: number[], rates: number[], bpa: number, divEligible: number, divIneligible: number }> = {
+    ON: {
+        name: "Ontario",
+        brackets: [52886, 105775, 150000, 220000],
+        rates: [0.0505, 0.0915, 0.1116, 0.1216, 0.1316],
+        bpa: 12399,
+        divEligible: 0.10, // Approx provincial dividend tax credit
+        divIneligible: 0.0298
+    },
+    BC: {
+        name: "British Columbia",
+        brackets: [49279, 98560, 113158, 137407, 186306, 259829],
+        rates: [0.0506, 0.0770, 0.1050, 0.1229, 0.1470, 0.1680, 0.2050],
+        bpa: 12580,
+        divEligible: 0.12,
+        divIneligible: 0.0196
+    },
+    AB: {
+        name: "Alberta",
+        brackets: [151234, 181481, 241974, 362961],
+        rates: [0.10, 0.12, 0.13, 0.14, 0.15],
+        bpa: 21885,
+        divEligible: 0.0812,
+        divIneligible: 0.0218
+    },
+    QC: {
+        name: "Quebec",
+        brackets: [53255, 106495, 129590],
+        rates: [0.14, 0.19, 0.24, 0.2575],
+        bpa: 18056,
+        divEligible: 0.117,
+        divIneligible: 0.04
+    },
+    NS: {
+        name: "Nova Scotia",
+        brackets: [30507, 61015, 95883, 154650],
+        rates: [0.0879, 0.1495, 0.1667, 0.1750, 0.21],
+        bpa: 11481,
+        divEligible: 0.0885,
+        divIneligible: 0.0299
+    },
+    MB: {
+        name: "Manitoba",
+        brackets: [47000, 100000],
+        rates: [0.108, 0.1275, 0.174],
+        bpa: 15780,
+        divEligible: 0.08,
+        divIneligible: 0.0078
+    },
+    SK: {
+        name: "Saskatchewan",
+        brackets: [53463, 152750],
+        rates: [0.105, 0.125, 0.145],
+        bpa: 18491,
+        divEligible: 0.11,
+        divIneligible: 0.0336
+    },
+    NB: {
+        name: "New Brunswick",
+        brackets: [51306, 102614, 190060],
+        rates: [0.094, 0.14, 0.16, 0.195],
+        bpa: 13544,
+        divEligible: 0.116,
+        divIneligible: 0.0275
+    },
+    PE: {
+        name: "Prince Edward Island",
+        brackets: [33928, 65820, 106890, 142250],
+        rates: [0.095, 0.1347, 0.166, 0.1762, 0.187],
+        bpa: 13500,
+        divEligible: 0.105,
+        divIneligible: 0.013
+    },
+    NL: {
+        name: "Newfoundland and Labrador",
+        brackets: [44192, 88382, 157792, 220910, 282214, 564429, 1128858],
+        rates: [0.087, 0.145, 0.158, 0.178, 0.198, 0.208, 0.213, 0.218],
+        bpa: 10818,
+        divEligible: 0.063,
+        divIneligible: 0.032
+    }
+};
+
+const calculateProgressiveTax = (income: number, brackets: number[], rates: number[]) => {
+    let tax = 0;
+    let prevLimit = 0;
+
+    for (let i = 0; i < brackets.length; i++) {
+        if (income > brackets[i]) {
+            tax += (brackets[i] - prevLimit) * rates[i];
+            prevLimit = brackets[i];
+        } else {
+            tax += (income - prevLimit) * rates[i];
+            return tax;
+        }
+    }
+
+    tax += (income - prevLimit) * rates[rates.length - 1];
+    return tax;
+};
+
 export default function TaxCalculator() {
-    const [income, setIncome] = useState<number | ''>('');
-    const [taxesPaid, setTaxesPaid] = useState<number | ''>('');
+    const [income, setIncome] = useState<number>(0);
+    const [selfEmployment, setSelfEmployment] = useState<number>(0);
+    const [taxesPaid, setTaxesPaid] = useState<number>(0);
+    const [rrspContribution, setRrspContribution] = useState<number>(0);
+    const [otherIncome, setOtherIncome] = useState<number>(0);
+    const [capitalGains, setCapitalGains] = useState<number>(0);
+    const [eligibleDividends, setEligibleDividends] = useState<number>(0);
+    const [ineligibleDividends, setIneligibleDividends] = useState<number>(0);
     const [province, setProvince] = useState('ON');
-    const [result, setResult] = useState<{ refund: number; owing: number } | null>(null);
 
-    // 2024/2025 Combined Marginal Tax Rate Estimations (Simplified Top-of-bracket)
-    // Source: Taxtips.ca / CRA (Approximated for estimation tool)
-    const taxRates: Record<string, { brackets: number[], rates: number[] }> = {
-        ON: { // Ontario
-            brackets: [51446, 102894, 150000, 220000],
-            rates: [0.2005, 0.2415, 0.3148, 0.4616, 0.5353]
-        },
-        BC: { // British Columbia
-            brackets: [47937, 95875, 110076, 252752],
-            rates: [0.2006, 0.2270, 0.3100, 0.4070, 0.5350]
-        },
-        AB: { // Alberta
-            brackets: [148269, 177922, 237230, 355845],
-            rates: [0.2500, 0.3050, 0.3600, 0.3800, 0.4800]
-        },
-        NS: { // Nova Scotia (High tax)
-            brackets: [29590, 59180, 93000, 150000],
-            rates: [0.2379, 0.2432, 0.3048, 0.3717, 0.5000] // Approx combined
-        },
-        QC: { // Quebec (Very distinct, approx)
-            brackets: [51780, 103545, 126000, 240000], // QC provincial + Federal abatement
-            rates: [0.2753, 0.3253, 0.3712, 0.4112, 0.5331]
-        },
-        SK: { // Saskatchewan
-            brackets: [52057, 148734, 220000],
-            rates: [0.2550, 0.3050, 0.4000, 0.4750]
-        },
-        MB: { // Manitoba
-            brackets: [47000, 100000, 220000],
-            rates: [0.2580, 0.3325, 0.4340, 0.5040]
-        },
-        NB: { // New Brunswick
-            brackets: [49958, 99916, 185000],
-            rates: [0.2400, 0.2900, 0.4200, 0.5250]
-        },
-        PE: { // PEI
-            brackets: [32656, 64313, 105000],
-            rates: [0.2480, 0.2887, 0.3720, 0.5137]
-        },
-        NL: { // Newfoundland
-            brackets: [43198, 86395, 154244],
-            rates: [0.2370, 0.2950, 0.4030, 0.5180]
-        },
-    };
+    // Results Calculation
+    const results = useMemo(() => {
+        const prov = PROVINCIAL_DATA[province];
 
-    const calculateTax = () => {
-        const incomeVal = Number(income) || 0;
-        const paidVal = Number(taxesPaid) || 0;
+        // Dividend Gross-up
+        const grossedEligible = eligibleDividends * 1.38;
+        const grossedIneligible = ineligibleDividends * 1.15;
 
-        // Default to a generous flat rate if province not found (safe fallback)
-        const provData = taxRates[province] || taxRates['ON'];
+        // Total and Taxable Income
+        const totalIncome = income + selfEmployment + otherIncome + (capitalGains > 0 ? capitalGains * 0.5 : 0) + eligibleDividends + ineligibleDividends;
 
-        let estimatedTax = 0;
-        let remainingIncome = incomeVal;
-        let previousBracketLimit = 0;
+        // Inclusion income for tax calculation (grossed up dividends, 50% capital gains)
+        const inclusionIncome = income + selfEmployment + otherIncome + (capitalGains > 0 ? capitalGains * 0.5 : 0) + grossedEligible + grossedIneligible;
+        const taxableIncome = Math.max(0, inclusionIncome - rrspContribution);
 
-        // Progressive Calculation
-        // NOTE: This IS an estimation. Real tax involves credits (Basic Personal Amount), deductions, CPP/EI.
-        // To make it simple but "feeling" right: We calculate gross tax then subtract BPA approx worth ~3k.
+        // CPP & EI Calculation (Simplified for 2025)
+        const employmentEarnings = income + selfEmployment;
 
-        let calculated = false;
+        // CPP1
+        const cpp1Basis = Math.min(employmentEarnings, CPP_2025.ympe) - CPP_2025.exemption;
+        const cpp1 = Math.max(0, cpp1Basis * CPP_2025.rate1);
+        const finalCpp1 = Math.min(cpp1, CPP_2025.max1);
 
-        // Simple effective rate lookup (faster for lead gen tool than full loop)
-        // Find which bracket we are in and apply roughly the effective rate for that income level
-        // This avoids complex marginal math for user-facing "Estimation"
+        // CPP2
+        const cpp2Basis = Math.max(0, Math.min(employmentEarnings, CPP_2025.yampe) - CPP_2025.ympe);
+        const cpp2 = cpp2Basis * CPP_2025.rate2;
+        const finalCpp2 = Math.min(cpp2, CPP_2025.max2);
 
-        let effectiveRate = provData.rates[0];
+        const totalCPP = finalCpp1 + finalCpp2;
 
-        if (incomeVal > provData.brackets[provData.brackets.length - 1]) {
-            effectiveRate = (provData.rates[provData.rates.length - 1] + provData.rates[provData.rates.length - 2]) / 2; // High income avg
-        } else {
-            for (let i = 0; i < provData.brackets.length; i++) {
-                if (incomeVal <= provData.brackets[i]) {
-                    effectiveRate = i === 0 ? provData.rates[0] : (provData.rates[i] + provData.rates[i - 1]) / 2;
-                    break;
-                }
-            }
-        }
+        // EI
+        const eiRate = province === 'QC' ? EI_2025.rateQC : EI_2025.rate;
+        const eiMax = province === 'QC' ? EI_2025.maxQC : EI_2025.max;
+        const ei = Math.min(income * eiRate, eiMax);
 
-        estimatedTax = incomeVal * effectiveRate;
+        const totalCPPEI = totalCPP + ei;
 
-        // Basic Personal Amount Credit (Approx $15k @ 15% fed + prov ~ $2500-$3000 reduction)
-        const basicPersonalCredit = 3000;
-        estimatedTax = Math.max(0, estimatedTax - basicPersonalCredit);
+        // Federal Tax
+        let fedTaxBeforeCredits = calculateProgressiveTax(taxableIncome, FEDERAL_RATES.brackets, FEDERAL_RATES.rates);
+        // Basic Personal Amount Credit (14.5% of BPA)
+        fedTaxBeforeCredits -= (FEDERAL_RATES.bpa * 0.145);
+        // Dividend Tax Credits
+        fedTaxBeforeCredits -= (grossedEligible * 0.1502);
+        fedTaxBeforeCredits -= (grossedIneligible * 0.0903);
 
-        const difference = paidVal - estimatedTax;
+        const federalTax = Math.max(0, fedTaxBeforeCredits);
 
-        if (difference > 0) {
-            setResult({ refund: difference, owing: 0 });
-        } else {
-            setResult({ refund: 0, owing: Math.abs(difference) });
-        }
-    };
+        // Provincial Tax
+        let provTaxBeforeCredits = calculateProgressiveTax(taxableIncome, prov.brackets, prov.rates);
+        // BPA
+        provTaxBeforeCredits -= (prov.bpa * prov.rates[0]);
+        // Provincial Dividend Credits (Approximate)
+        provTaxBeforeCredits -= (grossedEligible * prov.divEligible);
+        provTaxBeforeCredits -= (grossedIneligible * prov.divIneligible);
+
+        const provTax = Math.max(0, provTaxBeforeCredits);
+
+        const totalTax = federalTax + provTax + totalCPPEI;
+        const netIncome = totalIncome - totalTax;
+
+        const averageRate = totalIncome > 0 ? (totalTax / totalIncome) * 100 : 0;
+
+        // Marginal Rate calculation
+        const testIncome = taxableIncome + 100;
+        const testTaxFed = calculateProgressiveTax(testIncome, FEDERAL_RATES.brackets, FEDERAL_RATES.rates);
+        const testTaxProv = calculateProgressiveTax(testIncome, prov.brackets, prov.rates);
+        const marginalRate = (((testTaxFed + testTaxProv) - (calculateProgressiveTax(taxableIncome, FEDERAL_RATES.brackets, FEDERAL_RATES.rates) + calculateProgressiveTax(taxableIncome, prov.brackets, prov.rates))) / 100) * 100;
+
+        return {
+            totalIncome,
+            federalTax,
+            provTax,
+            totalCPPEI,
+            totalTax,
+            netIncome,
+            averageRate,
+            marginalRate,
+            difference: taxesPaid - (federalTax + provTax) // Refund/Owed excluding CPP/EI usually
+        };
+    }, [income, selfEmployment, taxesPaid, rrspContribution, otherIncome, capitalGains, eligibleDividends, ineligibleDividends, province]);
 
     return (
-        <div className="w-full max-w-4xl mx-auto bg-white rounded-[2rem] shadow-xl border border-gray-100 overflow-hidden">
-            <div className="bg-navy-950 p-8 text-white text-center relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full bg-growth/10 opacity-20 pointer-events-none" />
-                <h2 className="text-2xl md:text-3xl font-black mb-2 relative z-10">Free Tax Refund Estimator</h2>
-                <p className="text-white/60 relative z-10">See how much you could get back this year.</p>
+        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-4 items-start bg-[#f4f7f9] p-4 rounded-3xl">
+            {/* Input Section */}
+            <div className="flex-1 space-y-4 w-full bg-white p-6 rounded-2xl shadow-sm">
+                <div className="grid md:grid-cols-1 gap-2">
+                    <div className="space-y-2">
+                        <label className="block border-b border-gray-100 pb-2">
+                            <span className="block text-[8px] font-black text-gray-400 mb-0.5 uppercase tracking-widest">Province</span>
+                            <div className="relative">
+                                <select
+                                    value={province}
+                                    onChange={(e) => setProvince(e.target.value)}
+                                    className="w-full h-8 bg-transparent font-black text-base text-navy-950 outline-none appearance-none cursor-pointer"
+                                >
+                                    <option value="" disabled>Select Province</option>
+                                    {Object.entries(PROVINCIAL_DATA).map(([code, data]) => (
+                                        <option key={code} value={code}>{data.name}</option>
+                                    ))}
+                                </select>
+                                <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 text-navy-900/30 pointer-events-none" size={12} />
+                            </div>
+                        </label>
+
+                        {[
+                            { label: "Employment income", value: income, setter: setIncome },
+                            { label: "Self-employment income", value: selfEmployment, setter: setSelfEmployment },
+                            { label: "Income taxes paid (Federal)", value: taxesPaid, setter: setTaxesPaid },
+                            { label: "RRSP and FHSA contribution", value: rrspContribution, setter: setRrspContribution },
+                            { label: "Other income (incl. EI)", value: otherIncome, setter: setOtherIncome },
+                            { label: "Capital gains & losses", value: capitalGains, setter: setCapitalGains },
+                            { label: "Eligible dividends", value: eligibleDividends, setter: setEligibleDividends },
+                            { label: "Ineligible dividends", value: ineligibleDividends, setter: setIneligibleDividends },
+                        ].map((field, idx) => (
+                            <label key={idx} className="block border-b border-gray-100 pb-2">
+                                <span className="block text-[8px] font-black text-gray-400 mb-0 uppercase tracking-widest">{field.label}</span>
+                                <div className="relative group">
+                                    <span className="absolute left-0 top-1/2 -translate-y-1/2 text-sm font-black text-navy-950/20 group-focus-within:text-blue-600 transition-colors">$</span>
+                                    <input
+                                        type="number"
+                                        value={field.value || ''}
+                                        onChange={(e) => field.setter(Number(e.target.value))}
+                                        className="w-full h-8 pl-4 bg-transparent font-black text-lg text-navy-950 outline-none placeholder:text-gray-200"
+                                        placeholder="0"
+                                    />
+                                </div>
+                            </label>
+                        ))}
+                    </div>
+                </div>
             </div>
 
-            <div className="p-8 md:p-12">
-                <div className="grid md:grid-cols-2 gap-12">
-                    <div className="space-y-6">
-                        <div>
-                            <label className="block text-sm font-bold text-navy-900 mb-2">Employment Income</label>
-                            <div className="relative">
-                                <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <input
-                                    type="number"
-                                    value={income}
-                                    onChange={(e) => setIncome(Number(e.target.value))}
-                                    placeholder="50000"
-                                    className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-growth/50 focus:border-growth outline-none transition font-bold text-lg text-navy-950"
-                                />
+            {/* Result Sidebar */}
+            <div className="w-full lg:w-[360px] space-y-4">
+                <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <div className="p-6 space-y-5">
+                        <div className="text-center">
+                            <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Estimated amount</div>
+                            <div className="text-5xl font-black text-navy-950 tracking-tight">
+                                ${Math.abs(Math.round(results.difference)).toLocaleString()}
+                            </div>
+                            <div className="text-[10px] font-black text-gray-400 mt-1 uppercase tracking-widest">
+                                {results.difference >= 0 ? "Refund" : "Balance Due"}
                             </div>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-bold text-navy-900 mb-2">Taxes Paid (from T4)</label>
-                            <div className="relative">
-                                <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <input
-                                    type="number"
-                                    value={taxesPaid}
-                                    onChange={(e) => setTaxesPaid(Number(e.target.value))}
-                                    placeholder="10000"
-                                    className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-growth/50 focus:border-growth outline-none transition font-bold text-lg text-navy-950"
-                                />
+                        <div className="space-y-3 pt-5 border-t border-gray-100">
+                            {[
+                                { label: "Total income", value: results.totalIncome },
+                                { label: "Federal tax", value: results.federalTax },
+                                { label: "Provincial tax", value: results.provTax },
+                                { label: "CPP/EI Premiums", value: results.totalCPPEI },
+                            ].map((res, i) => (
+                                <div key={i} className="flex justify-between items-center text-xs">
+                                    <span className="text-gray-500 font-bold">{res.label}</span>
+                                    <span className="text-navy-950 font-black">${Math.round(res.value).toLocaleString()}</span>
+                                </div>
+                            ))}
+                            <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                                <span className="text-navy-950 font-black text-base">Total tax</span>
+                                <span className="text-navy-950 font-black text-base">${Math.round(results.totalTax).toLocaleString()}</span>
+                            </div>
+                            <div className="flex justify-between items-center text-xs">
+                                <span className="text-gray-500 font-bold">Net income</span>
+                                <span className="text-navy-950 font-black">${Math.round(results.netIncome).toLocaleString()}</span>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 pt-3">
+                                <div className="text-center bg-gray-50 py-2 rounded-xl">
+                                    <div className="text-[8px] font-black text-gray-400 uppercase mb-0.5">Average rate</div>
+                                    <div className="text-sm font-black text-navy-950">{results.averageRate.toFixed(2)}%</div>
+                                </div>
+                                <div className="text-center bg-gray-50 py-2 rounded-xl">
+                                    <div className="text-[8px] font-black text-gray-400 uppercase mb-0.5">Marginal rate</div>
+                                    <div className="text-sm font-black text-navy-950">{results.marginalRate.toFixed(2)}%</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-bold text-navy-900 mb-2">Province</label>
-                            <select
-                                value={province}
-                                onChange={(e) => setProvince(e.target.value)}
-                                className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-growth/50 focus:border-growth outline-none transition font-bold text-lg text-navy-950 appearance-none"
+                        <div className="py-4 text-center bg-blue-600 rounded-xl">
+                            <h4 className="text-white text-xs font-black mb-0.5 px-4 leading-tight">Get ahead of your taxes this year.</h4>
+                            <Link
+                                href="/contact"
+                                className="inline-block mt-3 px-8 py-2 bg-white text-blue-600 rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition shadow-sm"
                             >
-                                <option value="ON">Ontario</option>
-                                <option value="BC">British Columbia</option>
-                                <option value="AB">Alberta</option>
-                                <option value="QC">Quebec</option>
-                                <option value="NS">Nova Scotia</option>
-                                <option value="MB">Manitoba</option>
-                                <option value="SK">Saskatchewan</option>
-                                <option value="NB">New Brunswick</option>
-                                <option value="PE">Prince Edward Island</option>
-                                <option value="NL">Newfoundland & Labrador</option>
-                            </select>
+                                Get started
+                            </Link>
                         </div>
 
-                        <button
-                            onClick={calculateTax}
-                            className="w-full py-4 bg-growth text-navy-950 rounded-xl font-black text-lg hover:bg-growth-dark transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-growth/20 flex items-center justify-center gap-2"
-                        >
-                            <Calculator className="w-6 h-6" />
-                            Calculate Refund
-                        </button>
+                        <p className="text-[8px] text-gray-400 text-center leading-relaxed">
+                            Results are approximate, for illustration only, and are not tax advice.
+                        </p>
                     </div>
+                </div>
 
-                    <div className="bg-gray-50 rounded-2xl p-8 flex flex-col justify-center items-center text-center border border-gray-200 relative">
-                        {!result ? (
-                            <>
-                                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm">
-                                    <RefreshCw className="w-10 h-10 text-gray-300" />
-                                </div>
-                                <h3 className="text-xl font-bold text-navy-900 mb-2">Your Estimate Awaits</h3>
-                                <p className="text-navy-900/40 text-sm">Enter your details to see your potential refund instantly.</p>
-                            </>
-                        ) : (
-                            <div className="w-full animate-in fade-in zoom-in duration-500">
-                                <div className="text-sm font-bold text-navy-900/50 uppercase tracking-widest mb-4">Estimated {result.refund > 0 ? 'Refund' : 'Amount Owing'}</div>
-                                <div className={`text-5xl md:text-6xl font-black mb-6 ${result.refund > 0 ? 'text-growth' : 'text-red-500'}`}>
-                                    ${(result.refund || result.owing).toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                                </div>
-                                <p className="text-navy-900/60 mb-8 text-sm leading-relaxed">
-                                    This is a rough estimate. Our experts can help you find every deduction you deserve to maximize this number.
-                                </p>
-                                <Link
-                                    href="/contact"
-                                    className="w-full py-3 bg-navy-950 text-white rounded-xl font-bold hover:bg-navy-900 transition-all shadow-lg flex items-center justify-center gap-2"
-                                >
-                                    Start Filing Now <ArrowRight size={18} />
-                                </Link>
-                                <p className="mt-4 text-xs text-navy-900/30">
-                                    *Estimation purposes only. Not a guarantee.
-                                </p>
-                            </div>
-                        )}
+                {/* Mobile App Rebrand section for sidebar or below */}
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                            <TrendingUp className="text-white" />
+                        </div>
+                        <h3 className="font-black text-navy-950">File with Confidence</h3>
                     </div>
+                    <p className="text-xs text-gray-500 leading-relaxed">
+                        TaxBuddy pairs you with expert CPAs to handle every detail of your 2024 return. 100% accurate, 100% on-time.
+                    </p>
                 </div>
             </div>
         </div>
