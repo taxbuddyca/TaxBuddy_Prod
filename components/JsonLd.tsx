@@ -80,7 +80,10 @@ export default function JsonLd() {
         review: [
             {
                 '@type': 'Review',
-                author: 'Local Client',
+                author: {
+                    '@type': 'Person',
+                    name: 'Local Client'
+                },
                 reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
                 reviewBody: 'The best virtual personal tax service in Halifax! Saved me thousands.'
             }
