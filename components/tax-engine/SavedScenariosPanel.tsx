@@ -41,6 +41,7 @@ export default function SavedScenariosPanel({
             const { data: { user } } = await supabase.auth.getUser();
 
             if (!user) {
+                console.log('User not authenticated, skipping fetch');
                 setScenarios([]);
                 setIsLoading(false);
                 return;
@@ -51,12 +52,18 @@ export default function SavedScenariosPanel({
                 : '/api/tax-engine/scenarios';
 
             const response = await fetch(url);
-            if (!response.ok) throw new Error('Failed to fetch scenarios');
+
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                console.error('Fetch scenarios failed:', response.status, response.statusText, errData);
+                throw new Error(errData.error || 'Failed to fetch scenarios');
+            }
 
             const data = await response.json();
             setScenarios(data.scenarios || []);
         } catch (error) {
             console.error('Error fetching scenarios:', error);
+            // Don't crash the UI, just show empty
             setScenarios([]);
         } finally {
             setIsLoading(false);
