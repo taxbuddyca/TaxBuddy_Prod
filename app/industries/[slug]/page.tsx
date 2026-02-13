@@ -14,6 +14,21 @@ export async function generateStaticParams() {
     return industries.flatMap(cat => cat.items.map(item => ({ slug: item.slug })));
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const item = industries.flatMap(cat => cat.items).find(i => i.slug === slug);
+
+    if (!item) return {};
+
+    return {
+        title: item.hero.title,
+        description: item.hero.subtitle,
+        alternates: {
+            canonical: `/industries/${slug}`,
+        },
+    };
+}
+
 export default async function IndustryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const item = industries.flatMap(cat => cat.items).find(i => i.slug === slug);

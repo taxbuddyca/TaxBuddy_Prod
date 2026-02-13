@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     return {
         title: service.meta?.title || `${service.title} | TaxBuddy`,
         description: service.meta?.description || service.desc,
+        alternates: {
+            canonical: `/services/${params.slug}`,
+        },
     };
 }
 

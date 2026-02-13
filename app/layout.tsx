@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     authors: [{ name: "TaxBuddy Canada", url: "https://mytaxbuddy4u.com" }],
     creator: "TaxBuddy Canada",
     publisher: "TaxBuddy Canada",
+    alternates: {
+        canonical: '/',
+    },
     robots: {
         index: true,
         follow: true,

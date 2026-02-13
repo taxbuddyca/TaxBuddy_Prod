@@ -21,6 +21,26 @@ export async function generateStaticParams() {
     return posts?.map(({ slug }) => ({ slug })) || [];
 }
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+    const supabase = createSupabaseClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+    const { data: post } = await supabase
+        .from('posts')
+        .select('title, excerpt')
+        .eq('slug', params.slug)
+        .single();
+
+    return {
+        title: post?.title || 'Blog Post',
+        description: post?.excerpt || '',
+        alternates: {
+            canonical: `/blog/${params.slug}`,
+        },
+    };
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const supabase = await createClient();
