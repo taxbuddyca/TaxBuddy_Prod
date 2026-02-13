@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { TaxRulesEngine, TaxFacts } from '@/lib/tax-engine/rules-engine';
 import { NicheCalculator } from '@/lib/tax-engine/calculators/niche-calculator';
+import SaveScenarioButton from './SaveScenarioButton';
 
 type ScenarioType = 'crypto' | 'real_estate' | 'cross_border' | null;
 
@@ -152,7 +153,13 @@ export default function NicheEngine() {
 
                     <div className="lg:col-span-1">
                         {results ? (
-                            <ResultsPanel results={results} isCalculating={isCalculating} />
+                            <ResultsPanel
+                                results={results}
+                                isCalculating={isCalculating}
+                                brainType="niche"
+                                scenarioType={scenario || ''}
+                                facts={facts}
+                            />
                         ) : (
                             <div className="bg-white rounded-3xl border border-gray-200 p-8 text-center">
                                 <Calculator size={48} className="mx-auto text-gray-300 mb-4" />
@@ -326,7 +333,7 @@ const FormField = ({ label, type, value, onChange, prefix, helpText }: any) => (
     </div>
 );
 
-const ResultsPanel = ({ results, isCalculating }: any) => {
+const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts }: any) => {
     if (isCalculating) {
         return (
             <div className="bg-white rounded-3xl border border-gray-200 p-8">
@@ -405,6 +412,16 @@ const ResultsPanel = ({ results, isCalculating }: any) => {
                     </div>
                 </div>
             )}
+
+            {/* Save Scenario Button */}
+            <div className="flex justify-center">
+                <SaveScenarioButton
+                    brainType={brainType}
+                    scenarioType={scenarioType}
+                    facts={facts}
+                    results={results}
+                />
+            </div>
         </div>
     );
 };
