@@ -74,8 +74,8 @@ test.describe('Tax Engine Tests', () => {
 
         // Check results
         await expect(page.getByText('Estimated Savings')).toBeVisible();
-        // Quick Method Savings logic: 150000 * 0.03 = 4500 approx.
-        await expect(page.getByText('$4,500').first()).toBeVisible();
+        // Benefit of Quick Method ($4,884.000) over Regular ITCs ($650.000) = $4,234.000
+        await expect(page.getByText('$4,234.000').first()).toBeVisible();
     });
 
     test('Niche Engine - Navigation Check', async ({ page }) => {
