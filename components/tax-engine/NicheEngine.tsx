@@ -22,7 +22,14 @@ export default function NicheEngine() {
     const [scenario, setScenario] = useState<ScenarioType>(null);
     const [facts, setFacts] = useState<Partial<TaxFacts>>({
         income: 0,
-        province: 'ON'
+        province: 'ON',
+        crypto_trades_per_year: 0,
+        average_holding_period_days: 0,
+        property_ownership_days: 0,
+        sale_reason: 'other',
+        properties_sold_in_year: 0,
+        has_us_income: false,
+        filed_us_taxes: false
     });
     const [results, setResults] = useState<any>(null);
     const [isCalculating, setIsCalculating] = useState(false);

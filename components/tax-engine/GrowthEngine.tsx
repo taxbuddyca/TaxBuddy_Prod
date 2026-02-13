@@ -23,7 +23,15 @@ export default function GrowthEngine() {
     const [facts, setFacts] = useState<Partial<TaxFacts>>({
         income: 0,
         revenue: 0,
-        province: 'ON'
+        province: 'ON',
+        business_expenses: 0,
+        hiring_spouse: false,
+        spouse_hours_per_week: 0,
+        spouse_age: 0,
+        industry: '',
+        vehicle_type: 'gas',
+        vehicle_cost: 0,
+        business_use_percentage: 0
     });
     const [results, setResults] = useState<any>(null);
     const [isCalculating, setIsCalculating] = useState(false);

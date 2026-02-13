@@ -22,7 +22,8 @@ export default function LifeEngine() {
     const [scenario, setScenario] = useState<ScenarioType>(null);
     const [facts, setFacts] = useState<Partial<TaxFacts>>({
         income: 0,
-        province: 'ON'
+        province: 'ON',
+        marital_status: 'single'
     });
     const [results, setResults] = useState<any>(null);
     const [isCalculating, setIsCalculating] = useState(false);
