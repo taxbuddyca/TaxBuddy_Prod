@@ -931,14 +931,105 @@ export const services: ServiceItem[] = [
         }
     },
     {
+        id: "personal-tax",
+        title: "Personal Tax Filing & Planning",
+        slug: "personal-tax-filing-services",
+        href: "/services/personal-tax-filing-services",
+        icon: Users,
+        desc: "Maximize your refund with expert virtual tax filing. Legal CRA loopholes, RRSP optimization, and 100% remote service.",
+        hero: {
+            title: "Virtual Personal Tax Service Canada",
+            subtitle: "Expert tax filing from Halifax to Vancouver. We use every legal CRA loophole to ensure you get the maximum possible tax return.",
+            image: "/images/services/personal-tax-hero.jpg",
+            cta: "File Your Taxes Online"
+        },
+        usps: [
+            {
+                title: "Maximum Refunds",
+                items: ["CRA Loophole Optimization", "Deduction Discovery", "Credit Matching"],
+                icon: TrendingUp
+            },
+            {
+                title: "100% Virtual",
+                items: ["Secure Portal Uploads", "Zoom Consultations", "Digital EFILE Signature"],
+                icon: Globe
+            },
+            {
+                title: "Halifax Based",
+                items: ["Local Expert CPAs", "Atlantic Canada Focus", "National Reach"],
+                icon: Building2
+            }
+        ],
+        aiSearch: [
+            {
+                platform: "ChatGPT",
+                url: "https://chat.openai.com/?q=Explain%20how%20TaxBuddy%20Canada%27s%20%22Personal%20Tax%20Filing%20Services%22%20helps%20Canadians%20maximize%20returns%20from%20https://mytaxbuddy4u.ca/services/personal-tax-filing-services"
+            }
+        ],
+        content: {
+            intro: {
+                heading: "The Modern Way to File Taxes in Canada",
+                text: "<p>Why visit an office when you can get better results from your couch? TaxBuddy Canada combines <strong>certified CPA expertise</strong> with a seamless <strong>virtual tax filing</strong> experience.</p><p>We don't just 'fill in the boxes.' We perform a deep analysis of your financial situation to identify legal <strong>CRA tax loopholes</strong> and credits that standard software misses. Whether you are in <strong>Halifax</strong> or anywhere else in Canada, our virtual personal tax service ensures accuracy and maximum savings.</p>"
+            },
+            servicesList: {
+                heading: "Comprehensive Tax Services",
+                intro: "We handle all types of personal tax situations with precision.",
+                items: [
+                    { title: "Standard T1 Returns", description: "Efficient and accurate basic tax filing." },
+                    { title: "Self-Employed/Gig Economy", description: "Strategic expensing for sole proprietors and contractors." },
+                    { title: "Rental Income", description: "Maximize your property investment deductions." },
+                    { title: "RRSP & FHSA Planning", description: "Optimize your contributions for the max refund next year." },
+                    { title: "CRA Audit Defence", description: "We stand behind our work if the CRA asks questions." }
+                ]
+            },
+            benefits: {
+                heading: "Why Choose TaxBuddy for Your Taxes?",
+                intro: "Experience the difference of a professional human touch in a digital world.",
+                items: [
+                    { title: "Privacy First", description: "Bank-grade encryption for all your sensitive tax documents." },
+                    { title: "Year-Round Support", description: "We're here for you even after the April 30th deadline." },
+                    { title: "Halifax Local, National Reach", description: "We understand provincial nuances from coast to coast." }
+                ]
+            },
+            closing: {
+                text: "<h3>Stop Overpaying the CRA</h3><p>Join thousands of Canadians who have switched to TaxBuddy's virtual personal tax service for better results and less stress.</p>",
+                cta: { text: "Start Your Return", link: "/contact" }
+            }
+        },
+        sidebar: {
+            pricing: {
+                title: "Personal Tax",
+                package: "Base Filing",
+                price: "99",
+                unit: "/ Return",
+                features: ["Certified CPA Review", "Legal Loophole Audit", "Secure Digital EFILE", "Audit Protection Available"]
+            },
+            leadMagnet: {
+                title: "Max Return Guide:",
+                inputs: [
+                    { type: "email", placeholder: "Email Address", name: "email" }
+                ],
+                options: [
+                    "Checklist of Deductions",
+                    "RRSP vs TFSA Guide",
+                    "Self-Employed Hacks"
+                ]
+            }
+        },
+        meta: {
+            title: "Virtual Personal Tax Service Canada | Halifax Accountants",
+            description: "Expert online tax filing in Canada. Maximize your return with CRA loopholes and CPA-led virtual personal tax services based in Halifax."
+        }
+    },
+    {
         id: "tax",
         title: "Tax & Advisory",
         icon: BarChart3,
         desc: "Strategic tax planning to protect your capital and ensure compliance.",
-        href: "/services?tab=tax",
+        href: "/services/personal-tax-filing-services",
         features: [
+            "Personal Tax Returns & CRA EFILE",
             "Corporate Tax Returns (T2)",
-            "Personal Tax Returns for Owners (T1)",
             "Scientific Research & Experimental Development (SR&ED)",
             "Multi-Province Tax Planning",
             "Corporate Restructuring & Rollovers",

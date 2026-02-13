@@ -31,11 +31,11 @@ export default function Home() {
                 <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center h-full text-center">
                     <div className="max-w-4xl flashy-reveal flex flex-col items-center">
                         <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-navy-950 leading-[1.1] tracking-tight mb-8 transition-all duration-700 hover:tracking-wide">
-                            The Finance Team <br />
-                            <span className="text-growth">for Growth.</span>
+                            Virtual <span className="text-growth">Personal Tax</span> & <br />
+                            Finance Teams for Growth.
                         </h1>
                         <p className="text-lg md:text-xl text-navy-900/80 mb-10 leading-relaxed max-w-2xl font-medium">
-                            Tax, bookkeeping, and fractional CFO expertise for Canada's most ambitious companies.
+                            Expert online tax filing, bookkeeping, and fractional CFO services for Halifax and all of Canada.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-6 mb-12 w-full sm:w-auto justify-center">
                             <Link href="/contact" className="group bg-growth text-white px-10 py-5 rounded-2xl text-base font-black hover:scale-105 transition-all flex items-center justify-center gap-2 shadow-lg shadow-growth/20 whitespace-nowrap">

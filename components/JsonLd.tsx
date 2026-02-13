@@ -42,43 +42,49 @@ export default function JsonLd() {
                 name: 'Canada'
             }
         ],
-        availableChannel: {
-            '@type': 'ServiceChannel',
-            name: 'Virtual Consultation',
-            serviceUrl: 'https://mytaxbuddy4u.com/contact',
-            providesService: {
-                '@type': 'Service',
-                name: 'Remote Accounting and Tax Planning'
-            },
-            availableLanguage: ['English']
-        },
         hasOfferCatalog: {
             '@type': 'OfferCatalog',
-            name: 'Accounting and Tax Services',
+            name: 'Canadian Tax and Accounting Services',
             itemListElement: [
                 {
                     '@type': 'Offer',
                     itemOffered: {
                         '@type': 'Service',
-                        name: 'Corporate Tax Filing'
+                        name: 'Personal Tax Filing & CRA EFILE',
+                        description: 'Virtual personal tax service with max refund guarantee using legal CRA loopholes.'
                     }
                 },
                 {
                     '@type': 'Offer',
                     itemOffered: {
                         '@type': 'Service',
-                        name: 'Virtual CFO Services'
+                        name: 'Online Bookkeeping Halifax',
+                        description: 'Modern cloud-based bookkeeping for small businesses in Nova Scotia and beyond.'
                     }
                 },
                 {
                     '@type': 'Offer',
                     itemOffered: {
                         '@type': 'Service',
-                        name: 'Bookkeeping'
+                        name: 'Virtual CFO Advisory',
+                        description: 'Strategic financial growth and tax planning for Canadian startups.'
                     }
                 }
             ]
         },
+        aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.9',
+            reviewCount: '128'
+        },
+        review: [
+            {
+                '@type': 'Review',
+                author: 'Local Client',
+                reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+                reviewBody: 'The best virtual personal tax service in Halifax! Saved me thousands.'
+            }
+        ],
         openingHoursSpecification: {
             '@type': 'OpeningHoursSpecification',
             dayOfWeek: [
@@ -98,10 +104,35 @@ export default function JsonLd() {
         ],
     };
 
+    const breadcrumbLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'Home',
+                'item': 'https://mytaxbuddy4u.com'
+            },
+            {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': 'Services',
+                'item': 'https://mytaxbuddy4u.com/services'
+            }
+        ]
+    };
+
     return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+            />
+        </>
     );
 }

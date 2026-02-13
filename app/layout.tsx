@@ -17,14 +17,53 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://mytaxbuddy4u.com'),
-    title: "TaxBuddy Canada | Halifax Accountants & Virtual CFOs",
-    description: "Modern virtual bookkeeping, tax planning, and CFO services for Halifax and Canadian startups. Expert CPAs available via Zoom/Phone.",
+    title: {
+        default: "TaxBuddy Canada | Halifax Accountants & Virtual personal tax service",
+        template: "%s | TaxBuddy Canada"
+    },
+    description: "Virtual personal tax filing, online bookkeeping, and CFO services in Halifax & across Canada. Maximize tax savings with legal CRA loopholes. 100% remote personal service.",
+    keywords: [
+        "Halifax accountants", "virtual CPA Canada", "online tax filing", "personal tax service Halifax",
+        "CRA tax loopholes", "maximize tax return Canada", "virtual bookkeeping Halifax",
+        "tax savings Canada", "remote accounting services", "startup CFO Canada"
+    ],
+    authors: [{ name: "TaxBuddy Canada", url: "https://mytaxbuddy4u.com" }],
+    creator: "TaxBuddy Canada",
+    publisher: "TaxBuddy Canada",
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
+    openGraph: {
+        type: "website",
+        locale: "en_CA",
+        url: "https://mytaxbuddy4u.com",
+        title: "TaxBuddy Canada | Halifax Accountants & Virtual personal tax service",
+        description: "Modern virtual bookkeeping, tax planning, and CFO services for Halifax and Canadian startups. Expert CPAs available via Zoom/Phone.",
+        siteName: "TaxBuddy Canada",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "TaxBuddy Canada | Virtual personal tax service & CFOs",
+        description: "Maximize your Canadian tax refund with expert virtual tax services. Based in Halifax, serving all of Canada.",
+        creator: "@taxbuddyca",
+    },
     manifest: "/manifest.json",
     appleWebApp: {
         capable: true,
         statusBarStyle: "default",
         title: "TaxBuddy",
     },
+    verification: {
+        google: "google-site-verification-id", // User should provide real ID if available
+    }
 };
 
 import Navbar from "@/components/Navbar";
