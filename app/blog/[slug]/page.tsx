@@ -12,33 +12,59 @@ export const revalidate = 60;
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 export async function generateStaticParams() {
-    // specific client for static generation to avoid cookie issues during build
-    const supabase = createSupabaseClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-    const { data: posts } = await supabase.from('posts').select('slug');
-    return posts?.map(({ slug }) => ({ slug })) || [];
+    try {
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+            console.warn('⚠️ Missing Supabase environment variables for static generation.');
+            return [];
+        }
+
+        // specific client for static generation to avoid cookie issues during build
+        const supabase = createSupabaseClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        );
+
+        const { data: posts, error } = await supabase.from('posts').select('slug');
+        if (error) {
+            console.error('❌ Supabase error during generateStaticParams:', error);
+            return [];
+        }
+
+        return posts?.map(({ slug }) => ({ slug })) || [];
+    } catch (err) {
+        console.error('🔥 Unexpected error in generateStaticParams:', err);
+        return [];
+    }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-    const supabase = createSupabaseClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-    const { data: post } = await supabase
-        .from('posts')
-        .select('title, excerpt')
-        .eq('slug', params.slug)
-        .single();
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    try {
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+            return { title: 'Blog Post | TaxBuddy Canada' };
+        }
 
-    return {
-        title: post?.title || 'Blog Post',
-        description: post?.excerpt || '',
-        alternates: {
-            canonical: `/blog/${params.slug}`,
-        },
-    };
+        const supabase = createSupabaseClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        );
+        const { data: post } = await supabase
+            .from('posts')
+            .select('title, excerpt')
+            .eq('slug', slug)
+            .single();
+
+        return {
+            title: post?.title || 'Blog Post | TaxBuddy Canada',
+            description: post?.excerpt || '',
+            alternates: {
+                canonical: `/blog/${slug}`,
+            },
+        };
+    } catch (err) {
+        console.error('🔥 Error in generateMetadata:', err);
+        return { title: 'Blog Post | TaxBuddy Canada' };
+    }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -54,6 +80,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         notFound();
     }
 
+    const postCategory = post.category || 'General';
+    const postDate = post.published_at ? new Date(post.published_at).toLocaleDateString() : 'Recent';
+
     return (
         <main className="pt-32 pb-24">
             <article className="container mx-auto px-6 max-w-4xl">
@@ -65,10 +94,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {/* Header */}
                 <div className="mb-12">
                     <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-navy-900/40 mb-6">
-                        <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full">{post.category || 'General'}</span>
+                        <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full">{postCategory}</span>
                         <div className="flex items-center gap-1">
                             <Calendar size={14} />
-                            {new Date(post.published_at).toLocaleDateString()}
+                            {postDate}
                         </div>
                         <div className="flex items-center gap-1">
                             <Clock size={14} />
