@@ -19,7 +19,7 @@ export const getPricingPlans = async (serviceSlug?: string) => {
         .select("*");
 
     if (serviceSlug) {
-        query = query.eq("service_slug", serviceSlug);
+        query = query.or(`service_slug.eq.${serviceSlug},service_slug.ilike.${serviceSlug}:%`);
     } else {
         query = query.is("service_slug", null);
     }

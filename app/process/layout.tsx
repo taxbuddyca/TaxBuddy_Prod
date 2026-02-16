@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Our Process | TaxBuddy Canada',
-    description: 'Learn about our streamlined virtual accounting process. How we onboard clients and deliver exceptional service.',
+    title: 'Our Process | How It Works | Free 15-Minute Consultation | TaxBuddy',
+    description: 'Learn about our streamlined virtual accounting process. From onboarding to tax filing, we make it simple and efficient. Book a free 15-minute consultation to get started.',
     alternates: {
         canonical: '/process',
     },

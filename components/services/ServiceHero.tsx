@@ -31,6 +31,16 @@ export default function ServiceHero({ hero }: ServiceHeroProps) {
                     <h1 className="text-4xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
                         {hero.title}
                     </h1>
+
+                    {/* Answer-First Block for AI Extraction */}
+                    {(hero as any).answerFirst && (
+                        <div className="max-w-3xl mx-auto mb-10 p-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-left shadow-2xl animate-in fade-in slide-in-from-bottom-5 duration-700">
+                            <p className="text-white text-lg font-bold leading-relaxed">
+                                {(hero as any).answerFirst}
+                            </p>
+                        </div>
+                    )}
+
                     <p className="text-xl text-white/80 mb-10 leading-relaxed font-medium">
                         {hero.subtitle}
                     </p>

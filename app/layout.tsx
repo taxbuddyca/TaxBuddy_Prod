@@ -18,14 +18,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     metadataBase: new URL('https://mytaxbuddy4u.com'),
     title: {
-        default: "TaxBuddy Canada | Halifax Accountants & Virtual personal tax service",
+        default: "TaxBuddy Canada | Halifax Accountants & Virtual personal tax service | Free 15-Min Consultation",
         template: "%s | TaxBuddy Canada"
     },
-    description: "Virtual personal tax filing, online bookkeeping, and CFO services in Halifax & across Canada. Maximize tax savings with legal CRA loopholes. 100% remote personal service.",
+    description: "Virtual personal tax filing, online bookkeeping, and CFO services in Halifax & across Canada. Maximize tax savings with legal CRA loopholes. Book a free 15-minute consultation today! 100% remote personal service.",
     keywords: [
         "Halifax accountants", "virtual CPA Canada", "online tax filing", "personal tax service Halifax",
         "CRA tax loopholes", "maximize tax return Canada", "virtual bookkeeping Halifax",
-        "tax savings Canada", "remote accounting services", "startup CFO Canada"
+        "tax savings Canada", "remote accounting services", "startup CFO Canada",
+        "free 15-minute tax consultation", "book free tax review"
     ],
     authors: [{ name: "TaxBuddy Canada", url: "https://mytaxbuddy4u.com" }],
     creator: "TaxBuddy Canada",
@@ -49,13 +50,13 @@ export const metadata: Metadata = {
         locale: "en_CA",
         url: "https://mytaxbuddy4u.com",
         title: "TaxBuddy Canada | Halifax Accountants & Virtual personal tax service",
-        description: "Modern virtual bookkeeping, tax planning, and CFO services for Halifax and Canadian startups. Expert CPAs available via Zoom/Phone.",
+        description: "Modern virtual bookkeeping, tax planning, and CFO services for Halifax and Canadian startups. Book a free 15-minute consultation with our expert CPAs via Zoom/Phone.",
         siteName: "TaxBuddy Canada",
     },
     twitter: {
         card: "summary_large_image",
         title: "TaxBuddy Canada | Virtual personal tax service & CFOs",
-        description: "Maximize your Canadian tax refund with expert virtual tax services. Based in Halifax, serving all of Canada.",
+        description: "Maximize your Canadian tax refund with expert virtual tax services. Book your free 15-minute consultation today. Based in Halifax, serving all of Canada.",
         creator: "@taxbuddyca",
     },
     manifest: "/manifest.json",

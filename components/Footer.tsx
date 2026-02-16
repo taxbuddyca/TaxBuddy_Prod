@@ -34,25 +34,32 @@ export default function Footer() {
 
 
                     <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Ecosystem</h4>
+                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Regional</h4>
                         <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
-                            <Link href="/services" className="hover:text-growth transition">Services</Link>
-                            <Link href="/pricing" className="hover:text-growth transition">Pricing</Link>
-                            <Link href="/tools/tax-calculator" className="hover:text-growth transition">Tax Calculator</Link>
-                            <Link href="/tools/rrsp-calculator" className="hover:text-growth transition">RRSP Tool</Link>
-                            <Link href="/process" className="hover:text-growth transition">Process</Link>
-
+                            <Link href="/halifax-tax-accountants" className="hover:text-growth transition">Halifax</Link>
+                            <Link href="/toronto-tax-accountants" className="hover:text-growth transition">Toronto</Link>
+                            <Link href="/vancouver-tax-accountants" className="hover:text-growth transition">Vancouver</Link>
+                            <Link href="/calgary-tax-accountants" className="hover:text-growth transition">Calgary</Link>
                         </div>
                     </div>
 
                     <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Company</h4>
+                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Industries</h4>
+                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
+                            <Link href="/industries/real-estate-investors-tax" className="hover:text-growth transition">Real Estate</Link>
+                            <Link href="/industries/construction-trades-accounting" className="hover:text-growth transition">Construction</Link>
+                            <Link href="/industries/rideshare-delivery-tax-accounting" className="hover:text-growth transition">Gig Economy</Link>
+                            <Link href="/industries/ecommerce-tax-accounting" className="hover:text-growth transition">E-Commerce</Link>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Support</h4>
                         <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
                             <Link href="/about" className="hover:text-growth transition">About Us</Link>
-
-                            <Link href="/careers" className="hover:text-growth transition">Careers</Link>
                             <Link href="/blog" className="hover:text-growth transition">Blog</Link>
                             <Link href="/faq" className="hover:text-growth transition">FAQ</Link>
+                            <Link href="/contact" className="hover:text-growth transition">Contact</Link>
                         </div>
                     </div>
 
@@ -61,8 +68,6 @@ export default function Footer() {
                         <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
                             <Link href="/privacy" className="hover:text-growth transition">Privacy Policy</Link>
                             <Link href="/terms" className="hover:text-growth transition">Terms of Service</Link>
-                            <Link href="/cookies" className="hover:text-growth transition">Cookie Policy</Link>
-                            <Link href="/resources/tax-dates" className="hover:text-growth transition">Important Tax Dates</Link>
                         </div>
                     </div>
                 </div>

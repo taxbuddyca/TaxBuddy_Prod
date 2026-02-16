@@ -2,6 +2,7 @@
 import { MetadataRoute } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { services } from '@/lib/data/services';
+import { industries } from '@/lib/data/industries';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://mytaxbuddy4u.com';
@@ -22,6 +23,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '/blog',
         '/resources/loopholes-for-max-returns',
         '/resources/tax-dates',
+        '/halifax-tax-accountants',
+        '/toronto-tax-accountants',
+        '/vancouver-tax-accountants',
+        '/calgary-tax-accountants',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -38,6 +43,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly' as const,
             priority: 0.9,
         }));
+
+    // Industry pages
+    const industryRoutes: MetadataRoute.Sitemap = industries.flatMap(category =>
+        category.items.map(item => ({
+            url: `${baseUrl}/industries/${item.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.85,
+        }))
+    );
 
     // Fetch dynamic blog posts
     const supabase = createClient(
@@ -60,5 +75,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.7,
         }));
 
-    return [...routes, ...serviceRoutes, ...blogRoutes];
+    return [...routes, ...serviceRoutes, ...industryRoutes, ...blogRoutes];
 }

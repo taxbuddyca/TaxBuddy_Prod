@@ -31,30 +31,35 @@ const fallbackPlans = [
     }
 ];
 
-export default function PricingTable() {
+export default function PricingTable({ serviceSlug }: { serviceSlug?: string }) {
     const [plans, setPlans] = useState<PricingPlan[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                const data = await getPricingPlans();
+                const data = await getPricingPlans(serviceSlug);
                 if (data && data.length > 0) {
                     setPlans(data);
                 } else {
-                    // @ts-ignore
-                    setPlans(fallbackPlans);
+                    setPlans([{
+                        name: "Pricing Pending",
+                        price: "Contact",
+                        tag: "Custom Plan",
+                        popular: false,
+                        features: ["Check back soon for standard rates", "Manageable via Admin Panel"],
+                        service_slug: serviceSlug
+                    }]);
                 }
             } catch (err) {
-                console.error("Using fallback pricing due to connection error");
-                // @ts-ignore
-                setPlans(fallbackPlans);
+                console.error("Error fetching plans:", err);
+                setPlans([]);
             } finally {
                 setLoading(false);
             }
         };
         fetch();
-    }, []);
+    }, [serviceSlug]);
 
     const getIcon = (name: string) => {
         if (name.includes("Growth")) return <Zap className="w-8 h-8 text-growth" />;
@@ -75,7 +80,7 @@ export default function PricingTable() {
             {plans.map((plan, i) => (
                 <GlassCard
                     key={i}
-                    className={`p-12 flex flex-col items-start relative overflow-hidden transition-all duration-500 group border-gray-100 bg-white shadow-sm ${plan.popular ? 'border-growth/50 shadow-premium scale-105 z-10' : 'hover:border-growth/20 hover:shadow-lg'}`}
+                    className={`p-6 flex flex-col items-start relative overflow-hidden transition-all duration-500 group border-gray-100 bg-white shadow-sm ${plan.popular ? 'border-growth/50 shadow-premium scale-105 z-10' : 'hover:border-growth/20 hover:shadow-lg'}`}
                     intensity="light"
                 >
                     {plan.popular && (
@@ -83,19 +88,19 @@ export default function PricingTable() {
                             Popular
                         </div>
                     )}
-                    <div className="mb-8 p-4 bg-blue-50/50 rounded-2xl group-hover:bg-growth group-hover:text-white transition-all duration-500 border border-blue-100/50">
+                    <div className="mb-3 p-2 bg-blue-50/50 rounded-xl group-hover:bg-growth group-hover:text-white transition-all duration-500 border border-blue-100/50">
                         {getIcon(plan.name)}
                     </div>
-                    <h4 className="text-3xl font-black text-navy-950 mb-2">{plan.name}</h4>
-                    <div className="text-xs font-black text-growth/80 uppercase tracking-[0.2em] mb-8">{plan.tag}</div>
+                    <h4 className="text-xl font-black text-navy-950 mb-1">{plan.name}</h4>
+                    <div className="text-xs font-black text-growth/80 uppercase tracking-[0.2em] mb-2">{plan.tag}</div>
 
-                    <div className="text-5xl font-black text-navy-950 mb-10 tracking-tighter">
+                    <div className="text-3xl font-black text-navy-950 mb-4 tracking-tighter">
                         {plan.price}
-                        {plan.price !== "Custom" && !plan.price.includes("Custom") && <span className="text-lg text-navy-900/40 font-bold ml-1">{plan.frequency || '/mo'}</span>}
+                        {plan.price !== "Custom" && !plan.price.includes("Custom") && <span className="text-base text-navy-900/40 font-bold ml-1">{plan.frequency || '/mo'}</span>}
                     </div>
 
-                    <div className="w-full space-y-4 mb-12">
-                        <div className="text-[10px] font-black text-navy-900/40 uppercase tracking-[0.2em] mb-4">Core Benefits</div>
+                    <div className="w-full space-y-2 mb-4">
+                        <div className="text-[10px] font-black text-navy-900/40 uppercase tracking-[0.2em] mb-2">Core Benefits</div>
                         {plan.features.map((feat, idx) => (
                             <div key={idx} className="flex items-center gap-3 text-sm font-medium text-navy-900/80 group-hover:text-navy-950 transition-colors">
                                 <div className="w-5 h-5 rounded-full bg-growth/10 flex items-center justify-center flex-shrink-0">
@@ -106,11 +111,11 @@ export default function PricingTable() {
                         ))}
                     </div>
 
-                    <Link href="/contact" className={`w-full py-5 rounded-xl font-black text-lg transition-all flex items-center justify-center gap-3 mt-auto ${plan.popular ? 'bg-growth text-white hover:bg-growth-600 hover:shadow-lg shadow-growth/20' : 'bg-navy-950 text-white hover:bg-navy-900 hover:scale-[1.02]'}`}>
-                        {plan.price.includes("Custom") ? "Contact Sales" : "Get Started"} <ArrowRight size={20} />
+                    <Link href="/contact" className={`w-full py-2.5 rounded-xl font-black text-base transition-all flex items-center justify-center gap-3 mt-auto ${plan.popular ? 'bg-growth text-white hover:bg-growth-600 hover:shadow-lg shadow-growth/20' : 'bg-navy-950 text-white hover:bg-navy-900 hover:scale-[1.02]'}`}>
+                        {plan.price.includes("Custom") ? "Contact Sales" : "Get Started"} <ArrowRight size={18} />
                     </Link>
 
-                    <div className="mt-6 w-full text-center">
+                    <div className="mt-2 w-full text-center">
                         <div className="text-[10px] font-black text-navy-900/30 uppercase tracking-widest italic leading-relaxed">
                             No hourly billing. <br /> Total price transparency.
                         </div>

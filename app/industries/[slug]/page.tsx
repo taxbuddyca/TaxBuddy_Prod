@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!item) return {};
 
     return {
-        title: item.hero.title,
-        description: item.hero.subtitle,
+        title: `${item.hero.title} | Free 15-Minute Consultation | TaxBuddy`,
+        description: `${item.hero.subtitle} Book a free 15-minute consultation with our specialized CPA team.`,
         alternates: {
             canonical: `/industries/${slug}`,
         },

@@ -1,6 +1,6 @@
 import {
     Stethoscope, Building2, Briefcase, Coins, Home, ShoppingCart, Truck, Utensils, Gavel, Monitor, Factory, HeartPulse, Pill, Syringe, Lightbulb, PenTool, HardHat,
-    Users, ShieldAlert, TrendingUp, TrendingDown, Clock, CheckCircle, DollarSign, Calculator, Receipt, PawPrint, Activity, Megaphone, Target, PieChart, BarChart
+    Users, ShieldAlert, TrendingUp, TrendingDown, Clock, CheckCircle, DollarSign, Calculator, Receipt, PawPrint, Activity, Megaphone, Target, PieChart, BarChart, History, Hammer, FileText, ShieldCheck
 } from 'lucide-react';
 
 export interface IndustryItem {
@@ -1241,6 +1241,206 @@ export const industries: IndustryCategory[] = [
                 },
                 faq: [
                     { question: "Do I need to collect US tax?", answer: "It depends on your sales volume in each state (Nexus). We can help you assess your liability." }
+                ]
+            }
+        ]
+    },
+    {
+        category: "Gig Economy",
+        description: "Specialized tax filing for rideshare, delivery, and freelancers.",
+        icon: Truck,
+        items: [
+            {
+                title: "Rideshare & Delivery Drivers",
+                slug: "rideshare-delivery-tax-accounting",
+                description: "Maximize your refund as an Uber, Lyft, or Instacart driver with expert tax filing.",
+                icon: Truck,
+                hero: {
+                    title: "Tax Filing for Uber & Lyft Drivers",
+                    subtitle: "Don't overpay the CRA. We specialize in rideshare tax deductions and GST/HST compliance.",
+                    image: "/images/industries/rideshare-hero.jpg"
+                },
+                intro: {
+                    heading: "How do Uber and Lyft drivers file taxes in Canada?",
+                    text: "As a rideshare or delivery driver, you are considered a self-employed business owner in the eyes of the CRA. This means you must report your gross earnings and can deduct all eligible business expenses to reduce your taxable income. TaxBuddy Canada helps you navigate the complex GST/HST requirements and identifies every possible deduction to maximize your refund."
+                },
+                challenges: {
+                    title: "Common Gig Economy Tax Challenges",
+                    items: [
+                        { title: "GST/HST Registration", text: "Rideshare drivers must register for GST/HST immediately, regardless of income level.", icon: Gavel },
+                        { title: "Mileage Tracking", text: "Maintaining a precise logbook to separate personal vs. business vehicle use.", icon: Clock },
+                        { title: "Expense Allocation", text: "Calculating the business portion of cell phone, insurance, and maintenance costs.", icon: Calculator },
+                        { title: "Quarterly Instalments", text: "Managing tax payments throughout the year to avoid large year-end bills.", icon: Coins }
+                    ]
+                },
+                solutions: {
+                    title: "Our Rideshare Tax Solutions",
+                    items: [
+                        { title: "Automated Bookkeeping", text: "Sync your bank accounts to automatically track fuel and maintenance expenses.", icon: CheckCircle },
+                        { title: "Logbook Support", text: "Tips and tools for maintaining a CRA-compliant mileage log.", icon: History },
+                        { title: "HST Filings", text: "We handle your annual or quarterly GST/HST returns accurately.", icon: Calculator },
+                        { title: "Audit Protection", text: "We ensure your deductions are backed by receipts and industry standards.", icon: ShieldAlert }
+                    ]
+                },
+                benefits: {
+                    title: "Why Drivers Choose TaxBuddy",
+                    items: [
+                        { title: "100% Virtual", text: "File your taxes from your car or home—no office visits required." },
+                        { title: "CPA Oversight", text: "Every return is reviewed by a certified professional, not just software." },
+                        { title: "Maximum Write-offs", text: "We know exactly what Uber and Instacart drivers can legally deduct." }
+                    ]
+                },
+                detailedContent: [
+                    {
+                        title: "What expenses can Uber and Lyft drivers write off in Canada?",
+                        content: "<p>The CRA allows rideshare drivers to deduct a portion of their vehicle expenses based on the percentage of business use. Eligible expenses include: Fuel and charging costs, vehicle insurance and registration, maintenance and repairs, car wash and supplies, and lease payments or interest on car loans. You can also deduct business-related portions of your cell phone bill, parking fees, and road tolls.</p>"
+                    },
+                    {
+                        title: "Do I need to register for GST/HST in Ontario or Nova Scotia?",
+                        content: "<p>Yes. If you provide taxi or rideshare services (like Uber or Lyft), you must register for a GST/HST account from the first day you start driving. This is different from other businesses that only register after hitting $30,000 in revenue. TaxBuddy can handle the registration and filing for you to ensure you remain compliant and claim the Input Tax Credits (ITCs) you are entitled to.</p>"
+                    }
+                ],
+                faq: [
+                    {
+                        question: "How do I track mileage for Uber taxes in Canada?",
+                        answer: "You should maintain a logbook (physical or digital) that records your odometer reading at the start and end of the year, plus the date, destination, and purpose of every business trip. Apps like MileIQ can help automate this process."
+                    },
+                    {
+                        question: "What happens if I'm late filing my gig economy taxes?",
+                        answer: "Late filing can result in a penalty of 5% of your balance owing, plus 1% for each full month the return is late. If you are self-employed, your deadline is June 15th, but any tax owing is due by April 30th."
+                    },
+                    {
+                        question: "Can I do my bookkeeping for Uber driving myself?",
+                        answer: "While you can use simple spreadsheets, we recommend using cloud-based software like QuickBooks Self-Employed. TaxBuddy can set this up for you so your expenses are categorized automatically throughout the year."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        category: "Real Estate",
+        description: "Tax planning and compliance for property investors and developers.",
+        icon: Home,
+        items: [
+            {
+                title: "Real Estate Investors",
+                slug: "real-estate-investors-tax",
+                description: "Maximize your rental ROI with expert CCA planning and interest deductibility strategies.",
+                icon: Building2,
+                hero: {
+                    title: "Tax Experts for Real Estate Investors",
+                    subtitle: "Optimize your property portfolio with advanced tax strategies for rental income and capital gains.",
+                    image: "/images/industries/real-estate-hero.jpg"
+                },
+                intro: {
+                    heading: "How do real estate investors save on taxes in Canada?",
+                    text: "Real estate investing in Canada offers numerous tax advantages, but only if managed correctly. From claiming Capital Cost Allowance (CCA) to navigating the complex rules around interest deductibility and the Underused Housing Tax (UHT), TaxBuddy Canada provides the expert oversight you need. We help you separate current vs. capital expenses and ensure your rental income is reported for maximum benefit."
+                },
+                challenges: {
+                    title: "Rental Property Tax Challenges",
+                    items: [
+                        { title: "CCA Decisions", text: "Deciding when to claim depreciation to offset income vs. preserving future capital gains.", icon: Calculator },
+                        { title: "Interest Deductibility", text: "Ensuring loan interest is correctly linked to income-producing properties.", icon: Coins },
+                        { title: "UHT Compliance", text: "Navigating the new Underused Housing Tax filing requirements for non-residents and corporations.", icon: Gavel },
+                        { title: "Renovation Categorization", text: "Correcting labeling repairs as current expenses vs. capital improvements.", icon: Hammer }
+                    ]
+                },
+                solutions: {
+                    title: "Our Real Estate Tax Services",
+                    items: [
+                        { title: "Rental Statements", text: "Professional preparation of Form T776 for individual and corporate owners.", icon: FileText },
+                        { title: "Portfolio Planning", text: "Strategic advice on holding properties personally vs. through a corporation.", icon: PieChart },
+                        { title: "UHT Filing", text: "End-to-end management of Underused Housing Tax returns.", icon: ShieldAlert },
+                        { title: "CRA Audit Defense", text: "Ensuring your property expenses are documented and defensible.", icon: ShieldCheck }
+                    ]
+                },
+                benefits: {
+                    title: "Grow Your Portfolio Faster",
+                    items: [
+                        { title: "Maximized Cash Flow", text: "Reduce your annual tax bill to reinvest more into new properties." },
+                        { title: "Audit Peace of Mind", text: "Rest easy knowing your rental claims are CRA-compliant." },
+                        { title: "Long-term Wealth", text: "We plan for the eventual sale of your assets to minimize recapture and capital gains tax." }
+                    ]
+                },
+                detailedContent: [
+                    {
+                        title: "Should I claim CCA on my rental property in Canada?",
+                        content: "<p>Claiming Capital Cost Allowance (CCA) can reduce your current year\'s taxable rental income to zero. However, when you sell the property, any CCA claimed is \'recaptured\' and added to your income in the year of sale. At TaxBuddy, we model both scenarios to determine if claiming CCA today is the best long-term move for your specific wealth goals.</p>"
+                    }
+                ],
+                faq: [
+                    {
+                        question: "Can I deduct mortgage interest on my rental property?",
+                        answer: "Yes, the interest portion of your mortgage payment on a rental property is fully deductible against rental income. However, the principal portion is not deductible."
+                    },
+                    {
+                        question: "What is the Underused Housing Tax (UHT)?",
+                        answer: "The UHT is a 1% federal tax on the value of vacant or underused residential property in Canada. Even if you don\'t owe the tax, many owners (including corporations and certain trusts) must file an annual return."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        category: "Construction & Trades",
+        description: "Specialized accounting for contractors, builders, and tradespeople.",
+        icon: HardHat,
+        items: [
+            {
+                title: "Construction & Trades",
+                slug: "construction-trades-accounting",
+                description: "Manage your cash flow, WCB, and subcontractor filings with ease.",
+                icon: PenTool,
+                hero: {
+                    title: "Accounting for Construction Professionals",
+                    subtitle: "Focus on the job site while we handle your progress billing, payroll, and CRA compliance.",
+                    image: "/images/industries/construction-hero.jpg"
+                },
+                intro: {
+                    heading: "Why do construction businesses need specialized accounting?",
+                    text: "Construction is a high-risk, high-complexity industry. Between managing subcontractor payments, filing T5018 slips, navigating WCB/WorkSafe requirements, and tracking job-specific costs, general bookkeeping isn\'t enough. TaxBuddy Canada provides construction-specific financial management to ensure your projects remain profitable and your filings are on time."
+                },
+                challenges: {
+                    title: "Common Construction Accounting Hurdles",
+                    items: [
+                        { title: "Cash Flow Gaps", text: "Managing the delay between paying for materials and receiving client payments.", icon: TrendingDown },
+                        { title: "Subcontractor Reporting", text: "Filing T5018 Statement of Contract Payments correctly and on time.", icon: FileText },
+                        { title: "Job Costing", text: "Accurately allocating labor and material costs to specific projects.", icon: BarChart },
+                        { title: "WCB/WorkSafe", text: "Ensuring provincial workers\' compensation premiums are calculated and paid correctly.", icon: ShieldAlert }
+                    ]
+                },
+                solutions: {
+                    title: "Our Contractor Solutions",
+                    items: [
+                        { title: "Progress Billing", text: "Setting up automated systems for AIA-style or percentage-complete billing.", icon: CheckCircle },
+                        { title: "T5018 Management", text: "We track and file all subcontractor payment reports for you.", icon: Calculator },
+                        { title: "Job Profitability", text: "Real-time reports showing which jobs are making money and which aren\'t.", icon: TrendingUp },
+                        { title: "Payroll & Remittances", text: "Full-service payroll for your crew, including source deductions.", icon: Users }
+                    ]
+                },
+                benefits: {
+                    title: "Build a Better Business",
+                    items: [
+                        { title: "Bidding Accuracy", text: "Know your true costs so you can bid more competitively and profitably." },
+                        { title: "Labor Recovery", text: "Ensure every hour on the site is billed back to the correct project." },
+                        { title: "Reduced CRA Risk", text: "Stop worrying about subcontractor classification and trust your filings." }
+                    ]
+                },
+                detailedContent: [
+                    {
+                        title: "When do I need to file T5018 slips for subcontractors?",
+                        content: "<p>If your primary business activity is construction and you pay subcontractors for construction services, you must file T5018 slips. The reporting period can be based on the calendar year or your fiscal year. Failure to file can result in significant CRA penalties. TaxBuddy automates this process by tracking sub-payments throughout the year.</p>"
+                    }
+                ],
+                faq: [
+                    {
+                        question: "What is the difference between an employee and a subcontractor?",
+                        answer: "The CRA looks at control, ownership of tools, and chance of profit/loss. Incorrectly classifying workers can lead to massive retroactive source deduction bills. We help you assess your contracts to minimize this risk."
+                    },
+                    {
+                        question: "How do I handle WCB in different provinces?",
+                        answer: "Each province has its own board (e.g., WCB Alberta, WorkSafeBC). We manage your registrations and reporting based on where your projects are located."
+                    }
                 ]
             }
         ]

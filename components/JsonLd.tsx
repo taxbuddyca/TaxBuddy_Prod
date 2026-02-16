@@ -1,17 +1,47 @@
 
 import React from 'react';
+import { faqs } from '@/lib/data/faq';
+import { services } from '@/lib/data/services';
 
 export default function JsonLd() {
-    const jsonLd = {
+    // Top 5 FAQs for the schema
+    const topFaqs = [
+        faqs[0].items[0], // Why pick TaxBuddy?
+        faqs[0].items[1], // What cities?
+        faqs[0].items[2], // Physical office?
+        faqs[1].items[0], // Software?
+        faqs[2].items[1], // Corporate tax deadline?
+    ];
+
+    const organizationLd = {
         '@context': 'https://schema.org',
-        '@type': ['AccountingService', 'FinancialService'],
-        name: 'TaxBuddy Canada',
-        alternateName: 'TaxBuddy',
-        description: 'Professional virtual bookkeeping, tax planning, and CFO services for Canadian startups and businesses.',
-        logo: 'https://mytaxbuddy4u.com/logo.png',
-        image: 'https://mytaxbuddy4u.com/icon.png',
+        '@type': 'Organization',
         '@id': 'https://mytaxbuddy4u.com/#organization',
+        name: 'TaxBuddy Canada',
         url: 'https://mytaxbuddy4u.com',
+        logo: 'https://mytaxbuddy4u.com/logo.png',
+        sameAs: [
+            'https://www.facebook.com/taxbuddy',
+            'https://twitter.com/taxbuddy',
+            'https://www.linkedin.com/company/taxbuddy',
+        ],
+        contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+13068804017',
+            contactType: 'customer service',
+            email: 'taxbuddyca4u@gmail.com',
+            areaServed: 'CA',
+            availableLanguage: ['English', 'French']
+        }
+    };
+
+    const localBusinessLd = {
+        '@context': 'https://schema.org',
+        '@type': ['AccountingService', 'FinancialService', 'LocalBusiness'],
+        '@id': 'https://mytaxbuddy4u.com/#localbusiness',
+        name: 'TaxBuddy Canada',
+        description: 'Professional virtual bookkeeping, tax planning, and CFO services for Canadian startups and businesses.',
+        image: 'https://mytaxbuddy4u.com/icon.png',
         telephone: '+13068804017',
         email: 'taxbuddyca4u@gmail.com',
         priceRange: '$$',
@@ -28,84 +58,57 @@ export default function JsonLd() {
             latitude: 44.6464,
             longitude: -63.6360,
         },
-        areaServed: [
-            {
-                '@type': 'City',
-                name: 'Halifax'
-            },
-            {
-                '@type': 'State',
-                name: 'Nova Scotia'
-            },
-            {
-                '@type': 'Country',
-                name: 'Canada'
-            }
-        ],
-        hasOfferCatalog: {
-            '@type': 'OfferCatalog',
-            name: 'Canadian Tax and Accounting Services',
-            itemListElement: [
-                {
-                    '@type': 'Offer',
-                    itemOffered: {
-                        '@type': 'Service',
-                        name: 'Personal Tax Filing & CRA EFILE',
-                        description: 'Virtual personal tax service with max refund guarantee using legal CRA loopholes.'
-                    }
-                },
-                {
-                    '@type': 'Offer',
-                    itemOffered: {
-                        '@type': 'Service',
-                        name: 'Online Bookkeeping Halifax',
-                        description: 'Modern cloud-based bookkeeping for small businesses in Nova Scotia and beyond.'
-                    }
-                },
-                {
-                    '@type': 'Offer',
-                    itemOffered: {
-                        '@type': 'Service',
-                        name: 'Virtual CFO Advisory',
-                        description: 'Strategic financial growth and tax planning for Canadian startups.'
-                    }
-                }
-            ]
-        },
-        aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: '4.9',
-            reviewCount: '128'
-        },
-        review: [
-            {
-                '@type': 'Review',
-                author: {
-                    '@type': 'Person',
-                    name: 'Local Client'
-                },
-                reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-                reviewBody: 'The best virtual personal tax service in Halifax! Saved me thousands.'
-            }
-        ],
         openingHoursSpecification: {
             '@type': 'OpeningHoursSpecification',
-            dayOfWeek: [
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-            ],
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
             opens: '09:00',
             closes: '17:00',
         },
-        sameAs: [
-            'https://www.facebook.com/taxbuddy',
-            'https://twitter.com/taxbuddy',
-            'https://www.linkedin.com/company/taxbuddy',
-        ],
+        areaServed: {
+            '@type': 'Country',
+            name: 'Canada'
+        }
     };
+
+    const faqLd = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: topFaqs.map(faq => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer
+            }
+        }))
+    };
+
+    const servicesLd = services.map(service => ({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `https://mytaxbuddy4u.com/services/${service.slug}#service`,
+        name: service.title,
+        description: service.answerFirst || service.desc,
+        provider: {
+            '@id': 'https://mytaxbuddy4u.com/#organization'
+        },
+        areaServed: {
+            '@type': 'Country',
+            name: 'Canada'
+        },
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: service.title,
+            itemListElement: (service as any).features?.map((feature: string, index: number) => ({
+                '@type': 'Offer',
+                itemOffered: {
+                    '@type': 'Service',
+                    name: feature
+                },
+                position: index + 1
+            }))
+        }
+    }));
 
     const breadcrumbLd = {
         '@context': 'https://schema.org',
@@ -130,8 +133,23 @@ export default function JsonLd() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
             />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+            />
+            {servicesLd.map((service, index) => (
+                <script
+                    key={index}
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(service) }}
+                />
+            ))}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}

@@ -5,6 +5,7 @@ import { Plus, Trash2, Edit3, Tag, CheckCircle2, Zap, Save, X } from 'lucide-rea
 import GlassCard from './GlassCard';
 import { getPricingPlans, updatePricingPlan, createPricingPlan, deletePricingPlan, PricingPlan } from '@/lib/pricing';
 import { services } from '@/lib/data/services';
+import { industries } from '@/lib/data/industries';
 
 export default function AdminPricingManager() {
     const [plans, setPlans] = useState<PricingPlan[]>([]);
@@ -152,9 +153,25 @@ export default function AdminPricingManager() {
                                         onChange={(e) => setEditForm({ ...editForm, service_slug: e.target.value || null })}
                                     >
                                         <option value="">Global (Pricing Page)</option>
-                                        {services.filter(s => s.slug).map(s => (
-                                            <option key={s.slug} value={s.slug}>{s.title} ({s.slug})</option>
-                                        ))}
+                                        <optgroup label="Main Categories">
+                                            <option value="accounting">Core Accounting (Category)</option>
+                                            <option value="tax">Tax & Compliance (Category)</option>
+                                            <option value="operations">Business Operations (Category)</option>
+                                        </optgroup>
+                                        <optgroup label="Core Services">
+                                            {services.filter(s => s.slug).map(s => (
+                                                <option key={s.slug} value={s.slug}>{s.title}</option>
+                                            ))}
+                                        </optgroup>
+                                        <optgroup label="Industries">
+                                            {industries.map(cat => (
+                                                <React.Fragment key={cat.category}>
+                                                    {cat.items.map(item => (
+                                                        <option key={item.slug} value={item.slug}>{item.title}</option>
+                                                    ))}
+                                                </React.Fragment>
+                                            ))}
+                                        </optgroup>
                                     </select>
                                 </div>
 

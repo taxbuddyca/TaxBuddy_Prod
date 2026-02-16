@@ -5,6 +5,7 @@ import ServiceUSPs from "@/components/services/ServiceUSP";
 import ServiceContent from "@/components/services/ServiceContent";
 import AISearch from "@/components/services/AISearch";
 import ServiceSidebar from "@/components/services/ServiceSidebar";
+import TaxTipsSidebar from "@/components/blog/TaxTipsSidebar";
 import { getPricingPlans } from "@/lib/pricing";
 
 // Allow dynamic updates
@@ -22,9 +23,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     const service = services.find(s => s.slug === params.slug);
     if (!service) return {};
 
+    const baseTitle = service.meta?.title || `${service.title} | TaxBuddy`;
+    const description = service.meta?.description || service.desc;
+
     return {
-        title: service.meta?.title || `${service.title} | TaxBuddy`,
-        description: service.meta?.description || service.desc,
+        title: `${baseTitle} | Free 15-Min Consultation`,
+        description: `${description} Book a free 15-minute consultation to discuss our ${service.title.toLowerCase()}.`,
         alternates: {
             canonical: `/services/${params.slug}`,
         },
@@ -50,7 +54,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
     return (
         <main className="bg-white min-h-screen">
-            {service.hero && <ServiceHero hero={service.hero} />}
+            {service.hero && <ServiceHero hero={{ ...service.hero, answerFirst: service.answerFirst } as any} />}
 
             <div className="container mx-auto px-4 md:px-6 py-16">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
@@ -64,8 +68,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                     </div>
 
                     {/* Sidebar Column */}
-                    <aside className="w-full lg:w-[400px] flex-shrink-0">
+                    <aside className="w-full lg:w-[400px] flex-shrink-0 space-y-12 sticky top-32 self-start">
                         {service.sidebar && <ServiceSidebar sidebar={service.sidebar} dynamicPricing={dynamicPricing} />}
+                        <TaxTipsSidebar />
                     </aside>
                 </div>
             </div>

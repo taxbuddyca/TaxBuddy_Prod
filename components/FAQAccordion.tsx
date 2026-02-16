@@ -38,12 +38,17 @@ const faqs: FAQItem[] = [
     }
 ];
 
-export default function FAQAccordion() {
+interface FAQAccordionProps {
+    items?: { question: string; answer: string; category?: string }[];
+}
+
+export default function FAQAccordion({ items }: FAQAccordionProps) {
+    const displayFaqs = items || faqs;
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
         <div className="max-w-4xl mx-auto space-y-4">
-            {faqs.map((faq, i) => (
+            {displayFaqs.map((faq, i) => (
                 <GlassCard
                     key={i}
                     className="overflow-hidden border-gray-100/50 hover:border-growth/20 transition-all duration-300"
