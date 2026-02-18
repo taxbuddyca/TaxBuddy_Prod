@@ -20,6 +20,7 @@ import FAQAccordion from "@/components/FAQAccordion";
 import Testimonials from "@/components/Testimonials";
 import PageBackground from "@/components/PageBackground";
 
+import LogoMarquee from "@/components/LogoMarquee";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 
@@ -157,40 +158,18 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Trusted By - Logo Cloud */}
+            {/* Trusted By - Logo Marquee */}
             <motion.section
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="py-20 border-b border-gray-50 bg-gray-50/30"
+                transition={{ duration: 1 }}
+                className="py-10 border-b border-gray-50 bg-gray-50/10"
             >
-                <div className="container mx-auto px-6">
-                    <p className="text-center text-[10px] font-black text-navy-900/30 uppercase tracking-[0.4em] mb-12">Trusted by Industry Leaders</p>
-                    <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-30 hover:opacity-100 transition-opacity duration-700">
-                        {/* Custom SVG Logos for a premium look */}
-                        <div className="flex items-center gap-3 grayscale filter">
-                            <svg viewBox="0 0 24 24" className="w-8 h-8 fill-navy-950"><path d="M12 2L2 22h20L12 2zM5.5 19l6.5-13 6.5 13h-13z" /></svg>
-                            <span className="text-lg font-black tracking-tighter text-navy-950">VELOCITY</span>
-                        </div>
-                        <div className="flex items-center gap-3 grayscale filter">
-                            <svg viewBox="0 0 24 24" className="w-8 h-8 fill-navy-950"><circle cx="12" cy="12" r="10" /><path d="M12 7v10M7 12h10" /></svg>
-                            <span className="text-lg font-black tracking-tighter text-navy-950">CROWDFUND</span>
-                        </div>
-                        <div className="flex items-center gap-3 grayscale filter">
-                            <svg viewBox="0 0 24 24" className="w-8 h-8 fill-navy-950"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 12l2 2 4-4" /></svg>
-                            <span className="text-lg font-black tracking-tighter text-navy-950">STENCIL</span>
-                        </div>
-                        <div className="flex items-center gap-3 grayscale filter">
-                            <svg viewBox="0 0 24 24" className="w-8 h-8 fill-navy-950"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z" /></svg>
-                            <span className="text-lg font-black tracking-tighter text-navy-950">CYPHER</span>
-                        </div>
-                        <div className="flex items-center gap-3 grayscale filter">
-                            <svg viewBox="0 0 24 24" className="w-8 h-8 fill-navy-950"><path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm0 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm-1 3h2v6H9V9h2V7z" /></svg>
-                            <span className="text-lg font-black tracking-tighter text-navy-950">MERIDIAN</span>
-                        </div>
-                    </div>
+                <div className="container mx-auto px-6 mb-8 text-center">
+                    <p className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.4em]">Trusted by Industry Leaders</p>
                 </div>
+                <LogoMarquee />
             </motion.section>
 
             {/* Service Verticals */}
