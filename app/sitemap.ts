@@ -5,7 +5,7 @@ import { services } from '@/lib/data/services';
 import { industries } from '@/lib/data/industries';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://mytaxbuddy4u.com';
+    const baseUrl = 'https://taxbuddycanada.ca';
 
     // Core pages
     const routes = [

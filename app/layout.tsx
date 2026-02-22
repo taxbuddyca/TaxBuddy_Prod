@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://mytaxbuddy4u.com'),
+    metadataBase: new URL('https://taxbuddycanada.ca'),
     title: {
         default: "TaxBuddy Canada | Halifax Accountants & Virtual personal tax service | Free 15-Min Consultation",
         template: "%s | TaxBuddy Canada"
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         "tax savings Canada", "remote accounting services", "startup CFO Canada",
         "free 15-minute tax consultation", "book free tax review"
     ],
-    authors: [{ name: "TaxBuddy Canada", url: "https://mytaxbuddy4u.com" }],
+    authors: [{ name: "TaxBuddy Canada", url: "https://taxbuddycanada.ca" }],
     creator: "TaxBuddy Canada",
     publisher: "TaxBuddy Canada",
     alternates: {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     openGraph: {
         type: "website",
         locale: "en_CA",
-        url: "https://mytaxbuddy4u.com",
+        url: "https://taxbuddycanada.ca",
         title: "TaxBuddy Canada | Halifax Accountants & Virtual personal tax service",
         description: "Modern virtual bookkeeping, tax planning, and CFO services for Halifax and Canadian startups. Book a free 15-minute consultation with our expert CPAs via Zoom/Phone.",
         siteName: "TaxBuddy Canada",

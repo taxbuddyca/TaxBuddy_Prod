@@ -16,10 +16,10 @@ export default function JsonLd() {
     const organizationLd = {
         '@context': 'https://schema.org',
         '@type': 'Organization',
-        '@id': 'https://mytaxbuddy4u.com/#organization',
+        '@id': 'https://taxbuddycanada.ca/#organization',
         name: 'TaxBuddy Canada',
-        url: 'https://mytaxbuddy4u.com',
-        logo: 'https://mytaxbuddy4u.com/logo.png',
+        url: 'https://taxbuddycanada.ca',
+        logo: 'https://taxbuddycanada.ca/logo.png',
         sameAs: [
             'https://www.facebook.com/taxbuddy',
             'https://twitter.com/taxbuddy',
@@ -38,10 +38,10 @@ export default function JsonLd() {
     const localBusinessLd = {
         '@context': 'https://schema.org',
         '@type': ['AccountingService', 'FinancialService', 'LocalBusiness'],
-        '@id': 'https://mytaxbuddy4u.com/#localbusiness',
+        '@id': 'https://taxbuddycanada.ca/#localbusiness',
         name: 'TaxBuddy Canada',
         description: 'Professional virtual bookkeeping, tax planning, and CFO services for Canadian startups and businesses.',
-        image: 'https://mytaxbuddy4u.com/icon.png',
+        image: 'https://taxbuddycanada.ca/icon.png',
         telephone: '+13068804017',
         email: 'taxbuddyca4u@gmail.com',
         priceRange: '$$',
@@ -86,11 +86,11 @@ export default function JsonLd() {
     const servicesLd = services.map(service => ({
         '@context': 'https://schema.org',
         '@type': 'Service',
-        '@id': `https://mytaxbuddy4u.com/services/${service.slug}#service`,
+        '@id': `https://taxbuddycanada.ca/services/${service.slug}#service`,
         name: service.title,
         description: service.answerFirst || service.desc,
         provider: {
-            '@id': 'https://mytaxbuddy4u.com/#organization'
+            '@id': 'https://taxbuddycanada.ca/#organization'
         },
         areaServed: {
             '@type': 'Country',
@@ -118,13 +118,13 @@ export default function JsonLd() {
                 '@type': 'ListItem',
                 'position': 1,
                 'name': 'Home',
-                'item': 'https://mytaxbuddy4u.com'
+                'item': 'https://taxbuddycanada.ca'
             },
             {
                 '@type': 'ListItem',
                 'position': 2,
                 'name': 'Services',
-                'item': 'https://mytaxbuddy4u.com/services'
+                'item': 'https://taxbuddycanada.ca/services'
             }
         ]
     };

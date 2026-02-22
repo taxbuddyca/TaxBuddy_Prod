@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/admin/', '/portal/', '/api/'],
         },
-        sitemap: 'https://mytaxbuddy4u.com/sitemap.xml',
+        sitemap: 'https://taxbuddycanada.ca/sitemap.xml',
     };
 }

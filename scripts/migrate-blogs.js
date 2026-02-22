@@ -82,7 +82,7 @@ function cleanText(text) {
     if (!text) return '';
     return text.replace(/Accountor CPA/gi, 'TaxBuddy Canada')
         .replace(/Accountor Inc/gi, 'TaxBuddy Canada')
-        .replace(/Accountor\.ca/gi, 'mytaxbuddy4u.ca')
+        .replace(/Accountor\.ca/gi, 'taxbuddycanada.ca')
         .replace(/Accountor/gi, 'TaxBuddy')
         .trim();
 }

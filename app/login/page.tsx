@@ -49,7 +49,7 @@ export default function LoginPage() {
                         <div className="w-12 h-12 bg-growth rounded-2xl flex items-center justify-center rotate-3 shadow-lg shadow-growth/20">
                             <Zap className="w-8 h-8 text-white" />
                         </div>
-                        <span className="text-3xl font-black tracking-tighter text-navy-950">mytaxbuddy<span className="text-growth">4u</span></span>
+                        <span className="text-3xl font-black tracking-tighter text-navy-950">Tax<span className="text-growth">Buddy</span></span>
                     </div>
                     <h1 className="text-4xl font-black text-navy-950 tracking-tighter mb-4">Secure Portal Login</h1>
                     <p className="text-navy-900/40 font-medium tracking-tight uppercase text-xs tracking-[0.2em] font-black">Authorized Personnel Only</p>
@@ -67,7 +67,7 @@ export default function LoginPage() {
                                 <input
                                     type="email"
                                     required
-                                    placeholder="your-email@mytaxbuddy4u.com"
+                                    placeholder="your-email@taxbuddycanada.ca"
                                     className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-navy-950 placeholder:text-navy-900/20 outline-none focus:ring-2 focus:ring-growth transition font-medium"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
