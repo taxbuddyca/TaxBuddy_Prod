@@ -19,6 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '/switch',
         '/audit-protection',
         '/tools/tax-calculator',
+        '/tools/rrsp-calculator',
+        '/tools/tax-engine',
         '/tools/tax-checklist',
         '/blog',
         '/resources/loopholes-for-max-returns',
