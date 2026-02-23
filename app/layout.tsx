@@ -66,7 +66,7 @@ export const metadata: Metadata = {
         title: "TaxBuddy",
     },
     verification: {
-        google: "google-site-verification-id", // User should provide real ID if available
+        google: "uzOHK7xZFFm-T-KAraTPtZ5D7MbinY2QXKdwLX04QZE",
     }
 };
 
