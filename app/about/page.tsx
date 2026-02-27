@@ -588,42 +588,35 @@ export default function AboutPage() {
                     <div className="absolute top-0 right-0 w-96 h-96 bg-growth rounded-full blur-3xl" />
                 </div>
 
-                <div className="container mx-auto px-6 relative z-10 text-center">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1 }}
-                    >
-                        <h2 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter">
-                            Ready to Get Your <br />
-                            <span className="text-growth">Weekends Back?</span>
-                        </h2>
-                        <p className="text-xl md:text-2xl text-navy-900/60 mb-4 max-w-2xl mx-auto font-medium leading-relaxed">
-                            Book a free 15-minute call. No sales pitch. Just an honest conversation about whether we're a good fit.
-                        </p>
-                        <p className="text-lg text-navy-900/50 mb-12 max-w-xl mx-auto">
-                            We'll show you exactly how much time (and money) you could save. If we're not the right fit, we'll tell you that too.
-                        </p>
-                        <div className="flex flex-col sm:flex-row justify-center gap-6">
-                            <Link href="/contact" className="group relative bg-navy-950 text-white px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20 overflow-hidden focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
-                                <motion.div
-                                    className="absolute inset-0 bg-growth/20 opacity-0 group-hover:opacity-100 transition-opacity"
-                                    animate={{ x: ["-100%", "100%"] }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                                />
-                                <span className="relative z-10">Book Free Consultation</span>
-                                <Send size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <Link href="/pricing" className="bg-white border-2 border-gray-200 text-navy-900 px-12 py-6 rounded-2xl text-xl font-black hover:bg-gray-50 hover:border-growth/30 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
-                                View Pricing
-                            </Link>
-                        </div>
-                        <p className="text-sm text-navy-900/40 mt-8">
-                            <ThumbsUp size={16} className="inline mr-2" />
-                            Join 500+ Canadian entrepreneurs who've already made the switch
-                        </p>
-                    </motion.div>
+                <div className="container mx-auto px-6 relative z-10 text-center antialiased" style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}>
+                    <h2 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter" style={{ transform: "translateZ(0)" }}>
+                        Ready to Get Your <br />
+                        <span className="text-growth">Weekends Back?</span>
+                    </h2>
+                    <p className="text-xl md:text-2xl text-navy-900/60 mb-4 max-w-2xl mx-auto font-medium leading-relaxed">
+                        Book a free 15-minute call. No sales pitch. Just an honest conversation about whether we're a good fit.
+                    </p>
+                    <p className="text-lg text-navy-900/50 mb-12 max-w-xl mx-auto">
+                        We'll show you exactly how much time (and money) you could save. If we're not the right fit, we'll tell you that too.
+                    </p>
+                    <div className="flex flex-col sm:flex-row justify-center gap-6">
+                        <Link href="/contact" className="group relative bg-navy-950 text-white px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20 overflow-hidden focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
+                            <motion.div
+                                className="absolute inset-0 bg-growth/20 opacity-0 group-hover:opacity-100 transition-opacity"
+                                animate={{ x: ["-100%", "100%"] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            />
+                            <span className="relative z-10">Book Free Consultation</span>
+                            <Send size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                        <Link href="/pricing" className="bg-white border-2 border-gray-200 text-navy-900 px-12 py-6 rounded-2xl text-xl font-black hover:bg-gray-50 hover:border-growth/30 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
+                            View Pricing
+                        </Link>
+                    </div>
+                    <p className="text-sm text-navy-900/40 mt-8">
+                        <ThumbsUp size={16} className="inline mr-2" />
+                        Join 500+ Canadian entrepreneurs who've already made the switch
+                    </p>
                 </div>
             </section>
         </main>

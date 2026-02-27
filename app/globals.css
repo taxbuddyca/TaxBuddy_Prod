@@ -18,12 +18,16 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: white;
   overflow-x: hidden;
+  transform: translate3d(0,0,0);
 }
 
 @layer utilities {

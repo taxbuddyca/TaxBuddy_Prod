@@ -346,21 +346,17 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Final CTA */}
-            <section className="py-20 bg-white">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1 }}
-                    className="container mx-auto px-6 text-center"
+            <section className="py-20 bg-white relative z-10" style={{ transform: "translateZ(0)" }}>
+                <div
+                    className="container mx-auto px-6 text-center antialiased"
+                    style={{ WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                 >
-                    <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block font-bold">Join the Revolution</span>
-                    <h2 className="text-4xl md:text-6xl font-black text-navy-950 tracking-tighter mb-8 leading-[1.05]">Ready to upgrade?</h2>
+                    <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block font-bold" style={{ transform: "translateZ(0)" }}>Join the Revolution</span>
+                    <h2 className="text-4xl md:text-6xl font-black text-navy-950 tracking-tighter mb-8 leading-[1.05]" style={{ transform: "translateZ(0)" }}>Ready to upgrade?</h2>
                     <Link href="/contact" className="inline-flex items-center gap-3 bg-navy-950 text-white px-12 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-2xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         Schedule a Call <Send size={20} />
                     </Link>
-                </motion.div>
+                </div>
             </section>
 
         </main>

@@ -95,9 +95,9 @@ export default function ServicesPage() {
                     <ExpertiseGrid />
 
                     {/* Final CTA */}
-                    <div className="mt-40 bg-navy-950 rounded-[3rem] p-16 lg:p-20 text-center relative overflow-hidden">
+                    <div className="mt-40 bg-navy-950 rounded-[3rem] p-16 lg:p-20 text-center relative overflow-hidden antialiased" style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}>
                         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-growth/10 via-transparent to-transparent" />
-                        <h3 className="text-4xl lg:text-5xl font-black text-white mb-8 relative z-10 tracking-tighter">Ready to upgrade your <br />back-office?</h3>
+                        <h3 className="text-4xl lg:text-5xl font-black text-white mb-8 relative z-10 tracking-tighter" style={{ transform: "translateZ(0)" }}>Ready to upgrade your <br />back-office?</h3>
                         <p className="text-white/40 text-lg font-medium mb-12 relative z-10 max-w-2xl mx-auto">
                             Stop worrying about bookkeeping and start focusing on growth. Our pods are ready to integrate.
                         </p>

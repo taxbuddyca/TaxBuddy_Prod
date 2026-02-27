@@ -84,11 +84,13 @@ export default function RootLayout({
     return (
         <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`} suppressHydrationWarning>
             <body className={`${plusJakartaSans.className} bg-white antialiased`}>
-                <Navbar />
-                {children}
-                <Footer />
-                <WhatsAppFab />
-                <JsonLd />
+                <div id="root-app" style={{ transform: "translateZ(0)" }}>
+                    <Navbar />
+                    {children}
+                    <Footer />
+                    <WhatsAppFab />
+                    <JsonLd />
+                </div>
             </body>
         </html>
     );
