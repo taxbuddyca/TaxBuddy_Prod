@@ -349,11 +349,11 @@ export default function Home() {
             {/* Final CTA */}
             <section className="py-20 bg-white">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="container mx-auto px-6 text-center antialiased transform-gpu"
+                    transition={{ duration: 1 }}
+                    className="container mx-auto px-6 text-center"
                 >
                     <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block font-bold">Join the Revolution</span>
                     <h2 className="text-4xl md:text-6xl font-black text-navy-950 tracking-tighter mb-8 leading-[1.05]">Ready to upgrade?</h2>

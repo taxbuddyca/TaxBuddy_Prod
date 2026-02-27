@@ -590,10 +590,10 @@ export default function AboutPage() {
 
                 <div className="container mx-auto px-6 relative z-10 text-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 1 }}
                     >
                         <h2 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter">
                             Ready to Get Your <br />
