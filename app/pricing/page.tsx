@@ -127,7 +127,7 @@ export default function PricingPage() {
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col gap-8">
-                                                    <div className="h-72 min-h-[18rem] w-full rounded-3xl flex items-center justify-center border border-gray-100 overflow-hidden relative group">
+                                                    <div className="w-full md:w-1/3 h-48 md:h-auto relative overflow-hidden bg-sky-50/50 flex items-center justify-center p-6 border-r border-gray-100 rounded-3xl group">
                                                         <img
                                                             src={
                                                                 activeIndustrySlug.includes('ecommerce') || activeIndustrySlug.includes('e-commerce') ? '/images/pricing/ecommerce.png' :
@@ -135,7 +135,7 @@ export default function PricingPage() {
                                                                         '/images/pricing/tech.png'
                                                             }
                                                             alt={`${activeIndustry.title} illustration`}
-                                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                            className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-700"
                                                         />
                                                     </div>
                                                     <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100 flex-1">
