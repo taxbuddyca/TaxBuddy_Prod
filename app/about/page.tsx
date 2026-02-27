@@ -472,8 +472,8 @@ export default function AboutPage() {
                     <div className="grid lg:grid-cols-12 gap-6 max-w-6xl mx-auto mb-12">
                         {/* Featured Image Box */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                             className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 lg:p-0 overflow-hidden lg:col-span-7 relative min-h-[400px] flex items-center justify-center group"
