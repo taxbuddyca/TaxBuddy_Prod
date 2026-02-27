@@ -124,7 +124,7 @@ export default function AdminDashboard() {
                 <>
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-12 px-4">
                         <div>
-                            <h2 className="text-3xl font-black text-navy-950 mb-2 tracking-tight">Financial Command</h2>
+                            <h1 className="text-3xl font-black text-navy-950 mb-2 tracking-tight">Financial Command</h1>
                             <p className="text-navy-900/40 font-medium text-sm text-center lg:text-left">Oversee all document workflows and professional advisory requests</p>
                         </div>
                         <div className="flex flex-wrap gap-4">

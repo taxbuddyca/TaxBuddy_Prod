@@ -126,20 +126,33 @@ export default function PricingPage() {
                                                         ))}
                                                     </div>
                                                 </div>
-                                                <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
-                                                    <h3 className="text-xl font-black text-navy-950 mb-6">Sector Checklist</h3>
-                                                    <ul className="space-y-4">
-                                                        {activeIndustry.benefits.items.map((item, i) => (
-                                                            <li key={i} className="flex items-center gap-3 text-navy-900/80 font-medium">
-                                                                <CheckCircle2 className="shrink-0 text-growth" size={20} />
-                                                                {item.title}: <span className="text-navy-900/40 text-sm font-normal">{item.text}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                    <div className="mt-8 pt-8 border-t border-gray-200">
-                                                        <div className="text-sm text-navy-900/40 font-bold uppercase tracking-wider mb-2">Recommended Plan</div>
-                                                        <div className="text-2xl font-black text-navy-950">
-                                                            Expert Business / Specialist
+                                                <div className="flex flex-col gap-8">
+                                                    <div className="h-72 min-h-[18rem] w-full rounded-3xl bg-sky-50/50 flex items-center justify-center p-8 border border-gray-100 overflow-hidden relative group">
+                                                        <img
+                                                            src={
+                                                                activeIndustrySlug.includes('ecommerce') || activeIndustrySlug.includes('e-commerce') ? '/images/pricing/ecommerce.png' :
+                                                                    activeIndustrySlug.includes('real') || activeIndustrySlug.includes('property') || activeIndustrySlug.includes('construction') ? '/images/pricing/realestate.png' :
+                                                                        '/images/pricing/tech.png'
+                                                            }
+                                                            alt={`${activeIndustry.title} illustration`}
+                                                            className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-700"
+                                                        />
+                                                    </div>
+                                                    <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100 flex-1">
+                                                        <h3 className="text-xl font-black text-navy-950 mb-6">Sector Checklist</h3>
+                                                        <ul className="space-y-4">
+                                                            {activeIndustry.benefits.items.map((item, i) => (
+                                                                <li key={i} className="flex items-center gap-3 text-navy-900/80 font-medium">
+                                                                    <CheckCircle2 className="shrink-0 text-growth" size={20} />
+                                                                    {item.title}: <span className="text-navy-900/40 text-sm font-normal">{item.text}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                        <div className="mt-8 pt-8 border-t border-gray-200">
+                                                            <div className="text-sm text-navy-900/40 font-bold uppercase tracking-wider mb-2">Recommended Plan</div>
+                                                            <div className="text-2xl font-black text-navy-950">
+                                                                Expert Business / Specialist
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

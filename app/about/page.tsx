@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function AboutPage() {
     const founderStory = {
         quote: "I watched my best friend spend his entire weekend doing taxes for his startup instead of being with his newborn daughter. That's when I knew something had to change.",
-        author: "Vipin, Founder & CPA",
+        author: "Bhupendra Vekariya, Founder & CPA",
         context: "After 10 years at Big Four firms, I saw the same pattern: brilliant entrepreneurs wasting precious time on spreadsheets instead of building their dreams. TaxBuddy was born from a simple belief—your accountant should give you time back, not take it away."
     };
 
@@ -222,24 +222,34 @@ export default function AboutPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 md:p-12 mb-12">
-                            <div className="flex items-start gap-4 mb-6">
-                                <div className="text-growth text-6xl font-serif">"</div>
-                                <p className="text-2xl md:text-3xl font-bold leading-relaxed pt-4">
-                                    {founderStory.quote}
-                                </p>
+                        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 md:p-12 mb-12 flex flex-col md:flex-row items-center gap-12">
+                            <div className="w-56 h-56 md:w-80 md:h-80 shrink-0 relative rounded-full overflow-hidden border-4 border-growth/30 shadow-2xl">
+                                <Image
+                                    src="/images/about/founder.png"
+                                    alt="Bhupendra Vekariya, Founder & CPA"
+                                    fill
+                                    className="object-cover"
+                                />
                             </div>
-                            <div className="pl-12">
-                                <p className="text-lg text-white/80 leading-relaxed mb-6">
-                                    {founderStory.context}
-                                </p>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-growth/20 rounded-full flex items-center justify-center">
-                                        <Coffee className="text-growth" size={24} />
-                                    </div>
-                                    <div>
-                                        <div className="font-black text-lg">{founderStory.author}</div>
-                                        <div className="text-white/60 text-sm">Started in a Halifax coffee shop, 2019</div>
+                            <div className="flex-1">
+                                <div className="flex items-start gap-4 mb-6">
+                                    <div className="text-growth text-6xl font-serif">"</div>
+                                    <p className="text-2xl md:text-3xl font-bold leading-relaxed pt-4">
+                                        {founderStory.quote}
+                                    </p>
+                                </div>
+                                <div className="pl-12">
+                                    <p className="text-lg text-white/80 leading-relaxed mb-6">
+                                        {founderStory.context}
+                                    </p>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-growth/20 rounded-full flex items-center justify-center">
+                                            <Coffee className="text-growth" size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="font-black text-lg">{founderStory.author}</div>
+                                            <div className="text-white/60 text-sm">Started in a Halifax coffee shop, 2019</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -459,24 +469,46 @@ export default function AboutPage() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
-                        {techStack.map((tech, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.05 }}
-                                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-growth/50 transition-all group"
-                            >
-                                <div className="text-growth mb-3 group-hover:scale-110 transition-transform">
-                                    {tech.icon}
-                                </div>
-                                <div className="text-base font-black mb-1">{tech.name}</div>
-                                <div className="text-xs text-white/40 uppercase tracking-wider mb-2">{tech.category}</div>
-                                <div className="text-xs text-white/60">{tech.desc}</div>
-                            </motion.div>
-                        ))}
+                    <div className="grid lg:grid-cols-12 gap-6 max-w-6xl mx-auto mb-12">
+                        {/* Featured Image Box */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 lg:p-0 overflow-hidden lg:col-span-7 relative min-h-[400px] flex items-center justify-center group"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-growth/20 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <Image
+                                src="/images/about/tech-abstract.png"
+                                alt="Automated Accounting Workflows"
+                                fill
+                                className="object-cover md:object-contain p-4 transition-transform duration-700 group-hover:scale-105"
+                            />
+                        </motion.div>
+
+                        {/* Tech Grid */}
+                        <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+                            {techStack.map((tech, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: i * 0.05 }}
+                                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 hover:bg-white/10 hover:border-growth/50 transition-all group flex flex-col justify-between"
+                                >
+                                    <div>
+                                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-growth mb-4 group-hover:scale-110 transition-transform group-hover:bg-growth/20">
+                                            {tech.icon}
+                                        </div>
+                                        <div className="text-sm font-black mb-1">{tech.name}</div>
+                                        <div className="text-[10px] text-white/40 uppercase tracking-wider mb-2">{tech.category}</div>
+                                    </div>
+                                    <div className="text-xs text-white/60">{tech.desc}</div>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
 
                     <motion.div

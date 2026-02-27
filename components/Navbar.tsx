@@ -14,7 +14,13 @@ export default function Navbar() {
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     const pathname = usePathname();
+
+    // Determine if the current page has a dark hero section
+    const isDarkHeroPage = pathname?.startsWith('/services/') || pathname?.startsWith('/industries/');
+    // Apply dark theme (white text) when on a dark hero page, not scrolled, and mobile menu is closed
+    const isDarkTheme = isDarkHeroPage && !isScrolled && !isMobileMenuOpen;
 
     useEffect(() => {
         const handleScroll = () => {
@@ -60,36 +66,39 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-500 px-4 sm:px-6 lg:px-8 ${isScrolled ? 'pt-2' : 'pt-4'} ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-            <div className="max-w-7xl mx-auto">
-                <div className={`bg-white/70 backdrop-blur-xl border border-gray-200/50 rounded-full px-6 py-2 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'shadow-premium py-1.5' : 'shadow-glass'}`}>
-                    <Link href="/" className="flex items-center gap-3 group">
+        <nav className={`fixed top-0 w-full z-50 transition-all duration-500 border-b ${isScrolled ? 'bg-white/90 backdrop-blur-xl border-gray-200 shadow-sm py-3' : 'bg-transparent border-transparent py-5'} ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between items-center">
+                    <Link href="/" className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 rounded-xl">
                         <div className="relative w-10 h-10 flex items-center justify-center">
                             <div className="absolute inset-0 bg-navy-950 rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-500 shadow-lg" />
                             <div className="absolute inset-x-0 inset-y-0.5 bg-white rounded-xl -rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-premium border border-gray-100" />
                             <Logo className="relative w-5 h-5 group-hover:scale-110 transition-transform" />
                         </div>
                         <div className="flex flex-col -gap-1">
-                            <span className="text-xl font-black tracking-tight text-navy-950 leading-none" style={{ color: '#0a0f29' }}>Tax<span className="text-blue-600">Buddy</span></span>
-                            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-navy-900/30">Advisory</span>
+                            <span className={`text-xl font-black tracking-tight leading-none ${isDarkTheme ? 'text-white' : 'text-navy-950'}`}>Tax<span className={isDarkTheme ? 'text-blue-400' : 'text-blue-600'}>Buddy</span></span>
+                            <span className={`text-[9px] font-black uppercase tracking-[0.3em] ${isDarkTheme ? 'text-white/60' : 'text-navy-900/40'}`}>Advisory</span>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-6">
-                        <NavDropdown title="Services" items={servicesItems} />
-                        <NavDropdown title="Industries" groups={industriesGroups} />
+                    <div className="hidden lg:flex items-center gap-7">
+                        <NavDropdown title="Services" items={servicesItems} isDarkTheme={isDarkTheme} />
+                        <NavDropdown title="Industries" groups={industriesGroups} isDarkTheme={isDarkTheme} />
 
-                        <Link href="/pricing" className="text-sm font-bold uppercase tracking-widest text-navy-900/60 hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
+                        <Link href="/pricing" className={`text-sm font-bold uppercase tracking-widest transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 rounded-md ${isDarkTheme ? 'text-white/80 hover:text-white' : 'text-navy-900/70 hover:text-growth'}`}>
                             Pricing
                         </Link>
 
-                        <NavDropdown title="Resources" items={resourcesItems} />
+                        <NavDropdown title="Resources" items={resourcesItems} isDarkTheme={isDarkTheme} />
 
-                        <div className="h-6 w-px bg-gray-200" />
+                        <div className={`h-6 w-px mx-2 ${isDarkTheme ? 'bg-white/20' : 'bg-gray-200'}`} />
                         <Link
                             href="/contact"
-                            className="flex items-center gap-2 bg-navy-900 text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-navy-900/10 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
+                            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 hover:-translate-y-0.5 ${isDarkTheme
+                                ? 'bg-white text-navy-950 hover:bg-gray-100'
+                                : 'bg-navy-950 text-white hover:bg-growth'
+                                }`}
                         >
                             Contact Us
                         </Link>
@@ -97,8 +106,10 @@ export default function Navbar() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden p-2 text-navy-900 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
+                        className={`lg:hidden p-2 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 ${isDarkTheme ? 'text-white hover:bg-white/10' : 'text-navy-950 hover:bg-gray-100'
+                            }`}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="Toggle mobile menu"
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
@@ -107,7 +118,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Overlay */}
             {isMobileMenuOpen && (
-                <div className="md:hidden absolute top-full left-0 w-full px-4 pt-4 animate-in fade-in slide-in-from-top-5 duration-300">
+                <div className="lg:hidden absolute top-full left-0 w-full px-4 pt-4 animate-in fade-in slide-in-from-top-5 duration-300">
                     <div className="bg-white/95 backdrop-blur-2xl border border-gray-100 rounded-[2rem] p-8 shadow-2xl overflow-y-auto max-h-[80vh]">
                         <div className="flex flex-col gap-6">
 
@@ -145,7 +156,7 @@ export default function Navbar() {
                             <Link
                                 href="/contact"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="bg-navy-950 text-white px-8 py-4 rounded-xl font-black text-center shadow-lg"
+                                className="bg-navy-950 text-white px-8 py-4 rounded-xl font-black text-center shadow-lg hover:bg-navy-900 transition-colors"
                             >
                                 Contact Us
                             </Link>

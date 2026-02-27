@@ -18,9 +18,10 @@ interface NavDropdownProps {
     title: string;
     items?: NavItem[];
     groups?: NavGroup[];
+    isDarkTheme?: boolean;
 }
 
-export default function NavDropdown({ title, items, groups }: NavDropdownProps) {
+export default function NavDropdown({ title, items, groups, isDarkTheme = false }: NavDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
     const hasGroups = groups && groups.length > 0;
 
@@ -33,7 +34,10 @@ export default function NavDropdown({ title, items, groups }: NavDropdownProps) 
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
         >
-            <button className={`flex items-center gap-1 text-sm font-bold uppercase tracking-widest transition py-2 ${isOpen ? 'text-growth' : 'text-navy-900/60 hover:text-growth'} focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2`}>
+            <button className={`flex items-center gap-1 text-sm font-bold uppercase tracking-widest transition py-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 ${isDarkTheme
+                    ? isOpen ? 'text-white' : 'text-white/80 hover:text-white'
+                    : isOpen ? 'text-growth' : 'text-navy-900/70 hover:text-growth'
+                }`}>
                 {title}
                 <ChevronDown size={14} className={`transition-transform duration-300 ${isOpen ? '-rotate-180' : ''}`} />
             </button>

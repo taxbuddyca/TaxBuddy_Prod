@@ -84,6 +84,7 @@ export default function AdminBlogEditor({ post }: AdminBlogEditorProps) {
                 <Link href="/admin/blog" className="flex items-center gap-2 text-navy-900/40 hover:text-navy-950 transition font-bold focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                     <ArrowLeft size={18} /> Back
                 </Link>
+                <h1 className="text-2xl font-black text-navy-950 tracking-tight">{post ? 'Edit Post' : 'Create New Post'}</h1>
                 <button
                     type="submit"
                     disabled={loading}

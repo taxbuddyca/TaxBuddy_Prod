@@ -82,7 +82,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
+        <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`} suppressHydrationWarning>
             <body className={`${plusJakartaSans.className} bg-white antialiased`}>
                 <Navbar />
                 {children}

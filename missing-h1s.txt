@@ -1,0 +1,10 @@
+d:/Taxbuddycanada/app/admin/blog/new/page.tsx
+d:/Taxbuddycanada/app/admin/blog/[id]/page.tsx
+d:/Taxbuddycanada/app/admin/page.tsx
+d:/Taxbuddycanada/app/industries/[slug]/page.tsx
+d:/Taxbuddycanada/app/services/[slug]/page.tsx
+d:/Taxbuddycanada/app/tools/tax-engine/compare/page.tsx
+d:/Taxbuddycanada/app/tools/tax-engine/growth/page.tsx
+d:/Taxbuddycanada/app/tools/tax-engine/life/page.tsx
+d:/Taxbuddycanada/app/tools/tax-engine/niche/page.tsx
+d:/Taxbuddycanada/app/tools/tax-engine/page.tsx

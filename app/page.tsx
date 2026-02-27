@@ -201,30 +201,29 @@ export default function Home() {
                                     title: "Tax & Advisory",
                                     desc: "Strategic planning and corporate filings that maximize your wealth.",
                                     icon: <BarChart3 className="text-white" size={20} />,
-                                    img: "/images/services/tax-advisory.jpg"
+                                    img: "/images/approach/partner.png"
                                 },
                                 {
                                     title: "Cloud Bookkeeping",
                                     desc: "Real-time ledger management integrated with your entire tech stack.",
                                     icon: <Zap className="text-white" size={20} />,
-                                    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                                    img: "/images/approach/automation.png"
                                 },
                                 {
                                     title: "Fractional CFO",
                                     desc: "High-level strategy to help you scale from seed to Series C.",
                                     icon: <Rocket className="text-white" size={20} />,
-                                    img: "https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&q=80&w=800"
+                                    img: "/images/approach/clarity.png"
                                 }
                             ].map((service, i) => (
                                 <GlassCard key={i} className="group overflow-hidden p-0 hover:border-growth/30 transition-all duration-500" intensity="light">
                                     <div className="flex flex-col md:flex-row h-full">
-                                        <div className="w-full md:w-1/3 h-48 md:h-auto relative overflow-hidden">
+                                        <div className="w-full md:w-2/5 h-64 md:h-auto min-h-[16rem] relative overflow-hidden bg-sky-50/50 flex items-center justify-center p-6 border-r border-gray-100">
                                             <img
                                                 src={service.img}
                                                 alt={service.title}
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                                                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
                                             />
-                                            <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-transparent transition-colors" />
                                         </div>
                                         <div className="p-8 flex-1">
                                             <div className="w-12 h-12 bg-navy-950 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-growth transition-colors mb-6 shadow-lg">

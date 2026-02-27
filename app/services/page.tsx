@@ -31,32 +31,59 @@ export default function ServicesPage() {
                             <p className="text-navy-900/40 text-sm font-medium italic">Modern accounting designed for Canadian businesses</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all group">
-                                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-6 group-hover:scale-110 transition-transform">
-                                    <span className="font-black text-xl">01.</span>
+                            <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group flex flex-col h-full">
+                                <div className="h-64 min-h-[16rem] bg-sky-50/50 flex items-center justify-center p-8 border-b border-gray-100 overflow-hidden relative">
+                                    <img
+                                        src="/images/services/expert.png"
+                                        alt="Expert-Led Strategy"
+                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
+                                    />
+                                    <div className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center text-growth font-black text-sm shadow-sm border border-black/5">
+                                        01
+                                    </div>
                                 </div>
-                                <h4 className="text-xl font-black text-navy-950 mb-3">Expert-Led, Always.</h4>
-                                <p className="text-navy-900/70 font-medium leading-relaxed">
-                                    No bots or offshore call centers. You get a dedicated Canadian CPA team that understands your local tax laws.
-                                </p>
+                                <div className="p-8 flex-1 flex flex-col">
+                                    <h4 className="text-xl font-black text-navy-950 mb-3 group-hover:text-growth transition-colors">Expert-Led, Always.</h4>
+                                    <p className="text-navy-900/70 font-medium leading-relaxed">
+                                        No bots or offshore call centers. You get a dedicated Canadian CPA team that understands your local tax laws.
+                                    </p>
+                                </div>
                             </div>
-                            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all group">
-                                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-6 group-hover:scale-110 transition-transform">
-                                    <span className="font-black text-xl">02.</span>
+                            <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group flex flex-col h-full">
+                                <div className="h-64 min-h-[16rem] bg-sky-50/50 flex items-center justify-center p-8 border-b border-gray-100 overflow-hidden relative">
+                                    <img
+                                        src="/images/services/proactive.png"
+                                        alt="Proactive Planning"
+                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
+                                    />
+                                    <div className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center text-growth font-black text-sm shadow-sm border border-black/5">
+                                        02
+                                    </div>
                                 </div>
-                                <h4 className="text-xl font-black text-navy-950 mb-3">Proactive Planning.</h4>
-                                <p className="text-navy-900/70 font-medium leading-relaxed">
-                                    We don't just file taxes; we plan them. Our year-round advisory helps you keep more of what you earn.
-                                </p>
+                                <div className="p-8 flex-1 flex flex-col">
+                                    <h4 className="text-xl font-black text-navy-950 mb-3 group-hover:text-growth transition-colors">Proactive Planning.</h4>
+                                    <p className="text-navy-900/70 font-medium leading-relaxed">
+                                        We don't just file taxes; we plan them. Our year-round advisory helps you keep more of what you earn.
+                                    </p>
+                                </div>
                             </div>
-                            <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all group">
-                                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-growth mb-6 group-hover:scale-110 transition-transform">
-                                    <span className="font-black text-xl">03.</span>
+                            <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group flex flex-col h-full">
+                                <div className="h-64 min-h-[16rem] bg-sky-50/50 flex items-center justify-center p-8 border-b border-gray-100 overflow-hidden relative">
+                                    <img
+                                        src="/images/services/secure.png"
+                                        alt="Bank Level Security"
+                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
+                                    />
+                                    <div className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center text-growth font-black text-sm shadow-sm border border-black/5">
+                                        03
+                                    </div>
                                 </div>
-                                <h4 className="text-xl font-black text-navy-950 mb-3">Secure & Paperless.</h4>
-                                <p className="text-navy-900/70 font-medium leading-relaxed">
-                                    Upload documents securely from your phone. Bank-level encryption keeps your financial data safe.
-                                </p>
+                                <div className="p-8 flex-1 flex flex-col">
+                                    <h4 className="text-xl font-black text-navy-950 mb-3 group-hover:text-growth transition-colors">Secure & Paperless.</h4>
+                                    <p className="text-navy-900/70 font-medium leading-relaxed">
+                                        Upload documents securely from your phone. Bank-level encryption keeps your financial data safe.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
