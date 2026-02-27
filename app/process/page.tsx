@@ -31,7 +31,7 @@ export default function ProcessPage() {
                             <p className="text-navy-900/40 text-base font-medium leading-relaxed mb-8">
                                 Traditional firms optimize for billable hours. We optimize for your bandwidth and financial clarity.
                             </p>
-                            <Link href="/contact" className="inline-flex items-center gap-2 text-growth font-black uppercase tracking-widest hover:gap-4 transition-all text-xs">
+                            <Link href="/contact" className="inline-flex items-center gap-2 text-growth font-black uppercase tracking-widest hover:gap-4 transition-all text-xs focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Request an invite <ArrowRight size={16} />
                             </Link>
                         </div>

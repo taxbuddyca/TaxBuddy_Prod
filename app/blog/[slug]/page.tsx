@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <main className="pt-32 pb-24">
             <article className="container mx-auto px-6 max-w-4xl">
                 {/* Back Link */}
-                <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-bold text-navy-900/40 hover:text-navy-950 transition mb-8 group">
+                <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-bold text-navy-900/40 hover:text-navy-950 transition mb-8 group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                     <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Insights
                 </Link>
 
@@ -138,7 +138,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <div className="text-xs text-navy-900/40 font-bold uppercase tracking-wider">Author</div>
                         </div>
                     </div>
-                    <button className="flex items-center gap-2 text-sm font-bold text-navy-900/40 hover:text-growth transition">
+                    <button className="flex items-center gap-2 text-sm font-bold text-navy-900/40 hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         <Share2 size={16} /> Share Article
                     </button>
                 </div>

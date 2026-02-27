@@ -32,7 +32,7 @@ export default function PortalPage() {
                                 </button>
                             ))}
                             <hr className="my-4 border-gray-100" />
-                            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-navy-900/40 hover:text-red-500 hover:bg-red-50 transition-all">
+                            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-navy-900/40 hover:text-red-500 hover:bg-red-50 transition-all focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 <LogOut size={20} /> Sign Out
                             </button>
                         </div>
@@ -41,7 +41,7 @@ export default function PortalPage() {
                             <div className="absolute top-0 right-0 w-32 h-32 bg-growth/20 blur-3xl" />
                             <h4 className="font-black mb-2 relative z-10 text-sm italic">Need priority help?</h4>
                             <p className="text-xs text-white/60 mb-4 relative z-10 leading-relaxed">Your dedicated CPA pod is available Mon-Fri, 9am - 5pm EST.</p>
-                            <button className="w-full bg-growth text-white py-3 rounded-xl text-xs font-black relative z-10 hover:bg-growth-600 transition flex items-center justify-center gap-2">
+                            <button className="w-full bg-growth text-white py-3 rounded-xl text-xs font-black relative z-10 hover:bg-growth-600 transition flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 <MessageSquare size={14} /> Open Support Chat
                             </button>
                         </div>

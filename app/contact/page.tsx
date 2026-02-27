@@ -186,7 +186,7 @@ export default function ContactPage() {
                                         </div>
                                         <button
                                             disabled={status === "sending"}
-                                            className="w-full bg-growth text-white py-4 rounded-xl font-black text-base shadow-lg shadow-growth/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                            className="w-full bg-growth text-white py-4 rounded-xl font-black text-base shadow-lg shadow-growth/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                                         >
                                             {status === "sending" ? "Processing..." : <>Send Request <Send size={18} /></>}
                                         </button>

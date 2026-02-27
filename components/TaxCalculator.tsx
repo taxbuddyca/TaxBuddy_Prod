@@ -335,7 +335,7 @@ export default function TaxCalculator() {
                             <h4 className="text-white text-xs font-black mb-0.5 px-4 leading-tight">Get ahead of your taxes this year.</h4>
                             <Link
                                 href="/contact"
-                                className="inline-block mt-3 px-8 py-2 bg-white text-blue-600 rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition shadow-sm"
+                                className="inline-block mt-3 px-8 py-2 bg-white text-blue-600 rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                             >
                                 Get started
                             </Link>

@@ -58,7 +58,7 @@ export default function DocumentUploadUI() {
                                 ) : (
                                     <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                                 )}
-                                <button className="text-gray-300 hover:text-red-500 transition">
+                                <button className="text-gray-300 hover:text-red-500 transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>

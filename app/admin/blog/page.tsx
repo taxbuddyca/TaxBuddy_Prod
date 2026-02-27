@@ -22,7 +22,7 @@ export default async function AdminBlogPage() {
                 </div>
                 <Link
                     href="/admin/blog/new"
-                    className="flex items-center gap-2 px-4 py-2 bg-navy-950 text-white rounded-lg font-bold text-sm hover:bg-navy-900 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-navy-950 text-white rounded-lg font-bold text-sm hover:bg-navy-900 transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                 >
                     <Plus size={16} />
                     New Post
@@ -56,10 +56,10 @@ export default async function AdminBlogPage() {
                                 </td>
                                 <td className="px-6 py-4 text-right">
                                     <div className="flex items-center justify-end gap-2">
-                                        <Link href={`/blog/${post.slug}`} target="_blank" className="p-2 text-navy-600 hover:text-navy-950 hover:bg-white rounded-lg border border-transparent hover:border-gray-200 transition-all" title="View Post">
+                                        <Link href={`/blog/${post.slug}`} target="_blank" className="p-2 text-navy-600 hover:text-navy-950 hover:bg-white rounded-lg border border-transparent hover:border-gray-200 transition-all focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2" title="View Post">
                                             <Eye size={18} />
                                         </Link>
-                                        <Link href={`/admin/blog/${post.id}`} className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg border border-transparent hover:border-blue-100 transition-all" title="Edit Post">
+                                        <Link href={`/admin/blog/${post.id}`} className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg border border-transparent hover:border-blue-100 transition-all focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2" title="Edit Post">
                                             <Edit size={18} />
                                         </Link>
                                         {/* TODO: Add delete functionality */}

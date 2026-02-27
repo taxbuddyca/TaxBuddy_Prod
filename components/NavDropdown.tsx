@@ -33,7 +33,7 @@ export default function NavDropdown({ title, items, groups }: NavDropdownProps) 
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
         >
-            <button className={`flex items-center gap-1 text-sm font-bold uppercase tracking-widest transition py-2 ${isOpen ? 'text-growth' : 'text-navy-900/60 hover:text-growth'}`}>
+            <button className={`flex items-center gap-1 text-sm font-bold uppercase tracking-widest transition py-2 ${isOpen ? 'text-growth' : 'text-navy-900/60 hover:text-growth'} focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2`}>
                 {title}
                 <ChevronDown size={14} className={`transition-transform duration-300 ${isOpen ? '-rotate-180' : ''}`} />
             </button>
@@ -52,7 +52,7 @@ export default function NavDropdown({ title, items, groups }: NavDropdownProps) 
                                             <Link
                                                 key={i}
                                                 href={item.href}
-                                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition group/item"
+                                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition group/item focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                                             >
                                                 {item.icon && (
                                                     <div className="w-6 h-6 rounded-md bg-blue-50 text-growth flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform">
@@ -74,7 +74,7 @@ export default function NavDropdown({ title, items, groups }: NavDropdownProps) 
                                 key={index}
                                 href={item.href}
                                 title={item.description}
-                                className="flex items-center gap-3 px-3 py-1.5 rounded-xl hover:bg-gray-50 transition group/item"
+                                className="flex items-center gap-3 px-3 py-1.5 rounded-xl hover:bg-gray-50 transition group/item focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                             >
                                 {item.icon && (
                                     <div className="w-8 h-8 rounded-lg bg-blue-50 text-growth flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform">

@@ -19,7 +19,7 @@ export default function AuditProtectionPage() {
                         Audits are stressful, time-consuming, and expensive. With our Audit Protection Service, we handle everything. You sleep soundly.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <Link href="/contact" className="bg-blue-600 text-white px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                        <Link href="/contact" className="bg-blue-600 text-white px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                             Add Protection for $99/yr <ArrowRight size={20} />
                         </Link>
                     </div>
@@ -116,7 +116,7 @@ export default function AuditProtectionPage() {
                     <p className="text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
                         Don't let a brown envelope ruin your summer. Add Audit Protection to your tax package for just $99/year.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-blue-600 px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all shadow-xl">
+                    <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-blue-600 px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all shadow-xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         Get Protected <ArrowRight size={24} />
                     </Link>
                     <p className="mt-8 text-sm text-white/40 font-bold uppercase tracking-widest">

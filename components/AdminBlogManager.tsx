@@ -48,7 +48,7 @@ export default function AdminBlogManager() {
                 <div>
                     <Link
                         href="/admin/blog/new"
-                        className="flex items-center gap-2 bg-navy-950 text-white px-6 py-3 rounded-xl font-bold hover:bg-navy-900 transition shadow-lg"
+                        className="flex items-center gap-2 bg-navy-950 text-white px-6 py-3 rounded-xl font-bold hover:bg-navy-900 transition shadow-lg focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         <Plus size={18} />
                         Create New Post
@@ -86,10 +86,10 @@ export default function AdminBlogManager() {
                                     </td>
                                     <td className="px-8 py-5 last:rounded-r-[1.5rem] border-y border-r border-gray-100 text-right">
                                         <div className="flex items-center justify-end gap-2">
-                                            <Link href={`/blog/${post.slug}`} target="_blank" className="p-2 text-navy-900/20 hover:text-navy-950 hover:bg-white hover:shadow-sm rounded-lg transition" title="View">
+                                            <Link href={`/blog/${post.slug}`} target="_blank" className="p-2 text-navy-900/20 hover:text-navy-950 hover:bg-white hover:shadow-sm rounded-lg transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2" title="View">
                                                 <Eye size={20} />
                                             </Link>
-                                            <Link href={`/admin/blog/${post.id}`} className="p-2 text-navy-900/20 hover:text-blue-600 hover:bg-white hover:shadow-sm rounded-lg transition" title="Edit">
+                                            <Link href={`/admin/blog/${post.id}`} className="p-2 text-navy-900/20 hover:text-blue-600 hover:bg-white hover:shadow-sm rounded-lg transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2" title="Edit">
                                                 <Edit size={20} />
                                             </Link>
                                             {/* We can re-use the 'new' page logic for edit if we add ID param, 

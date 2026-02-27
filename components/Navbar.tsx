@@ -80,7 +80,7 @@ export default function Navbar() {
                         <NavDropdown title="Services" items={servicesItems} />
                         <NavDropdown title="Industries" groups={industriesGroups} />
 
-                        <Link href="/pricing" className="text-sm font-bold uppercase tracking-widest text-navy-900/60 hover:text-growth transition">
+                        <Link href="/pricing" className="text-sm font-bold uppercase tracking-widest text-navy-900/60 hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                             Pricing
                         </Link>
 
@@ -89,7 +89,7 @@ export default function Navbar() {
                         <div className="h-6 w-px bg-gray-200" />
                         <Link
                             href="/contact"
-                            className="flex items-center gap-2 bg-navy-900 text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-navy-900/10"
+                            className="flex items-center gap-2 bg-navy-900 text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-navy-900/10 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                         >
                             Contact Us
                         </Link>
@@ -97,7 +97,7 @@ export default function Navbar() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden p-2 text-navy-900"
+                        className="md:hidden p-2 text-navy-900 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

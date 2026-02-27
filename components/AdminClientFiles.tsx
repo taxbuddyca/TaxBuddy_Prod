@@ -61,7 +61,7 @@ export default function AdminClientFiles({ clientId, clientName, onClose }: Admi
                         <h3 className="text-xl font-black text-navy-950">Client Files</h3>
                         <p className="text-navy-900/40 text-sm font-bold">{clientName}</p>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition">
+                    <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         <X size={20} className="text-navy-900" />
                     </button>
                 </div>
@@ -96,7 +96,7 @@ export default function AdminClientFiles({ clientId, clientName, onClose }: Admi
                                             href={doc.url}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="p-2 text-navy-900/40 hover:text-growth hover:bg-white rounded-lg transition"
+                                            className="p-2 text-navy-900/40 hover:text-growth hover:bg-white rounded-lg transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                                             title="Download"
                                         >
                                             <Download size={18} />

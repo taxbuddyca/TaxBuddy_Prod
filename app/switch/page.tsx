@@ -19,7 +19,7 @@ export default function SwitchPage() {
                         Feel stuck with an accountant who doesn't call you back? We handle the awkward conversations, the file transfers, and the setup. You just sign.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <Link href="/contact" className="bg-growth text-navy-950 px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-lg shadow-growth/20 flex items-center justify-center gap-2">
+                        <Link href="/contact" className="bg-growth text-navy-950 px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-lg shadow-growth/20 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                             Start Your Switch <ArrowRight size={20} />
                         </Link>
                     </div>
@@ -113,7 +113,7 @@ export default function SwitchPage() {
                     <p className="text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
                         Ready to switch? Book a call and we'll have the transfer papers ready for you to sign before we hang up.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 bg-growth text-navy-950 px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all shadow-xl">
+                    <Link href="/contact" className="inline-flex items-center gap-2 bg-growth text-navy-950 px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all shadow-xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         Book Your Switch Call <ArrowRight size={24} />
                     </Link>
                 </div>

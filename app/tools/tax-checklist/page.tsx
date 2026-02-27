@@ -80,7 +80,7 @@ export default function TaxChecklistPage() {
                     <div className="flex flex-wrap justify-center gap-4 print:hidden">
                         <button
                             onClick={printChecklist}
-                            className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-navy-950 hover:bg-gray-50 hover:border-gray-300 transition shadow-sm"
+                            className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-navy-950 hover:bg-gray-50 hover:border-gray-300 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                         >
                             <Printer size={18} /> Print List
                         </button>
@@ -129,7 +129,7 @@ export default function TaxChecklistPage() {
                         <p className="text-white/60 max-w-xl mx-auto mb-8 text-lg">
                             Upload your documents to our secure portal and we'll handle the rest. No appointments, no waiting.
                         </p>
-                        <a href="/portal/documents" className="inline-flex items-center gap-2 bg-growth text-navy-950 px-8 py-4 rounded-xl font-black hover:scale-105 transition-all shadow-lg">
+                        <a href="/portal/documents" className="inline-flex items-center gap-2 bg-growth text-navy-950 px-8 py-4 rounded-xl font-black hover:scale-105 transition-all shadow-lg focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                             Upload Documents <Share2 size={18} />
                         </a>
                     </div>

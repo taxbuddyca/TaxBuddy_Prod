@@ -142,7 +142,7 @@ export default function FileUpload() {
                     <button
                         onClick={handleUpload}
                         disabled={uploading}
-                        className="w-full bg-navy-950 text-white py-3 rounded-xl font-bold text-sm hover:bg-navy-900 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                        className="w-full bg-navy-950 text-white py-3 rounded-xl font-bold text-sm hover:bg-navy-900 transition-all flex items-center justify-center gap-2 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         {uploading ? "Uploading..." : "Confirm Upload"}
                     </button>

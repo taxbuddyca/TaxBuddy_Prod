@@ -59,7 +59,7 @@ export default function PrivacyPolicy() {
                             <p className="text-white/40 mb-10 relative z-10">Our Chief Privacy Officer is available to discuss our data residency and security protocols.</p>
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center gap-2 bg-growth text-white px-10 py-5 rounded-2xl font-black hover:scale-105 transition-all relative z-10"
+                                className="inline-flex items-center gap-2 bg-growth text-white px-10 py-5 rounded-2xl font-black hover:scale-105 transition-all relative z-10 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                             >
                                 Contact Privacy Officer <Send size={18} />
                             </Link>

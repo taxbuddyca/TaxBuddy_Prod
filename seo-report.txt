@@ -1,0 +1,22 @@
+﻿--- Missing H1 ---
+d:\Taxbuddycanada\app\admin\blog\new\page.tsx
+d:\Taxbuddycanada\app\admin\blog\[id]\page.tsx
+d:\Taxbuddycanada\app\admin\page.tsx
+d:\Taxbuddycanada\app\services\page.tsx
+d:\Taxbuddycanada\app\tools\tax-engine\compare\page.tsx
+d:\Taxbuddycanada\app\tools\tax-engine\growth\page.tsx
+d:\Taxbuddycanada\app\tools\tax-engine\life\page.tsx
+d:\Taxbuddycanada\app\tools\tax-engine\niche\page.tsx
+d:\Taxbuddycanada\app\tools\tax-engine\page.tsx
+
+--- Missing Meta ---
+d:\Taxbuddycanada\app\admin\blog\new\page.tsx
+d:\Taxbuddycanada\app\admin\blog\page.tsx
+d:\Taxbuddycanada\app\admin\blog\[id]\page.tsx
+d:\Taxbuddycanada\app\admin\documents\page.tsx
+d:\Taxbuddycanada\app\admin\page.tsx
+d:\Taxbuddycanada\app\admin\users\page.tsx
+d:\Taxbuddycanada\app\login\page.tsx
+d:\Taxbuddycanada\app\portal\documents\page.tsx
+d:\Taxbuddycanada\app\portal\page.tsx
+d:\Taxbuddycanada\app\resources\[slug]\page.tsx

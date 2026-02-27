@@ -162,7 +162,7 @@ export default function AdminLeadsTable() {
                                             >
                                                 <CheckCircle2 className="w-4 h-4" />
                                             </button>
-                                            <button className="p-2 text-navy-900/20 hover:text-red-500 hover:bg-white hover:shadow-sm rounded-lg transition">
+                                            <button className="p-2 text-navy-900/20 hover:text-red-500 hover:bg-white hover:shadow-sm rounded-lg transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                                 <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>

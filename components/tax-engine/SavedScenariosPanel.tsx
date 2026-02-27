@@ -276,7 +276,7 @@ export default function SavedScenariosPanel({
             {selectedForComparison.length >= 2 && (
                 <button
                     onClick={handleCompare}
-                    className="w-full mt-6 px-4 py-3 bg-navy-950 text-white rounded-xl font-bold hover:bg-navy-900 transition-colors"
+                    className="w-full mt-6 px-4 py-3 bg-navy-950 text-white rounded-xl font-bold hover:bg-navy-900 transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                 >
                     Compare Selected ({selectedForComparison.length})
                 </button>

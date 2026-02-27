@@ -68,7 +68,7 @@ export default function NicheEngine() {
         return (
             <div className="min-h-screen pt-32 pb-24">
                 <div className="max-w-6xl mx-auto px-6">
-                    <Link href="/tools/tax-engine" className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-8 transition-colors">
+                    <Link href="/tools/tax-engine" className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-8 transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         <ArrowLeft size={20} />
                         Back to Brain Selection
                     </Link>
@@ -136,7 +136,7 @@ export default function NicheEngine() {
         <div className="min-h-screen pt-32 pb-24 bg-gray-50">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="mb-8">
-                    <Link href="/tools/tax-engine" className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-4 transition-colors">
+                    <Link href="/tools/tax-engine" className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-4 transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         <ArrowLeft size={20} />
                         Change Scenario
                     </Link>

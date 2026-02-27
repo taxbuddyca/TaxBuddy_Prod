@@ -95,7 +95,7 @@ export default function ServiceContent({ content }: ServiceContentProps) {
                             {content.closing.text}
                         </p>
                         {content.closing.cta && (
-                            <Link href={content.closing.cta.link} className="inline-flex items-center gap-3 bg-growth text-white px-8 py-4 rounded-xl font-black hover:bg-growth/90 hover:scale-105 transition-all shadow-lg shadow-growth/20">
+                            <Link href={content.closing.cta.link} className="inline-flex items-center gap-3 bg-growth text-white px-8 py-4 rounded-xl font-black hover:bg-growth/90 hover:scale-105 transition-all shadow-lg shadow-growth/20 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 {content.closing.cta.text} <ArrowRight size={20} />
                             </Link>
                         )}

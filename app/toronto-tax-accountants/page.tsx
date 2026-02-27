@@ -55,10 +55,10 @@ export default function TorontoLandingPage() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="flex flex-col sm:flex-row gap-5 justify-center mb-16"
                         >
-                            <Link href="/contact" className="group relative bg-navy-950 text-white px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20">
+                            <Link href="/contact" className="group relative bg-navy-950 text-white px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Start My GTA Tax Return <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link href="/services" className="bg-white/60 backdrop-blur-xl text-navy-950 px-10 py-5 rounded-2xl text-lg font-black hover:bg-white/80 transition-all text-center border border-navy-950/10 shadow-xl">
+                            <Link href="/services" className="bg-white/60 backdrop-blur-xl text-navy-950 px-10 py-5 rounded-2xl text-lg font-black hover:bg-white/80 transition-all text-center border border-navy-950/10 shadow-xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 View Services
                             </Link>
                         </motion.div>
@@ -136,7 +136,7 @@ export default function TorontoLandingPage() {
                     <FAQAccordion items={localFaqs} />
 
                     <div className="text-center mt-12">
-                        <Link href="/faq" className="text-sm font-bold text-navy-900/40 hover:text-growth transition uppercase tracking-widest group inline-flex items-center gap-2">
+                        <Link href="/faq" className="text-sm font-bold text-navy-900/40 hover:text-growth transition uppercase tracking-widest group inline-flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                             View National FAQ <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
@@ -156,10 +156,10 @@ export default function TorontoLandingPage() {
                                 Join hundreds of GTA entrepreneurs who have traded the commute for a better, faster, and more professional virtual tax experience.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                                <Link href="/contact" className="bg-growth text-white px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all inline-flex items-center justify-center gap-3 shadow-2xl shadow-growth/20">
+                                <Link href="/contact" className="bg-growth text-white px-10 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all inline-flex items-center justify-center gap-3 shadow-2xl shadow-growth/20 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                     Book a GTA Consultation <Send size={20} />
                                 </Link>
-                                <a href="tel:+13068804017" className="bg-white/10 text-white px-10 py-5 rounded-2xl text-lg font-black hover:bg-white/20 transition-all inline-flex items-center justify-center gap-3 backdrop-blur-xl border border-white/10">
+                                <a href="tel:+13068804017" className="bg-white/10 text-white px-10 py-5 rounded-2xl text-lg font-black hover:bg-white/20 transition-all inline-flex items-center justify-center gap-3 backdrop-blur-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                     <Phone size={20} /> (416) XXX-XXXX
                                 </a>
                             </div>

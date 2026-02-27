@@ -29,7 +29,7 @@ export default function AISearch({ queries }: AISearchProps) {
                         href={q.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative overflow-hidden bg-white/50 hover:bg-white border border-white/60 hover:border-growth/30 rounded-xl p-4 transition-all duration-300 hover:shadow-lg flex items-center justify-between"
+                        className="group relative overflow-hidden bg-white/50 hover:bg-white border border-white/60 hover:border-growth/30 rounded-xl p-4 transition-all duration-300 hover:shadow-lg flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         <span className="font-bold text-navy-900 group-hover:text-growth transition-colors">{q.platform}</span>
                         <ExternalLink size={14} className="text-navy-900/40 group-hover:text-growth transition-colors opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300" />

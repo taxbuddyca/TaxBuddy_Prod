@@ -30,7 +30,7 @@ export default function DeletePostButton({ postId }: { postId: string }) {
         <button
             onClick={handleDelete}
             disabled={loading}
-            className="p-2 text-navy-900/40 hover:text-red-600 hover:bg-red-50 rounded-lg border border-transparent hover:border-red-100 transition-all disabled:opacity-50"
+            className="p-2 text-navy-900/40 hover:text-red-600 hover:bg-red-50 rounded-lg border border-transparent hover:border-red-100 transition-all disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
             title="Delete Post"
         >
             <Trash2 size={16} />

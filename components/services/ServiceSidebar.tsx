@@ -81,7 +81,7 @@ export default function ServiceSidebar({ sidebar, dynamicPricing }: ServiceSideb
 
                     <button
                         type="submit"
-                        className="w-full mt-4 bg-growth text-white py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-growth/90 hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                        className="w-full mt-4 bg-growth text-white py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-growth/90 hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         Download Now <Download size={16} />
                     </button>

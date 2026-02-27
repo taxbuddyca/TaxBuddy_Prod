@@ -1,18 +1,33 @@
-
-import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { ArrowRight, Calendar, User } from "lucide-react";
 import GlassCard from "@/components/GlassCard";
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 // Revalidate every 60 seconds
 export const revalidate = 60;
 
 export default async function BlogIndexPage() {
-    const supabase = createClient();
-    const { data: posts } = await supabase
-        .from('posts')
-        .select('*')
-        .order('published_at', { ascending: false });
+    let posts = [];
+    
+    try {
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+            console.warn('⚠️ Missing Supabase environment variables for static generation of /blog.');
+        } else {
+            const supabase = createSupabaseClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL,
+                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+            );
+            
+            const { data } = await supabase
+                .from('posts')
+                .select('*')
+                .order('published_at', { ascending: false });
+                
+            posts = data || [];
+        }
+    } catch (err) {
+        console.error('🔥 Error fetching posts during build:', err);
+    }
 
     return (
         <main className="pt-32 pb-24">

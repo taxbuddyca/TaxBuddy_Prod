@@ -46,7 +46,7 @@ export default function ServiceHero({ hero }: ServiceHeroProps) {
                     </p>
                     <Link
                         href="/contact"
-                        className="inline-flex items-center gap-3 bg-growth text-white px-8 py-4 rounded-xl font-black text-lg hover:bg-growth/90 hover:scale-105 transition-all shadow-lg shadow-growth/20"
+                        className="inline-flex items-center gap-3 bg-growth text-white px-8 py-4 rounded-xl font-black text-lg hover:bg-growth/90 hover:scale-105 transition-all shadow-lg shadow-growth/20 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         {hero.cta} <ArrowRight size={20} />
                     </Link>

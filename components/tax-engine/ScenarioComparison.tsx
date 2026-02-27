@@ -122,7 +122,7 @@ export default function ScenarioComparison() {
                     </h1>
                     <Link
                         href="/tools/tax-engine"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-navy-950 text-white rounded-xl font-bold hover:bg-navy-900 transition-colors"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-navy-950 text-white rounded-xl font-bold hover:bg-navy-900 transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         <ArrowLeft size={20} />
                         Back to Tax Engine
@@ -141,7 +141,7 @@ export default function ScenarioComparison() {
                 <div className="mb-8">
                     <Link
                         href="/tools/tax-engine"
-                        className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-4 transition-colors"
+                        className="inline-flex items-center gap-2 text-navy-900/60 hover:text-navy-950 font-bold mb-4 transition-colors focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         <ArrowLeft size={20} />
                         Back to Tax Engine

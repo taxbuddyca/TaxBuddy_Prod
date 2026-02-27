@@ -15,7 +15,7 @@ export default function ServicesPage() {
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="text-center mb-24 flashy-reveal">
                         <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Our Expertise</span>
-                        <h2 className="text-4xl md:text-5xl font-black text-navy-950 tracking-tight mb-8">Full-Service Financial Management.</h2>
+                        <h1 className="text-4xl md:text-5xl font-black text-navy-950 tracking-tight mb-8">Full-Service Financial Management.</h1>
                         <p className="text-lg text-navy-900/70 max-w-2xl mx-auto font-medium leading-relaxed">
                             Choose the level of support your business needs. We act as your entire finance department, seamlessly integrated with your existing tech.
                         </p>
@@ -75,10 +75,10 @@ export default function ServicesPage() {
                             Stop worrying about bookkeeping and start focusing on growth. Our pods are ready to integrate.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
-                            <Link href="/contact" className="bg-growth text-white px-10 py-5 rounded-2xl font-black hover:scale-105 transition-all text-lg shadow-lg shadow-growth/20">
+                            <Link href="/contact" className="bg-growth text-white px-10 py-5 rounded-2xl font-black hover:scale-105 transition-all text-lg shadow-lg shadow-growth/20 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Talk to Advisor
                             </Link>
-                            <Link href="/pricing" className="bg-white/10 text-white px-10 py-5 rounded-2xl font-black hover:bg-white/20 transition-all text-lg border border-white/10">
+                            <Link href="/pricing" className="bg-white/10 text-white px-10 py-5 rounded-2xl font-black hover:bg-white/20 transition-all text-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 View Plans
                             </Link>
                         </div>

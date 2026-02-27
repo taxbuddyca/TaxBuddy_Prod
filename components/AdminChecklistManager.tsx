@@ -106,7 +106,7 @@ export default function AdminChecklistManager() {
                 </div>
                 <button
                     onClick={startNew}
-                    className="bg-growth text-white px-6 py-3 rounded-xl font-bold hover:bg-growth-600 transition flex items-center gap-2 shadow-lg shadow-growth/20"
+                    className="bg-growth text-white px-6 py-3 rounded-xl font-bold hover:bg-growth-600 transition flex items-center gap-2 shadow-lg shadow-growth/20 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                 >
                     <Plus size={18} /> Add Category
                 </button>
@@ -212,8 +212,8 @@ function Editor({ form, setForm, onSave, onCancel }: { form: any, setForm: any, 
             </div>
 
             <div className="flex justify-end gap-4 pt-4 border-t border-gray-100">
-                <button onClick={onCancel} className="px-6 py-3 rounded-xl font-bold text-navy-900/40 hover:text-navy-950 transition">Cancel</button>
-                <button onClick={onSave} className="bg-growth text-white px-8 py-3 rounded-xl font-bold hover:bg-growth-600 transition shadow-lg shadow-growth/20 flex items-center gap-2">
+                <button onClick={onCancel} className="px-6 py-3 rounded-xl font-bold text-navy-900/40 hover:text-navy-950 transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Cancel</button>
+                <button onClick={onSave} className="bg-growth text-white px-8 py-3 rounded-xl font-bold hover:bg-growth-600 transition shadow-lg shadow-growth/20 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                     <Save size={18} /> Save Changes
                 </button>
             </div>

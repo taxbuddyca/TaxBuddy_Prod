@@ -81,13 +81,13 @@ export default function AdminBlogEditor({ post }: AdminBlogEditorProps) {
     return (
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 pt-32">
             <div className="flex items-center justify-between mb-8">
-                <Link href="/admin/blog" className="flex items-center gap-2 text-navy-900/40 hover:text-navy-950 transition font-bold">
+                <Link href="/admin/blog" className="flex items-center gap-2 text-navy-900/40 hover:text-navy-950 transition font-bold focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                     <ArrowLeft size={18} /> Back
                 </Link>
                 <button
                     type="submit"
                     disabled={loading}
-                    className="flex items-center gap-2 bg-growth text-navy-950 px-6 py-3 rounded-xl font-black hover:bg-growth/90 transition shadow-lg disabled:opacity-50"
+                    className="flex items-center gap-2 bg-growth text-navy-950 px-6 py-3 rounded-xl font-black hover:bg-growth/90 transition shadow-lg disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                 >
                     <Save size={18} />
                     {loading ? 'Saving...' : 'Save Post'}

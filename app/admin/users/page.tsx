@@ -97,7 +97,7 @@ export default async function AdminUsersPage() {
                                                     className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${canUpload
                                                         ? "bg-red-50 text-red-600 hover:bg-red-100"
                                                         : "bg-green-50 text-green-600 hover:bg-green-100"
-                                                        } ${isAdmin ? "opacity-50 cursor-not-allowed" : ""}`}
+                                                        } ${isAdmin ? "opacity-50 cursor-not-allowed" : ""} focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2`}
                                                 >
                                                     {canUpload ? "Revoke Access" : "Grant Access"}
                                                 </button>

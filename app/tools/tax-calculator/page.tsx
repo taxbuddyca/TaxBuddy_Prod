@@ -128,7 +128,7 @@ export default function CalculatorPage() {
                                 { cat: "Income & Investments", title: "How are dividends taxed in Canada?", desc: "Learn the difference between eligible and ineligible dividends and how you can benefit from the dividend tax credit.", href: "/resources/dividend-tax" },
                                 { cat: "Employment & Employees", title: "How much tax is deducted from a paycheque?", desc: "Get to know the basics of income tax withholding and how it impacts your refund or taxes owed.", href: "/resources/tax-withholding" },
                             ].map((card, i) => (
-                                <Link href={card.href} key={i} className="group bg-gray-50 p-8 rounded-[2rem] hover:bg-white hover:shadow-premium border border-transparent hover:border-gray-100 transition-all cursor-pointer">
+                                <Link href={card.href} key={i} className="group bg-gray-50 p-8 rounded-[2rem] hover:bg-white hover:shadow-premium border border-transparent hover:border-gray-100 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                     <div className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">{card.cat}</div>
                                     <h3 className="text-xl font-black text-navy-950 mb-4 group-hover:text-blue-600 transition-colors tracking-tight">{card.title}</h3>
                                     <p className="text-sm text-navy-900/40 font-bold leading-relaxed mb-6">{card.desc}</p>

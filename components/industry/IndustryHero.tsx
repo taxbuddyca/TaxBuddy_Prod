@@ -39,14 +39,14 @@ export default function IndustryHero({ title, subtitle, image, category }: Indus
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <Link
                         href="/contact"
-                        className="bg-growth text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-growth-600 transition-all shadow-lg hover:shadow-growth/20 flex items-center gap-2 group"
+                        className="bg-growth text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-growth-600 transition-all shadow-lg hover:shadow-growth/20 flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         Book Free Consultation
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                     <Link
                         href="#solutions"
-                        className="px-8 py-4 rounded-xl font-bold text-lg text-white border border-white/20 hover:bg-white/10 transition-all backdrop-blur-sm"
+                        className="px-8 py-4 rounded-xl font-bold text-lg text-white border border-white/20 hover:bg-white/10 transition-all backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                     >
                         Explore Services
                     </Link>

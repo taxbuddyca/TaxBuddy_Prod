@@ -53,7 +53,7 @@ export default function FAQPage() {
                         </p>
                         <Link
                             href="/contact"
-                            className="inline-flex items-center gap-3 bg-growth text-white px-10 py-5 rounded-2xl font-black hover:bg-growth-600 transition-all text-lg shadow-xl"
+                            className="inline-flex items-center gap-3 bg-growth text-white px-10 py-5 rounded-2xl font-black hover:bg-growth-600 transition-all text-lg shadow-xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                         >
                             Contact Support <ArrowRight size={20} />
                         </Link>

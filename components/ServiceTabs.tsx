@@ -52,7 +52,7 @@ export default function ServiceTabs() {
                                     <p className="text-xl text-navy-900/70 leading-relaxed font-medium mb-10">
                                         {s.desc}
                                     </p>
-                                    <Link href="/contact" className="bg-navy-950 text-white px-10 py-5 rounded-xl font-black flex items-center gap-3 hover:bg-navy-900 hover:scale-105 transition-all shadow-xl w-fit">
+                                    <Link href="/contact" className="bg-navy-950 text-white px-10 py-5 rounded-xl font-black flex items-center gap-3 hover:bg-navy-900 hover:scale-105 transition-all shadow-xl w-fit focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                         Get started with {s.id} <ArrowRight size={20} />
                                     </Link>
                                 </div>

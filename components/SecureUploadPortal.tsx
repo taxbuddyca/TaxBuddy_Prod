@@ -66,7 +66,7 @@ export default function SecureUploadPortal() {
 
     const uploadAll = async () => {
         const pendingFiles = files.filter(f => f.status === 'pending' || f.status === 'error');
-        // Execute sequentially or parallel? Parallel is better for UX usually, but let's do parallel.
+        if (pendingFiles.length === 0) return;
         await Promise.all(pendingFiles.map(f => processUpload(f.id)));
     };
 
@@ -106,6 +106,7 @@ export default function SecureUploadPortal() {
     };
 
     const pendingCount = files.filter(f => f.status === 'pending').length;
+    const isSubmitting = files.some(f => f.status === 'uploading');
 
     return (
         <div className="w-full max-w-3xl mx-auto space-y-8 p-1">
@@ -137,7 +138,7 @@ export default function SecureUploadPortal() {
                             {pendingCount > 0 ? `${pendingCount} File(s) Ready to Upload` : 'Documents'}
                         </h4>
                         {pendingCount > 0 && (
-                            <button onClick={clearAll} className="text-xs font-bold text-red-400 hover:text-red-500 flex items-center gap-1 transition-colors">
+                            <button onClick={clearAll} disabled={isSubmitting} className="text-xs font-bold text-red-400 hover:text-red-500 flex items-center gap-1 transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 <Trash2 size={12} /> Clear All
                             </button>
                         )}
@@ -170,7 +171,7 @@ export default function SecureUploadPortal() {
                                     ) : (
                                         <div className="w-5 h-5 border-2 border-growth border-t-transparent rounded-full animate-spin" />
                                     )}
-                                    <button onClick={() => removeFile(file.id)} className="text-gray-300 hover:text-red-500 transition-colors p-1">
+                                    <button onClick={() => removeFile(file.id)} disabled={isSubmitting} className="text-gray-300 hover:text-red-500 transition-colors p-1 disabled:opacity-50">
                                         <X className="w-5 h-5" />
                                     </button>
                                 </div>
@@ -185,9 +186,10 @@ export default function SecureUploadPortal() {
                     {pendingCount > 0 && (
                         <button
                             onClick={uploadAll}
-                            className="w-full py-4 bg-growth text-white rounded-2xl font-black text-lg shadow-lg shadow-growth/20 hover:bg-growth-600 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                            disabled={isSubmitting}
+                            className="w-full py-4 bg-growth text-white rounded-2xl font-black text-lg shadow-lg shadow-growth/20 hover:bg-growth-600 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                         >
-                            <Upload className="w-5 h-5" /> Upload {pendingCount} Files
+                            <Upload className="w-5 h-5" /> {isSubmitting ? 'Uploading...' : `Upload ${pendingCount} Files`}
                         </button>
                     )}
                 </div>

@@ -574,7 +574,7 @@ export default function AboutPage() {
                             We'll show you exactly how much time (and money) you could save. If we're not the right fit, we'll tell you that too.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-6">
-                            <Link href="/contact" className="group relative bg-navy-950 text-white px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20 overflow-hidden">
+                            <Link href="/contact" className="group relative bg-navy-950 text-white px-12 py-6 rounded-2xl text-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20 overflow-hidden focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 <motion.div
                                     className="absolute inset-0 bg-growth/20 opacity-0 group-hover:opacity-100 transition-opacity"
                                     animate={{ x: ["-100%", "100%"] }}
@@ -583,7 +583,7 @@ export default function AboutPage() {
                                 <span className="relative z-10">Book Free Consultation</span>
                                 <Send size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link href="/pricing" className="bg-white border-2 border-gray-200 text-navy-900 px-12 py-6 rounded-2xl text-xl font-black hover:bg-gray-50 hover:border-growth/30 transition-all shadow-sm">
+                            <Link href="/pricing" className="bg-white border-2 border-gray-200 text-navy-900 px-12 py-6 rounded-2xl text-xl font-black hover:bg-gray-50 hover:border-growth/30 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 View Pricing
                             </Link>
                         </div>

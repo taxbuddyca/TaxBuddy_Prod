@@ -22,7 +22,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
 
     return (
         <div className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
-            <Link href={`/blog/${post.slug}`} className="block relative aspect-[16/9] overflow-hidden bg-gray-100">
+            <Link href={`/blog/${post.slug}`} className="block relative aspect-[16/9] overflow-hidden bg-gray-100 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                 {post.cover_image ? (
                     <img
                         src={post.cover_image}
@@ -62,7 +62,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
                 </p>
 
                 <div className="mt-auto">
-                    <Link href={`/blog/${post.slug}`} className="inline-flex items-center text-sm font-bold text-growth hover:text-growth-dark group/link">
+                    <Link href={`/blog/${post.slug}`} className="inline-flex items-center text-sm font-bold text-growth hover:text-growth-dark group/link focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         Read Article
                         <ArrowRight size={16} className="ml-2 transform group-hover/link:translate-x-1 transition-transform" />
                     </Link>

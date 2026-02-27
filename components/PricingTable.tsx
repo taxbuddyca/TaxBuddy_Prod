@@ -111,7 +111,7 @@ export default function PricingTable({ serviceSlug }: { serviceSlug?: string }) 
                         ))}
                     </div>
 
-                    <Link href="/contact" className={`w-full py-2.5 rounded-xl font-black text-base transition-all flex items-center justify-center gap-3 mt-auto ${plan.popular ? 'bg-growth text-white hover:bg-growth-600 hover:shadow-lg shadow-growth/20' : 'bg-navy-950 text-white hover:bg-navy-900 hover:scale-[1.02]'}`}>
+                    <Link href="/contact" className={`w-full py-2.5 rounded-xl font-black text-base transition-all flex items-center justify-center gap-3 mt-auto ${plan.popular ? 'bg-growth text-white hover:bg-growth-600 hover:shadow-lg shadow-growth/20' : 'bg-navy-950 text-white hover:bg-navy-900 hover:scale-[1.02]'} focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2`}>
                         {plan.price.includes("Custom") ? "Contact Sales" : "Get Started"} <ArrowRight size={18} />
                     </Link>
 

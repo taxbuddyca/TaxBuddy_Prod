@@ -126,7 +126,7 @@ export default function Home() {
                             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                             className="flex flex-col sm:flex-row gap-5 mb-14 w-full sm:w-auto"
                         >
-                            <Link href="/contact" className="group relative bg-navy-950 text-white px-10 py-4 rounded-2xl text-lg font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20 overflow-hidden">
+                            <Link href="/contact" className="group relative bg-navy-950 text-white px-10 py-4 rounded-2xl text-lg font-black hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-navy-950/20 overflow-hidden focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 <motion.div
                                     className="absolute inset-0 bg-growth/20 opacity-0 group-hover:opacity-100 transition-opacity"
                                     animate={{ x: ["-100%", "100%"] }}
@@ -134,7 +134,7 @@ export default function Home() {
                                 />
                                 Get Started <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link href="/services" className="bg-white/40 backdrop-blur-xl text-navy-950 px-10 py-4 rounded-2xl text-lg font-black hover:bg-white/60 transition-all text-center border border-navy-950/5 hover:border-navy-950/10 shadow-xl">
+                            <Link href="/services" className="bg-white/40 backdrop-blur-xl text-navy-950 px-10 py-4 rounded-2xl text-lg font-black hover:bg-white/60 transition-all text-center border border-navy-950/5 hover:border-navy-950/10 shadow-xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Explore Services
                             </Link>
                         </motion.div>
@@ -190,7 +190,7 @@ export default function Home() {
                             <p className="text-lg text-navy-900/60 font-medium leading-relaxed mb-10">
                                 We combine high-end technology with professional CPA expertise to give you a real-time view of your business performance.
                             </p>
-                            <Link href="/about" className="inline-flex items-center gap-3 text-xs font-black text-navy-950 hover:text-growth transition uppercase tracking-widest group">
+                            <Link href="/about" className="inline-flex items-center gap-3 text-xs font-black text-navy-950 hover:text-growth transition uppercase tracking-widest group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Our Story <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </motion.div>
@@ -247,6 +247,7 @@ export default function Home() {
                     <motion.img
                         style={{ y: y1, scale: 1.2 }}
                         src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=2000"
+                        alt="Modern Accounting Philosophy"
                         className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-navy-950/60" />
@@ -339,7 +340,7 @@ export default function Home() {
                     </motion.div>
                     <FAQAccordion />
                     <div className="text-center mt-12">
-                        <Link href="/faq" className="text-sm font-bold text-navy-900/40 hover:text-growth transition uppercase tracking-widest border-b border-transparent hover:border-growth inline-block pb-1">
+                        <Link href="/faq" className="text-sm font-bold text-navy-900/40 hover:text-growth transition uppercase tracking-widest border-b border-transparent hover:border-growth inline-block pb-1 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                             View All FAQs
                         </Link>
                     </div>
@@ -357,7 +358,7 @@ export default function Home() {
                 >
                     <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block font-bold">Join the Revolution</span>
                     <h2 className="text-4xl md:text-6xl font-black text-navy-950 tracking-tighter mb-8 leading-[1.05]">Ready to upgrade?</h2>
-                    <Link href="/contact" className="inline-flex items-center gap-3 bg-navy-950 text-white px-12 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-2xl">
+                    <Link href="/contact" className="inline-flex items-center gap-3 bg-navy-950 text-white px-12 py-5 rounded-2xl text-lg font-black hover:scale-105 transition-all shadow-2xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                         Schedule a Call <Send size={20} />
                     </Link>
                 </motion.div>

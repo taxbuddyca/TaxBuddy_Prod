@@ -88,14 +88,14 @@ export default function LoginPage() {
 
                         <button
                             disabled={loading}
-                            className="w-full bg-navy-950 text-white py-5 rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-navy-900 transition-all disabled:opacity-50"
+                            className="w-full bg-navy-950 text-white py-5 rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-navy-900 transition-all disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                         >
                             {loading ? "Authenticating..." : "Enter Command Center"}
                             {!loading && <ArrowRight size={20} />}
                         </button>
 
                         <div className="text-center pt-4">
-                            <Link href="/contact" className="text-[10px] font-black text-navy-900/20 uppercase tracking-[0.2em] hover:text-growth transition">
+                            <Link href="/contact" className="text-[10px] font-black text-navy-900/20 uppercase tracking-[0.2em] hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Forgotten Credentials? Contact IT Support
                             </Link>
                         </div>

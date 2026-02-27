@@ -129,7 +129,7 @@ export default function SaveScenarioButton({
                             <button
                                 onClick={handleSave}
                                 disabled={isSaving}
-                                className="flex-1 px-4 py-3 rounded-xl bg-emerald-600 font-bold text-white hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                                className="flex-1 px-4 py-3 rounded-xl bg-emerald-600 font-bold text-white hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                             >
                                 {isSaving ? (
                                     <>

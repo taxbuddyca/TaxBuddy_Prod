@@ -99,7 +99,7 @@ export default function RRSPCalculatorPage() {
                                             <div className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">Max Deduction Limit</div>
                                             <div className="text-5xl font-black">$32,490</div>
                                         </div>
-                                        <Link href="/resources/rrsp-limits" className="text-white/20 hover:text-white mb-2 underline decoration-2 underline-offset-4">Learn More</Link>
+                                        <Link href="/resources/rrsp-limits" className="text-white/20 hover:text-white mb-2 underline decoration-2 underline-offset-4 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Learn More</Link>
                                     </div>
                                     <div className="flex justify-between items-end border-b border-white/10 pb-4">
                                         <div>

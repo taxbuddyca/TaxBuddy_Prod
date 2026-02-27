@@ -265,7 +265,7 @@ export default function PDFExportButton({
         <button
             onClick={generatePDF}
             disabled={isGenerating}
-            className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-200 rounded-xl font-bold text-navy-950 hover:border-blue-400 hover:bg-blue-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-200 rounded-xl font-bold text-navy-950 hover:border-blue-400 hover:bg-blue-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
         >
             {isGenerating ? (
                 <>

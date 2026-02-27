@@ -42,7 +42,7 @@ export default function ServicePricingCard({ pricing, className = "" }: ServiceP
                 ))}
             </ul>
 
-            <Link href="/contact" className="w-full bg-navy-950 text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-navy-900 hover:scale-105 transition-all shadow-lg hover:shadow-xl">
+            <Link href="/contact" className="w-full bg-navy-950 text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-navy-900 hover:scale-105 transition-all shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                 Get a Quote <ArrowRight size={18} />
             </Link>
         </GlassCard>

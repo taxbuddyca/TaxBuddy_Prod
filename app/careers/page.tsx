@@ -72,7 +72,7 @@ export default function CareersPage() {
                                     <p className="text-navy-900/40 text-sm font-medium leading-relaxed mb-8">
                                         We are always hiring for talent, not just positions. Send us your resume and tell us how you can help scale the modern back-office.
                                     </p>
-                                    <Link href="/contact" className="text-growth font-black uppercase tracking-[0.2em] text-[10px] flex items-center gap-2 hover:gap-4 transition-all">
+                                    <Link href="/contact" className="text-growth font-black uppercase tracking-[0.2em] text-[10px] flex items-center gap-2 hover:gap-4 transition-all focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                         General Inquiry <ChevronRight size={14} />
                                     </Link>
                                 </GlassCard>

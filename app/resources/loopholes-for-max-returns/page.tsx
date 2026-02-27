@@ -109,10 +109,10 @@ export default function LoopholesPage() {
                                 Our virtual CPAs serve clients across Nova Scotia and all of Canada. Use our modern online filing system to get the expert results you deserve without leaving your home.
                             </p>
                             <div className="flex flex-wrap justify-center gap-4">
-                                <Link href="/contact" className="bg-growth text-navy-950 px-8 py-4 rounded-xl font-black hover:scale-105 transition-all flex items-center gap-2">
+                                <Link href="/contact" className="bg-growth text-navy-950 px-8 py-4 rounded-xl font-black hover:scale-105 transition-all flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                     Start Your 2026 Return <ArrowRight size={18} />
                                 </Link>
-                                <Link href="/tools/tax-calculator" className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-black hover:bg-white/20 transition-all flex items-center gap-2">
+                                <Link href="/tools/tax-calculator" className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-black hover:bg-white/20 transition-all flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                     Estimate My Refund <Calculator size={18} />
                                 </Link>
                             </div>

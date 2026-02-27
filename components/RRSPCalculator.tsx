@@ -140,14 +140,14 @@ export default function RRSPCalculator() {
                             <h4 className="text-white text-xs font-black mb-0.5 px-4 leading-tight">Grow your wealth faster.</h4>
                             <Link
                                 href="/contact"
-                                className="inline-block mt-3 px-8 py-2 bg-blue-600 text-white rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition shadow-sm"
+                                className="inline-block mt-3 px-8 py-2 bg-blue-600 text-white rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2"
                             >
                                 Maximize My Savings
                             </Link>
                         </div>
 
                         <div className="text-center">
-                            <Link href="/resources/rrsp-limits" className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:underline decoration-2">
+                            <Link href="/resources/rrsp-limits" className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:underline decoration-2 focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Learn about RRSP rules <ArrowRight size={10} className="inline ml-1" />
                             </Link>
                         </div>

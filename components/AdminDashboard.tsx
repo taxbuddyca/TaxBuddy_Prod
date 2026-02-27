@@ -137,7 +137,7 @@ export default function AdminDashboard() {
                                     onChange={(e) => setFilter(e.target.value)}
                                 />
                             </div>
-                            <button className="flex items-center gap-2 bg-navy-950 text-white px-6 py-3 rounded-xl font-bold hover:bg-navy-900 transition shadow-lg">
+                            <button className="flex items-center gap-2 bg-navy-950 text-white px-6 py-3 rounded-xl font-bold hover:bg-navy-900 transition shadow-lg focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 <FileArchive className="w-5 h-5" /> Export All
                             </button>
                         </div>
