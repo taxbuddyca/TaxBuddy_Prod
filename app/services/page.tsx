@@ -32,11 +32,11 @@ export default function ServicesPage() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group flex flex-col h-full">
-                                <div className="h-64 min-h-[16rem] bg-sky-50/50 flex items-center justify-center p-8 border-b border-gray-100 overflow-hidden relative">
+                                <div className="h-64 min-h-[16rem] flex items-center justify-center border-b border-gray-100 overflow-hidden relative">
                                     <img
                                         src="/images/services/expert.png"
                                         alt="Expert-Led Strategy"
-                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                     />
                                     <div className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center text-growth font-black text-sm shadow-sm border border-black/5">
                                         01
@@ -50,11 +50,11 @@ export default function ServicesPage() {
                                 </div>
                             </div>
                             <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group flex flex-col h-full">
-                                <div className="h-64 min-h-[16rem] bg-sky-50/50 flex items-center justify-center p-8 border-b border-gray-100 overflow-hidden relative">
+                                <div className="h-64 min-h-[16rem] flex items-center justify-center border-b border-gray-100 overflow-hidden relative">
                                     <img
                                         src="/images/services/proactive.png"
                                         alt="Proactive Planning"
-                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                     />
                                     <div className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center text-growth font-black text-sm shadow-sm border border-black/5">
                                         02
@@ -68,11 +68,11 @@ export default function ServicesPage() {
                                 </div>
                             </div>
                             <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group flex flex-col h-full">
-                                <div className="h-64 min-h-[16rem] bg-sky-50/50 flex items-center justify-center p-8 border-b border-gray-100 overflow-hidden relative">
+                                <div className="h-64 min-h-[16rem] flex items-center justify-center border-b border-gray-100 overflow-hidden relative">
                                     <img
                                         src="/images/services/secure.png"
                                         alt="Bank Level Security"
-                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                     />
                                     <div className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center text-growth font-black text-sm shadow-sm border border-black/5">
                                         03

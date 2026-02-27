@@ -218,11 +218,11 @@ export default function Home() {
                             ].map((service, i) => (
                                 <GlassCard key={i} className="group overflow-hidden p-0 hover:border-growth/30 transition-all duration-500" intensity="light">
                                     <div className="flex flex-col md:flex-row h-full">
-                                        <div className="w-full md:w-2/5 h-64 md:h-auto min-h-[16rem] relative overflow-hidden bg-sky-50/50 flex items-center justify-center p-6 border-r border-gray-100">
+                                        <div className="w-full md:w-2/5 h-64 md:h-auto min-h-[16rem] relative overflow-hidden flex items-center justify-center border-r border-gray-100">
                                             <img
                                                 src={service.img}
                                                 alt={service.title}
-                                                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-xl"
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                             />
                                         </div>
                                         <div className="p-8 flex-1">
