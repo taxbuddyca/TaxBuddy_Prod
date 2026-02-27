@@ -8,8 +8,8 @@ export default function Footer() {
     return (
         <footer className="relative z-10 bg-white pt-16 pb-8 border-t border-gray-100 selection:bg-growth selection:text-white">
             <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
-                    <div className="lg:col-span-1">
+                <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-12">
+                    <div className="lg:max-w-sm">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center rotate-3 shadow-emerald">
                                 <Logo className="w-6 h-6" />
@@ -32,42 +32,43 @@ export default function Footer() {
                         </div>
                     </div>
 
-
-                    <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Regional</h4>
-                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
-                            <Link href="/halifax-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Halifax</Link>
-                            <Link href="/toronto-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Toronto</Link>
-                            <Link href="/vancouver-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Vancouver</Link>
-                            <Link href="/calgary-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Calgary</Link>
+                    <div className="flex flex-wrap lg:flex-nowrap gap-8 lg:gap-16">
+                        <div>
+                            <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Regional</h4>
+                            <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
+                                <Link href="/halifax-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Halifax</Link>
+                                <Link href="/toronto-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Toronto</Link>
+                                <Link href="/vancouver-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Vancouver</Link>
+                                <Link href="/calgary-tax-accountants" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Calgary</Link>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Industries</h4>
-                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
-                            <Link href="/industries/real-estate-investors-tax" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Real Estate</Link>
-                            <Link href="/industries/construction-trades-accounting" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Construction</Link>
-                            <Link href="/industries/rideshare-delivery-tax-accounting" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Gig Economy</Link>
-                            <Link href="/industries/ecommerce-tax-accounting" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">E-Commerce</Link>
+                        <div>
+                            <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Industries</h4>
+                            <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
+                                <Link href="/industries/real-estate-investors-tax" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Real Estate</Link>
+                                <Link href="/industries/construction-trades-accounting" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Construction</Link>
+                                <Link href="/industries/rideshare-delivery-tax-accounting" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Gig Economy</Link>
+                                <Link href="/industries/ecommerce-tax-accounting" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">E-Commerce</Link>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Support</h4>
-                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
-                            <Link href="/about" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">About Us</Link>
-                            <Link href="/blog" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Blog</Link>
-                            <Link href="/faq" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">FAQ</Link>
-                            <Link href="/contact" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Contact</Link>
+                        <div>
+                            <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Support</h4>
+                            <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
+                                <Link href="/about" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">About Us</Link>
+                                <Link href="/blog" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Blog</Link>
+                                <Link href="/faq" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">FAQ</Link>
+                                <Link href="/contact" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Contact</Link>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Legal</h4>
-                        <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
-                            <Link href="/privacy" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Privacy Policy</Link>
-                            <Link href="/terms" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Terms of Service</Link>
+                        <div>
+                            <h4 className="text-xs font-black text-navy-950 uppercase tracking-[0.2em] mb-4">Legal</h4>
+                            <div className="flex flex-col gap-3 text-xs font-bold text-navy-900/40 uppercase tracking-widest">
+                                <Link href="/privacy" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Privacy Policy</Link>
+                                <Link href="/terms" className="hover:text-growth transition focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">Terms of Service</Link>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -82,7 +82,7 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden lg:flex items-center gap-7">
+                    <div className="hidden lg:flex items-center gap-5">
                         <NavDropdown title="Services" items={servicesItems} isDarkTheme={isDarkTheme} />
                         <NavDropdown title="Industries" groups={industriesGroups} isDarkTheme={isDarkTheme} />
 
@@ -92,10 +92,10 @@ export default function Navbar() {
 
                         <NavDropdown title="Resources" items={resourcesItems} isDarkTheme={isDarkTheme} />
 
-                        <div className={`h-6 w-px mx-2 ${isDarkTheme ? 'bg-white/20' : 'bg-gray-200'}`} />
+                        <div className={`h-6 w-px mx-1 ${isDarkTheme ? 'bg-white/20' : 'bg-gray-200'}`} />
                         <Link
                             href="/contact"
-                            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 hover:-translate-y-0.5 ${isDarkTheme
+                            className={`px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 hover:-translate-y-0.5 ${isDarkTheme
                                 ? 'bg-white text-navy-950 hover:bg-gray-100'
                                 : 'bg-navy-950 text-white hover:bg-growth'
                                 }`}
