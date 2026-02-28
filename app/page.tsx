@@ -176,24 +176,22 @@ export default function Home() {
             <section className="py-32 bg-white overflow-hidden">
                 <div className="container mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
+                        <div
+                            className="antialiased"
+                            style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                         >
-                            <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block">Our Approach</span>
-                            <h2 className="text-4xl md:text-5xl font-black text-navy-950 mb-8 tracking-tighter leading-[1.05]">
+                            <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block" style={{ transform: "translateZ(0)" }}>Our Approach</span>
+                            <h2 className="text-4xl md:text-5xl font-black text-navy-950 mb-8 tracking-tighter leading-[1.05]" style={{ transform: "translateZ(0)" }}>
                                 More than just <br />
                                 <span className="text-growth">Accountants.</span>
                             </h2>
-                            <p className="text-lg text-navy-900/60 font-medium leading-relaxed mb-10">
+                            <p className="text-lg text-navy-900/60 font-medium leading-relaxed mb-10" style={{ transform: "translateZ(0)" }}>
                                 We combine high-end technology with professional CPA expertise to give you a real-time view of your business performance.
                             </p>
                             <Link href="/about" className="inline-flex items-center gap-3 text-xs font-black text-navy-950 hover:text-growth transition uppercase tracking-widest group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                                 Our Story <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
-                        </motion.div>
+                        </div>
 
                         <div className="grid grid-cols-1 gap-8">
                             {[
