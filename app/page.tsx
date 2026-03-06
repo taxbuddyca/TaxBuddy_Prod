@@ -177,7 +177,7 @@ export default function Home() {
                 <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
                         <div
-                            className="antialiased"
+                            className="antialiased flex flex-col justify-center h-full"
                             style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                         >
                             <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block" style={{ transform: "translateZ(0)" }}>Our Approach</span>
@@ -185,12 +185,43 @@ export default function Home() {
                                 More than just <br />
                                 <span className="text-growth">Accountants.</span>
                             </h2>
-                            <p className="text-lg text-navy-900/60 font-medium leading-relaxed mb-10" style={{ transform: "translateZ(0)" }}>
-                                We combine high-end technology with professional CPA expertise to give you a real-time view of your business performance.
+                            <p className="text-lg text-navy-900/60 font-medium leading-relaxed mb-10 lg:pr-12" style={{ transform: "translateZ(0)" }}>
+                                We combine high-end technology with professional CPA expertise to give you a real-time view of your business performance. Stop looking in the rearview mirror—let's build the future together.
                             </p>
-                            <Link href="/about" className="inline-flex items-center gap-3 text-xs font-black text-navy-950 hover:text-growth transition uppercase tracking-widest group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
-                                Our Story <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
+
+                            {/* Meaningful Value Stats Grid to fill empty vertical space */}
+                            <div className="grid grid-cols-2 gap-y-10 gap-x-6 py-8 border-y border-gray-100 mb-10 w-full lg:w-11/12">
+                                <div>
+                                    <div className="text-3xl font-black text-navy-950 mb-1 flex items-center gap-2">
+                                        100<span className="text-growth text-2xl">%</span>
+                                    </div>
+                                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy-900/40">Cloud-Native & Remote</div>
+                                </div>
+                                <div>
+                                    <div className="text-3xl font-black text-navy-950 mb-1 flex items-center gap-2">
+                                        CPA<span className="text-growth text-2xl">+</span>
+                                    </div>
+                                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy-900/40">Certified Experts</div>
+                                </div>
+                                <div>
+                                    <div className="text-3xl font-black text-navy-950 mb-1 flex items-center gap-2">
+                                        Zero
+                                    </div>
+                                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy-900/40">Billable Hours</div>
+                                </div>
+                                <div>
+                                    <div className="text-3xl font-black text-navy-950 mb-1 flex items-center gap-2">
+                                        24/7
+                                    </div>
+                                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy-900/40">Financial Visibility</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <Link href="/about" className="inline-flex items-center gap-3 text-xs font-black text-navy-950 hover:text-growth transition uppercase tracking-widest group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
+                                    Our Story <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                </Link>
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-8">
