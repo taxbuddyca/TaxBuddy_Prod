@@ -10,12 +10,19 @@ export default function Footer() {
             <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto">
                 <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-12">
                     <div className="lg:max-w-sm">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center rotate-3 shadow-emerald">
-                                <Logo className="w-6 h-6" />
+                        <Link href="/" className="flex items-center gap-0.5 mb-6 group focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded-xl p-1 -ml-1 inline-flex">
+                            <div className="relative">
+                                <Logo className="w-14 h-14" />
                             </div>
-                            <span className="text-3xl font-black tracking-tight text-navy-950" style={{ color: '#0a0f29' }}>Tax<span className="text-blue-600">Buddy</span></span>
-                        </div>
+                            <div className="flex flex-col pt-0.5">
+                                <span className="text-3xl font-black tracking-tight text-navy-950">
+                                    Tax<span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
+                                </span>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.4em] mt-1 -mr-1 text-gray-400">
+                                    Canada Advisory
+                                </span>
+                            </div>
+                        </Link>
                         <p className="text-navy-900/40 font-medium leading-relaxed mb-6 text-sm">
                             A different kind of CPA firm. 100% remote, 100% Canadian. Built for the modern entrepreneur.
                         </p>
