@@ -154,9 +154,9 @@ export default function AdminPricingManager() {
                                     >
                                         <option value="">Global (Pricing Page)</option>
                                         <optgroup label="Main Categories">
-                                            <option value="accounting">Core Accounting (Category)</option>
-                                            <option value="tax">Tax & Compliance (Category)</option>
-                                            <option value="operations">Business Operations (Category)</option>
+                                            <option value="accounting">Corporate Tax (Category)</option>
+                                            <option value="tax">Personal Tax (Category)</option>
+                                            <option value="operations">Payroll (Category)</option>
                                         </optgroup>
                                         <optgroup label="Core Services">
                                             {services.filter(s => s.slug).map(s => (

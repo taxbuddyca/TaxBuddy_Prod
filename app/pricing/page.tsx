@@ -20,27 +20,27 @@ export default function PricingPage() {
     const [activeIndustrySlug, setActiveIndustrySlug] = useState<string>(industryList[0]?.slug || 'real-estate');
 
     const categories = [
-        { id: 'accounting', label: 'Core Accounting', icon: Calculator },
-        { id: 'tax', label: 'Tax & Compliance', icon: Scale },
-        { id: 'operations', label: 'Business Operations', icon: Settings },
+        { id: 'accounting', label: 'Corporate Tax', icon: Calculator },
+        { id: 'tax', label: 'Personal Tax', icon: Scale },
+        { id: 'operations', label: 'Payroll', icon: Settings },
         { id: 'industries', label: 'Industry Specialist Plans', icon: Briefcase },
     ];
 
     const categoryContent = {
         accounting: {
-            title: "Core Accounting Services",
+            title: "Corporate Tax Services",
             subtitle: "Foundation for growth. Predictable fees for businesses of all sizes.",
             color: "text-growth",
             serviceIds: ['accounting', 'small-business', 'medium-business', 'online-accounting', 'virtual-accounting']
         },
         tax: {
-            title: "Tax & Compliance",
+            title: "Personal Tax",
             subtitle: "Minimize your liabilities and ensure total CRA compliance.",
             color: "text-blue-500",
             serviceIds: ['personal-tax', 'tax']
         },
         operations: {
-            title: "Business Operations",
+            title: "Payroll",
             subtitle: "Hassle-free payroll, bookkeeping, and payables management.",
             color: "text-navy-600",
             serviceIds: ['bookkeeping', 'payroll', 'accounts-payable']
