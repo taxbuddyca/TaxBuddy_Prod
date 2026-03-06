@@ -42,7 +42,7 @@ export default function LogoMarquee() {
             <div className="absolute left-0 top-0 w-32 h-full z-10 bg-gradient-to-r from-white/80 to-transparent pointer-events-none" />
             <div className="absolute right-0 top-0 w-32 h-full z-10 bg-gradient-to-l from-white/80 to-transparent pointer-events-none" />
 
-            <div className="max-w-[1400px] mx-auto overflow-hidden">
+            <div className="w-full overflow-hidden flex">
                 <motion.div
                     className="flex items-center gap-16 md:gap-24 whitespace-nowrap"
                     animate={{
