@@ -69,15 +69,22 @@ export default function Navbar() {
         <nav className={`fixed top-0 w-full z-50 transition-all duration-500 border-b ${isScrolled ? 'bg-white/90 backdrop-blur-xl border-gray-200 shadow-sm py-3' : 'bg-transparent border-transparent py-5'} ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2 rounded-xl">
-                        <div className="relative w-10 h-10 flex items-center justify-center">
-                            <div className="absolute inset-0 bg-navy-950 rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-500 shadow-lg" />
-                            <div className="absolute inset-x-0 inset-y-0.5 bg-white rounded-xl -rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-premium border border-gray-100" />
-                            <Logo className="relative w-5 h-5 group-hover:scale-110 transition-transform" />
+                    {/* ===== BRAND MARK ===== */}
+                    <Link href="/" className="group flex items-center gap-0.5 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded-2xl">
+                        {/* Logo icon — tighter to text */}
+                        <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
+                            <Logo className="relative w-14 h-14" />
                         </div>
-                        <div className="flex flex-col -gap-1">
-                            <span className={`text-xl font-black tracking-tight leading-none ${isDarkTheme ? 'text-white' : 'text-navy-950'}`}>Tax<span className={isDarkTheme ? 'text-blue-400' : 'text-blue-600'}>Buddy</span></span>
-                            <span className={`text-[9px] font-black uppercase tracking-[0.3em] ${isDarkTheme ? 'text-white/60' : 'text-navy-900/40'}`}>Advisory</span>
+                        {/* Wordmark */}
+                        <div className="flex flex-col justify-center">
+                            <span className="text-3xl font-black tracking-tight leading-none">
+                                {/* 'Tax' — dark or white based on theme */}
+                                <span className={isDarkTheme ? 'text-white' : 'text-gray-900'}>Tax</span>
+                                {/* 'Buddy' — vibrant blue with slight gradient */}
+                                <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
+                            </span>
+                            <span className={`text-[10px] font-bold uppercase tracking-[0.4em] mt-1 -mr-1 ${isDarkTheme ? 'text-white/40' : 'text-gray-400'
+                                }`}>Canada Advisory</span>
                         </div>
                     </Link>
 
