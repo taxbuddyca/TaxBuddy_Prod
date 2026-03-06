@@ -72,7 +72,7 @@ export default async function Image() {
                     Tax<span style={{ color: '#2563EB' }}>Buddy</span>
                 </div>
                 <div style={{ fontSize: 32, letterSpacing: '0.4em', marginTop: 10, color: '#9CA3AF', fontWeight: 800, textTransform: 'uppercase' }}>
-                    Canada Advisory
+                    Advisory
                 </div>
                 <div style={{
                     position: 'absolute',

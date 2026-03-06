@@ -14,12 +14,12 @@ export default function Footer() {
                             <div className="relative">
                                 <Logo className="w-14 h-14" />
                             </div>
-                            <div className="flex flex-col pt-0.5">
+                            <div className="flex flex-col items-center pt-0.5">
                                 <span className="text-3xl font-black tracking-tight text-navy-950">
                                     Tax<span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
                                 </span>
-                                <span className="text-[10px] font-bold uppercase tracking-[0.4em] mt-1 -mr-1 text-gray-400">
-                                    Canada Advisory
+                                <span className="text-[10px] font-bold uppercase tracking-[0.4em] mt-1 text-gray-400 text-center w-full">
+                                    Advisory
                                 </span>
                             </div>
                         </Link>

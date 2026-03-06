@@ -76,12 +76,12 @@ export default function Navbar() {
                             <Logo className="relative w-14 h-14" />
                         </div>
                         {/* Wordmark — pulled left to close SVG whitespace gap */}
-                        <div className="flex flex-col justify-center -ml-2">
+                        <div className="flex flex-col items-center justify-center -ml-2">
                             <span className="text-3xl font-black tracking-tight leading-none">
                                 <span className={isDarkTheme ? 'text-white' : 'text-gray-900'}>Tax</span>
                                 <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
                             </span>
-                            <span className={`text-[10px] font-bold uppercase tracking-[0.4em] mt-1 ${isDarkTheme ? 'text-white/40' : 'text-gray-400'
+                            <span className={`text-[10px] font-bold uppercase tracking-[0.4em] mt-1 text-center w-full ${isDarkTheme ? 'text-white/40' : 'text-gray-400'
                                 }`}>Advisory</span>
                         </div>
                     </Link>
