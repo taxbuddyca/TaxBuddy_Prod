@@ -10,12 +10,12 @@ export default function Footer() {
             <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto">
                 <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-12">
                     <div className="lg:max-w-sm">
-                        <Link href="/" className="flex items-center gap-0.5 mb-6 group focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded-xl p-1 -ml-1 inline-flex">
-                            <div className="relative">
-                                <Logo className="w-14 h-14" />
+                        <Link href="/" className="flex items-center gap-0 mb-6 group focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded-2xl -ml-2 inline-flex">
+                            <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
+                                <Logo className="relative w-14 h-14" />
                             </div>
-                            <div className="flex flex-col items-center pt-0.5">
-                                <span className="text-3xl font-black tracking-tight text-navy-950">
+                            <div className="flex flex-col items-center justify-center -ml-2">
+                                <span className="text-3xl font-black tracking-tight text-navy-950 leading-none">
                                     Tax<span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
                                 </span>
                                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] mt-1 text-gray-400 text-center w-full">
