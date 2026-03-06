@@ -60,7 +60,7 @@ export default function PricingPage() {
         <main className="min-h-screen pt-32 selection:bg-growth selection:text-white">
             <PageBackground />
             <section className="py-24 relative overflow-hidden">
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div className="text-center mb-16 flashy-reveal">
                         <span className={`font-black uppercase tracking-[0.3em] text-[10px] mb-4 block ${activeCatContent.color}`}>Simple & Fair</span>
                         <h1 className="text-4xl md:text-5xl font-black text-navy-950 tracking-tighter mb-8 transition-all duration-300">{activeCatContent.title}</h1>

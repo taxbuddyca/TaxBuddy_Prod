@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { ArrowLeft, Calendar, User, Clock, Share2 } from "lucide-react";
 import GlassCard from "@/components/GlassCard";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
 
@@ -85,7 +86,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
     return (
         <main className="pt-32 pb-24">
-            <article className="container mx-auto px-6 max-w-4xl">
+            <article className="page-container-narrow">
                 {/* Back Link */}
                 <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-bold text-navy-900/40 hover:text-navy-950 transition mb-8 group focus:outline-none focus:ring-2 focus:ring-growth focus:ring-offset-2">
                     <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Insights
@@ -118,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {post.cover_image && (
                     <div className="w-full h-[400px] bg-navy-900/5 rounded-3xl mb-12 overflow-hidden relative shadow-2xl">
                         <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 to-transparent z-10" />
-                        <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
+                        <Image src={post.cover_image} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority />
                     </div>
                 )}
 

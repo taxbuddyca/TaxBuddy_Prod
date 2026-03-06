@@ -7,7 +7,7 @@ export default function AuditProtectionPage() {
         <main className="pt-24">
             {/* Hero Section */}
             <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 overflow-hidden bg-white/80 border-b border-gray-100">
-                <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+                <div className="page-container-narrow relative z-10 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full text-blue-600 font-bold text-xs uppercase tracking-widest mb-8 border border-blue-100">
                         <Shield size={16} /> Premium Protection Plan
                     </div>
@@ -36,7 +36,7 @@ export default function AuditProtectionPage() {
 
             {/* The Problem Section */}
             <section className="py-24 bg-gray-50">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <div className="relative">
                             <div className="absolute top-0 left-0 w-full h-full bg-navy-950 rounded-[3rem] rotate-3 opacity-5" />
@@ -82,7 +82,7 @@ export default function AuditProtectionPage() {
 
             {/* Features Grid */}
             <section className="py-24 bg-white">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div className="text-center max-w-3xl mx-auto mb-20">
                         <h2 className="text-4xl font-black text-navy-950 mb-6">Complete Peace of Mind</h2>
                         <p className="text-navy-900/60 text-lg">For less than the cost of one hour with a lawyer, you get year-round protection.</p>
@@ -108,7 +108,7 @@ export default function AuditProtectionPage() {
 
             {/* CTA - Blue Theme */}
             <section className="py-24 bg-blue-600 text-white">
-                <div className="container mx-auto px-6 text-center">
+                <div className="page-container text-center">
                     <div className="inline-block p-4 rounded-full bg-white/10 mb-8 backdrop-blur-md">
                         <Shield size={48} className="text-white" />
                     </div>

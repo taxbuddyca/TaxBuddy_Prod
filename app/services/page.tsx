@@ -1,4 +1,3 @@
-"use client";
 
 import { Suspense } from "react";
 import ServiceTabs from "@/components/ServiceTabs";
@@ -12,7 +11,7 @@ export default function ServicesPage() {
         <main className="min-h-screen pt-32 selection:bg-growth selection:text-white relative">
             <PageBackground />
             <section className="py-24 relative overflow-hidden">
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div className="text-center mb-24 flashy-reveal">
                         <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Our Expertise</span>
                         <h1 className="text-4xl md:text-5xl font-black text-navy-950 tracking-tight mb-8">Full-Service Financial Management.</h1>

@@ -35,7 +35,7 @@ export default function CaseStudiesPage() {
     return (
         <main className="min-h-screen pt-32 pb-24 selection:bg-growth selection:text-white">
             <PageBackground />
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="page-container relative z-10">
                 <div className="text-center mb-20">
                     <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Proven Results</span>
                     <h1 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter">

@@ -4,7 +4,7 @@ export default function TermsOfService() {
     return (
         <main className="min-h-screen pt-40 bg-white selection:bg-growth selection:text-white">
             <section className="py-24 relative overflow-hidden">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-24">
                             <span className="text-growth font-black uppercase tracking-[0.3em] text-sm mb-6 block">Legal Portfolio</span>

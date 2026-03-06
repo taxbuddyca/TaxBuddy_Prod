@@ -17,7 +17,7 @@ export default function PortalPage() {
 
     return (
         <main className="min-h-screen bg-gray-50 pt-32 pb-20 selection:bg-growth selection:text-white">
-            <div className="container mx-auto px-6">
+            <div className="page-container">
                 <div className="flex flex-col lg:flex-row gap-8">
                     {/* Sidebar */}
                     <aside className="lg:w-72 shrink-0">

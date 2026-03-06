@@ -14,7 +14,7 @@ export default function LoopholesPage() {
         <>
             <main className="pt-32 pb-24 selection:bg-growth selection:text-navy-950">
                 {/* Hero Section */}
-                <section className="container mx-auto px-6 mb-20 text-center">
+                <section className="page-container mb-20 text-center">
                     <div className="inline-flex items-center gap-2 px-3 py-1 bg-growth/10 rounded-full text-[10px] font-black uppercase tracking-widest text-growth mb-6 border border-growth/20">
                         <Zap size={12} /> Insider Strategy Guide
                     </div>
@@ -27,7 +27,7 @@ export default function LoopholesPage() {
                     </p>
                 </section>
 
-                <div className="container mx-auto px-6 max-w-5xl">
+                <div className="page-container-narrow">
                     <div className="grid md:grid-cols-3 gap-8 mb-20">
                         {/* Strategy 1 */}
                         <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-premium hover:shadow-2xl transition-all group">

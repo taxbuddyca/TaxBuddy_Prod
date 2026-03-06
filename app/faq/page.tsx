@@ -1,4 +1,3 @@
-"use client";
 
 import React from 'react';
 import { faqs } from '@/lib/data/faq';
@@ -10,7 +9,7 @@ export default function FAQPage() {
     return (
         <main className="min-h-screen pt-32 pb-24 selection:bg-growth selection:text-white">
             <PageBackground />
-            <div className="container mx-auto px-6 relative z-10 max-w-4xl">
+            <div className="page-container-narrow relative z-10">
                 <div className="text-center mb-20">
                     <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Knowledge Base</span>
                     <h1 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter">

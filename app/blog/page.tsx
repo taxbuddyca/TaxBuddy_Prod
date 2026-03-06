@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Calendar, User } from "lucide-react";
 import GlassCard from "@/components/GlassCard";
+import Image from "next/image";
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 // Revalidate every 60 seconds
@@ -8,7 +9,7 @@ export const revalidate = 60;
 
 export default async function BlogIndexPage() {
     let posts = [];
-    
+
     try {
         if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
             console.warn('⚠️ Missing Supabase environment variables for static generation of /blog.');
@@ -17,12 +18,12 @@ export default async function BlogIndexPage() {
                 process.env.NEXT_PUBLIC_SUPABASE_URL,
                 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
             );
-            
+
             const { data } = await supabase
                 .from('posts')
                 .select('*')
                 .order('published_at', { ascending: false });
-                
+
             posts = data || [];
         }
     } catch (err) {
@@ -32,7 +33,7 @@ export default async function BlogIndexPage() {
     return (
         <main className="pt-32 pb-24">
             {/* Header */}
-            <section className="container mx-auto px-6 mb-20 text-center">
+            <section className="page-container mb-20 text-center">
                 <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Our Insights</span>
                 <h1 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter">
                     Tax Tips & <span className="text-growth">Financial Wisdom</span>
@@ -43,7 +44,7 @@ export default async function BlogIndexPage() {
             </section>
 
             {/* Grid */}
-            <section className="container mx-auto px-6">
+            <section className="page-container">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {posts?.map((post: any) => (
                         <Link key={post.id} href={`/blog/${post.slug}`} className="group h-full">
@@ -52,7 +53,7 @@ export default async function BlogIndexPage() {
                                 <div className="h-48 bg-navy-900/5 w-full relative overflow-hidden">
                                     <div className="absolute inset-0 bg-navy-950/0 group-hover:bg-navy-950/10 transition-colors z-10" />
                                     {post.cover_image ? (
-                                        <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+                                        <Image src={post.cover_image} alt={post.title} fill className="object-cover transform group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                                     ) : (
                                         <div className="w-full h-full opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-navy-900 via-transparent to-transparent" />
                                     )}

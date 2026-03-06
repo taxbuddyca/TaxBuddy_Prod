@@ -1,4 +1,3 @@
-"use client";
 
 import ProcessTimeline from "@/components/ProcessTimeline";
 import GlassCard from "@/components/GlassCard";
@@ -11,7 +10,7 @@ export default function ProcessPage() {
         <main className="min-h-screen pt-32 selection:bg-growth selection:text-white">
             <PageBackground />
             <section className="py-24 relative overflow-hidden">
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div className="text-center mb-24 flashy-reveal">
                         <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">The Roadmap</span>
                         <h1 className="text-5xl md:text-7xl font-black text-navy-950 tracking-tighter mb-10 leading-[0.95]">

@@ -29,6 +29,18 @@ body {
   overflow-x: hidden;
 }
 
+@layer components {
+
+  /* Central Layout Containers for easy future edge-to-edge modifications */
+  .page-container {
+    @apply w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto;
+  }
+
+  .page-container-narrow {
+    @apply w-full px-4 sm:px-6 md:max-w-4xl mx-auto;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

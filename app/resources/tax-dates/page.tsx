@@ -12,7 +12,7 @@ export default function TaxDatesPage() {
         <>
             <main className="pt-32 pb-24">
                 {/* Header */}
-                <section className="container mx-auto px-6 mb-16 text-center">
+                <section className="page-container mb-16 text-center">
                     <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block">Mark Your Calendars</span>
                     <h1 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter">
                         Important <span className="text-growth">Tax Dates</span> 2026
@@ -22,7 +22,7 @@ export default function TaxDatesPage() {
                     </p>
                 </section>
 
-                <div className="container mx-auto px-6 max-w-4xl space-y-8">
+                <div className="page-container-narrow space-y-8">
 
                     {/* Key Deadlines - Highlighted */}
                     <div className="bg-navy-950 text-white rounded-[2rem] p-8 md:p-12 relative overflow-hidden">

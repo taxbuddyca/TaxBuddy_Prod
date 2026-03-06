@@ -49,7 +49,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
 
             {/* Intro Section */}
             <section className="py-20 bg-white">
-                <div className="container mx-auto px-6 max-w-4xl text-center">
+                <div className="page-container-narrow text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-navy-950 mb-6">
                         {item.intro.heading}
                     </h2>

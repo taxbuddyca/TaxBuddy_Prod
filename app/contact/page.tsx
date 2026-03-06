@@ -42,7 +42,7 @@ export default function ContactPage() {
             <section className="py-24 relative overflow-hidden">
                 {/* Background image removed for clean white look */}
 
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div className="max-w-5xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
                             <div className="flashy-reveal">

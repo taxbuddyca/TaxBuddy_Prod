@@ -1,4 +1,3 @@
-"use client";
 
 import GlassCard from "@/components/GlassCard";
 import { Shield, Sparkles, Target, Zap, ChevronRight, Briefcase } from "lucide-react";
@@ -18,7 +17,7 @@ export default function CareersPage() {
             <PageBackground />
             <section className="bg-transparent py-24 relative overflow-hidden">
 
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div className="max-w-5xl mx-auto text-center mb-24 flashy-reveal">
                         <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-6 block font-bold">Join the Pod</span>
                         <h1 className="text-5xl md:text-7xl font-black text-navy-950 tracking-tighter mb-10 leading-[0.95]">

@@ -56,7 +56,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <main className="bg-white min-h-screen">
             {service.hero && <ServiceHero hero={{ ...service.hero, answerFirst: service.answerFirst } as any} />}
 
-            <div className="container mx-auto px-4 md:px-6 py-16">
+            <div className="page-container py-16">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
                     {/* Main Content Column */}
                     <div className="flex-1 min-w-0">

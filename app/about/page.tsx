@@ -143,7 +143,7 @@ export default function AboutPage() {
 
             {/* Hero - Mission Statement */}
             <section className="bg-transparent py-24 relative overflow-hidden">
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div
                         className="max-w-5xl mx-auto text-center mb-16 antialiased"
                         style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
@@ -199,7 +199,7 @@ export default function AboutPage() {
                     <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
                 </div>
 
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div
                         className="max-w-4xl mx-auto antialiased"
                         style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
@@ -296,7 +296,7 @@ export default function AboutPage() {
 
             {/* Why We're Different */}
             <section className="py-32 bg-white">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div
                         className="text-center mb-20 antialiased"
                         style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
@@ -331,7 +331,7 @@ export default function AboutPage() {
 
             {/* Our Values - Expanded */}
             <section className="py-32 bg-gray-50/50">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div
                         className="text-center mb-20 antialiased"
                         style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
@@ -375,7 +375,7 @@ export default function AboutPage() {
 
             {/* Client Testimonials */}
             <section className="py-32 bg-white">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div
                         className="text-center mb-20 antialiased"
                         style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
@@ -426,7 +426,7 @@ export default function AboutPage() {
                     <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
                 </div>
 
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div
                         className="text-center mb-20 antialiased"
                         style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
@@ -495,7 +495,7 @@ export default function AboutPage() {
 
             {/* Journey Timeline */}
             <section className="py-32 bg-white">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <motion.div
                         className="text-center mb-24 antialiased"
                         style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
@@ -549,7 +549,7 @@ export default function AboutPage() {
                     <div className="absolute top-0 right-0 w-96 h-96 bg-growth rounded-full blur-3xl" />
                 </div>
 
-                <div className="container mx-auto px-6 relative z-10 text-center antialiased" style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}>
+                <div className="page-container relative z-10 text-center antialiased" style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}>
                     <h2 className="text-4xl md:text-6xl font-black text-navy-950 mb-6 tracking-tighter" style={{ transform: "translateZ(0)" }}>
                         Ready to Get Your <br />
                         <span className="text-growth">Weekends Back?</span>

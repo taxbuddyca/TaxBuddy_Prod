@@ -29,7 +29,7 @@ export default function TorontoLandingPage() {
 
             {/* Localized Hero Section */}
             <section className="relative pt-32 pb-20 overflow-hidden bg-white/50 border-b border-blue-50/50">
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="page-container relative z-10">
                     <div className="max-w-4xl mx-auto text-center">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -82,7 +82,7 @@ export default function TorontoLandingPage() {
 
             {/* Local Context Content */}
             <section className="py-24 bg-white">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div className="max-w-4xl mx-auto">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                             <motion.div
@@ -126,7 +126,7 @@ export default function TorontoLandingPage() {
 
             {/* Specialized local FAQ */}
             <section className="py-24 bg-navy-50/30">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <div className="max-w-4xl mx-auto text-center mb-16">
                         <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">GTA Q&A</span>
                         <h2 className="text-3xl md:text-5xl font-black text-navy-950 mb-6 tracking-tight">Toronto Tax <span className="text-growth italic">Questions.</span></h2>
@@ -145,7 +145,7 @@ export default function TorontoLandingPage() {
 
             {/* Local Business CTA */}
             <section className="py-24">
-                <div className="container mx-auto px-6">
+                <div className="page-container">
                     <GlassCard className="max-w-5xl mx-auto p-12 md:p-20 text-center relative overflow-hidden bg-navy-950 border-navy-900" intensity="heavy">
                         <div className="relative z-10">
                             <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-[1.05]">
