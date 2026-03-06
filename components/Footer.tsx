@@ -7,7 +7,7 @@ import Logo from "./Logo";
 export default function Footer() {
     return (
         <footer className="relative z-10 bg-white pt-16 pb-8 border-t border-gray-100 selection:bg-growth selection:text-white">
-            <div className="container mx-auto px-6">
+            <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto">
                 <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-12">
                     <div className="lg:max-w-sm">
                         <div className="flex items-center gap-3 mb-4">

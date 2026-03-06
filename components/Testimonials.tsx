@@ -30,7 +30,7 @@ export default function Testimonials() {
         <section className="py-24 bg-gray-50 overflow-hidden relative">
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
 
-            <div className="container mx-auto px-6">
+            <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <span className="text-growth font-black uppercase tracking-[0.3em] text-[9px] mb-4 block">Social Proof</span>
                     <h2 className="text-3xl md:text-5xl font-black text-navy-950 mb-6 tracking-tighter">

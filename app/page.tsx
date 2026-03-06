@@ -89,7 +89,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="container mx-auto px-6 relative z-10 flex flex-col items-center lg:items-start justify-center h-full text-center lg:text-left">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto relative z-10 flex flex-col items-center lg:items-start justify-center h-full text-center lg:text-left">
                     <div className="max-w-2xl flex flex-col items-center lg:items-start">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
@@ -166,7 +166,7 @@ export default function Home() {
                 transition={{ duration: 1 }}
                 className="py-10 border-b border-gray-50 bg-gray-50/10"
             >
-                <div className="container mx-auto px-6 mb-8 text-center">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto mb-8 text-center">
                     <p className="text-[10px] font-black text-navy-900/30 uppercase tracking-[0.4em]">Trusted by Industry Leaders</p>
                 </div>
                 <LogoMarquee />
@@ -174,7 +174,7 @@ export default function Home() {
 
             {/* Service Verticals */}
             <section className="py-32 bg-white overflow-hidden">
-                <div className="container mx-auto px-6">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
                         <div
                             className="antialiased"
@@ -250,7 +250,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-navy-950/60" />
                 </div>
 
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -321,7 +321,7 @@ export default function Home() {
 
             {/* FAQ Section */}
             <section className="py-32 bg-white relative overflow-hidden">
-                <div className="container mx-auto px-6">
+                <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -346,7 +346,7 @@ export default function Home() {
 
             <section className="py-20 bg-white relative z-10" style={{ transform: "translateZ(0)" }}>
                 <div
-                    className="container mx-auto px-6 text-center antialiased"
+                    className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto text-center antialiased"
                     style={{ WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                 >
                     <span className="text-growth font-black uppercase tracking-[0.3em] text-[10px] mb-4 block font-bold" style={{ transform: "translateZ(0)" }}>Join the Revolution</span>

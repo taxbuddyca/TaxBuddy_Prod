@@ -66,25 +66,23 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-500 border-b ${isScrolled ? 'bg-white/90 backdrop-blur-xl border-gray-200 shadow-sm py-3' : 'bg-transparent border-transparent py-5'} ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center">
+        <nav className={`fixed top-0 w-full z-50 transition-all duration-500 border-b ${isScrolled ? 'bg-white/90 backdrop-blur-xl border-gray-200 shadow-sm py-2' : 'bg-transparent border-transparent py-4'} ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
+            <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
+                <div className="flex justify-between items-center w-full">
                     {/* ===== BRAND MARK ===== */}
-                    <Link href="/" className="group flex items-center gap-0.5 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded-2xl">
-                        {/* Logo icon — tighter to text */}
+                    <Link href="/" className="group flex items-center gap-0 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded-2xl -ml-2">
+                        {/* Logo icon — flush against text */}
                         <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
                             <Logo className="relative w-14 h-14" />
                         </div>
-                        {/* Wordmark */}
-                        <div className="flex flex-col justify-center">
+                        {/* Wordmark — pulled left to close SVG whitespace gap */}
+                        <div className="flex flex-col justify-center -ml-2">
                             <span className="text-3xl font-black tracking-tight leading-none">
-                                {/* 'Tax' — dark or white based on theme */}
                                 <span className={isDarkTheme ? 'text-white' : 'text-gray-900'}>Tax</span>
-                                {/* 'Buddy' — vibrant blue with slight gradient */}
                                 <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
                             </span>
-                            <span className={`text-[10px] font-bold uppercase tracking-[0.4em] mt-1 -mr-1 ${isDarkTheme ? 'text-white/40' : 'text-gray-400'
-                                }`}>Canada Advisory</span>
+                            <span className={`text-[10px] font-bold uppercase tracking-[0.4em] mt-1 ${isDarkTheme ? 'text-white/40' : 'text-gray-400'
+                                }`}>Advisory</span>
                         </div>
                     </Link>
 
