@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FileDown, Loader2 } from 'lucide-react';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 
 interface PDFExportButtonProps {
     scenarioName: string;
@@ -16,8 +16,8 @@ export default function PDFExportButton({
     scenarioName,
     brainType,
     scenarioType,
-    facts,
-    results
+    facts = {},
+    results = { total_savings: 0, risk_score: { score: 0, level: 'LOW', flags: [] }, recommendations: [] }
 }: PDFExportButtonProps) {
     const [isGenerating, setIsGenerating] = React.useState(false);
 
@@ -31,6 +31,7 @@ export default function PDFExportButton({
     };
 
     const formatScenarioType = (type: string) => {
+        if (!type) return 'Tax Optimization';
         return type
             .split('_')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -41,7 +42,13 @@ export default function PDFExportButton({
         setIsGenerating(true);
 
         try {
-            const doc = new jsPDF();
+            // Initialize jsPDF with safe settings
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
             let yPos = 20;
 
             // Header
@@ -90,7 +97,8 @@ export default function PDFExportButton({
             yPos += 10;
             doc.setFontSize(20);
             doc.setTextColor(16, 185, 129); // Emerald color
-            doc.text(`$${results.total_savings.toLocaleString()}`, 20, yPos);
+            const savings = typeof results?.total_savings === 'number' ? results.total_savings : 0;
+            doc.text(`$${savings.toLocaleString()}`, 20, yPos);
 
             yPos += 7;
             doc.setFontSize(10);
@@ -110,36 +118,40 @@ export default function PDFExportButton({
             doc.text('CRA AUDIT RISK ASSESSMENT', 20, yPos);
 
             yPos += 10;
+            const riskScore = results?.risk_score?.score ?? 0;
+            const riskLevel = results?.risk_score?.level || 'LOW';
             doc.setFontSize(12);
             doc.setFont('helvetica', 'normal');
-            doc.text(`Risk Score: ${results.risk_score.score}/100`, 20, yPos);
+            doc.text(`Risk Score: ${riskScore}/100`, 20, yPos);
 
             yPos += 7;
-            const riskColor = results.risk_score.level === 'LOW' ? [34, 197, 94] :
-                results.risk_score.level === 'MEDIUM' ? [234, 179, 8] :
+            const riskColor = riskLevel === 'LOW' ? [34, 197, 94] :
+                riskLevel === 'MEDIUM' ? [234, 179, 8] :
                     [239, 68, 68];
             doc.setTextColor(riskColor[0], riskColor[1], riskColor[2]);
             doc.setFont('helvetica', 'bold');
-            doc.text(`Risk Level: ${results.risk_score.level}`, 20, yPos);
+            doc.text(`Risk Level: ${riskLevel}`, 20, yPos);
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'normal');
 
             // Risk Flags
-            if (results.risk_score.flags && results.risk_score.flags.length > 0) {
+            const flags = results?.risk_score?.flags || [];
+            if (flags.length > 0) {
                 yPos += 10;
                 doc.setFontSize(12);
                 doc.setFont('helvetica', 'bold');
                 doc.text('Risk Flags:', 20, yPos);
                 doc.setFont('helvetica', 'normal');
 
-                results.risk_score.flags.forEach((flag: any, index: number) => {
+                flags.forEach((flag: any) => {
                     yPos += 7;
                     if (yPos > 270) {
                         doc.addPage();
                         yPos = 20;
                     }
                     doc.setFontSize(10);
-                    doc.text(`• ${flag.message}`, 25, yPos);
+                    const flagMsg = typeof flag === 'string' ? flag : flag.message || 'Action required';
+                    doc.text(`• ${flagMsg}`, 25, yPos);
                 });
             } else {
                 yPos += 10;
@@ -167,10 +179,11 @@ export default function PDFExportButton({
             doc.setFont('helvetica', 'bold');
             doc.text('RECOMMENDATIONS', 20, yPos);
 
-            if (results.recommendations && results.recommendations.length > 0) {
-                results.recommendations.forEach((rec: any, index: number) => {
+            const recommendations = results?.recommendations || [];
+            if (recommendations.length > 0) {
+                recommendations.forEach((rec: any, index: number) => {
                     yPos += 10;
-                    if (yPos > 270) {
+                    if (yPos > 260) {
                         doc.addPage();
                         yPos = 20;
                     }
@@ -179,7 +192,7 @@ export default function PDFExportButton({
                     doc.text(`${index + 1}.`, 20, yPos);
                     doc.setFont('helvetica', 'normal');
 
-                    const message = rec.params?.message || rec.message || 'No details available';
+                    const message = typeof rec === 'string' ? rec : rec.params?.message || rec.message || 'Optimize deductions';
                     const lines = doc.splitTextToSize(message, 160);
                     doc.text(lines, 28, yPos);
                     yPos += (lines.length - 1) * 5;
@@ -192,7 +205,7 @@ export default function PDFExportButton({
             }
 
             // Divider
-            yPos += 10;
+            yPos += 15;
             if (yPos > 270) {
                 doc.addPage();
                 yPos = 20;
@@ -214,7 +227,8 @@ export default function PDFExportButton({
             doc.setFont('helvetica', 'normal');
 
             // Format facts for display
-            Object.entries(facts).forEach(([key, value]) => {
+            const factEntries = facts ? Object.entries(facts) : [];
+            factEntries.forEach(([key, value]) => {
                 if (yPos > 270) {
                     doc.addPage();
                     yPos = 20;
@@ -228,7 +242,9 @@ export default function PDFExportButton({
                 if (typeof value === 'boolean') {
                     formattedValue = value ? 'Yes' : 'No';
                 } else if (typeof value === 'number' && (key.includes('income') || key.includes('expense') || key.includes('cost'))) {
-                    formattedValue = `$${(value as number).toLocaleString()}`;
+                    formattedValue = `$${value.toLocaleString()}`;
+                } else if (value === null || value === undefined) {
+                    formattedValue = 'N/A';
                 }
 
                 doc.text(`${formattedKey}: ${formattedValue}`, 20, yPos);
@@ -236,7 +252,7 @@ export default function PDFExportButton({
             });
 
             // Footer
-            const pageCount = (doc as any).internal.getNumberOfPages();
+            const pageCount = doc.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
                 doc.setFontSize(8);
@@ -250,12 +266,16 @@ export default function PDFExportButton({
             }
 
             // Save the PDF
-            const fileName = `${scenarioName || 'Tax_Report'}_${new Date().toISOString().split('T')[0]}.pdf`;
+            const sanitizedName = (scenarioName || 'Tax_Report')
+                .replace(/[/\\?%*:|"<>]/g, '_')
+                .trim();
+
+            const fileName = `${sanitizedName}_${new Date().toISOString().split('T')[0]}.pdf`;
             doc.save(fileName);
 
         } catch (error) {
             console.error('PDF generation error:', error);
-            alert('Failed to generate PDF. Please try again.');
+            alert('Failed to generate PDF. We are fixing this. Error: ' + (error instanceof Error ? error.message : 'Unknown error'));
         } finally {
             setIsGenerating(false);
         }
