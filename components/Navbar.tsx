@@ -82,7 +82,7 @@ export default function Navbar() {
                                 <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
                             </span>
                             <span className={`text-[10px] font-bold uppercase tracking-[0.4em] mt-1 text-center w-full ${isDarkTheme ? 'text-white/40' : 'text-gray-400'
-                                }`}>Advisory</span>
+                                }`}>Canada</span>
                         </div>
                     </Link>
 

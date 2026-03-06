@@ -19,7 +19,7 @@ export default function Footer() {
                                     Tax<span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Buddy</span>
                                 </span>
                                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] mt-1 text-gray-400 text-center w-full">
-                                    Advisory
+                                    Canada
                                 </span>
                             </div>
                         </Link>
@@ -90,7 +90,7 @@ export default function Footer() {
                         <span>Certified CPA</span>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </div >
+        </footer >
     );
 }

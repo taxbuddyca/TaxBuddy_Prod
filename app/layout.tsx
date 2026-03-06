@@ -18,13 +18,13 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     metadataBase: new URL('https://taxbuddycanada.ca'),
     title: {
-        default: "TaxBuddy Advisory | Virtual Personal & Corporate Tax Accountants",
-        template: "%s | TaxBuddy Advisory"
+        default: "TaxBuddy Canada | Virtual Personal & Corporate Tax Accountants",
+        template: "%s | TaxBuddy Canada"
     },
-    description: "TaxBuddy Advisory: Virtual 100% remote personal tax filing, online bookkeeping, and CFO services across Canada. Maximize tax savings with professional CPAs.",
+    description: "TaxBuddy Canada: Virtual 100% remote personal tax filing, online bookkeeping, and CFO services across Canada. Maximize tax savings with professional CPAs.",
     keywords: [
         "virtual CPA Canada", "online tax filing", "personal tax service Canada",
-        "TaxBuddy Advisory", "maximize tax return Canada", "virtual bookkeeping Canada",
+        "TaxBuddy Canada", "maximize tax return Canada", "virtual bookkeeping Canada",
         "tax savings Canada", "remote accounting services", "startup CFO Canada"
     ],
     authors: [{ name: "TaxBuddy Canada", url: "https://taxbuddycanada.ca" }],
@@ -48,13 +48,13 @@ export const metadata: Metadata = {
         type: "website",
         locale: "en_CA",
         url: "https://taxbuddycanada.ca",
-        title: "TaxBuddy Advisory | Virtual Personal & Corporate Tax Accountants",
+        title: "TaxBuddy Canada | Virtual Personal & Corporate Tax Accountants",
         description: "Modern virtual bookkeeping, tax planning, and CFO services for Canadian entrepreneurs. 100% Remote, Certified CPAs.",
-        siteName: "TaxBuddy Advisory",
+        siteName: "TaxBuddy Canada",
     },
     twitter: {
         card: "summary_large_image",
-        title: "TaxBuddy Advisory | Virtual CPA & Tax Experts",
+        title: "TaxBuddy Canada | Virtual CPA & Tax Experts",
         description: "Maximize your Canadian tax refund with expert virtual tax services. Book your free consultation today. Serving all of Canada.",
         creator: "@taxbuddyca",
     },
