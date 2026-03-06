@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Canadian Tax Dates 2024-2025 | TaxBuddy Canada',
-    description: 'Important Canadian tax deadlines and dates for individuals and businesses. Never miss a CRA deadline again.',
+    title: 'Important Canadian Tax Dates 2025 | TaxBuddy Canada',
+    description: 'Important Canadian tax deadlines and dates for individuals and businesses for the 2025 tax season. Never miss a CRA deadline again.',
     alternates: {
         canonical: '/resources/tax-dates',
     },

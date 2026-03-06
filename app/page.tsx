@@ -81,7 +81,7 @@ export default function Home() {
                         >
                             <img
                                 src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1600"
-                                alt="Modern Finance Administration"
+                                alt="TaxBuddy Canada - Remote financial dashboard and virtual fractional CFO team for modern businesses"
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                             />
                         </motion.div>

@@ -84,7 +84,7 @@ export default function RootLayout({
     return (
         <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`} suppressHydrationWarning>
             <body className={`${plusJakartaSans.className} bg-white antialiased`}>
-                <div id="root-app" style={{ transform: "translateZ(0)" }}>
+                <div id="root-app">
                     <Navbar />
                     {children}
                     <Footer />

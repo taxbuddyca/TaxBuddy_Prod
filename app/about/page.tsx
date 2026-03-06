@@ -144,33 +144,29 @@ export default function AboutPage() {
             {/* Hero - Mission Statement */}
             <section className="bg-transparent py-24 relative overflow-hidden">
                 <div className="container mx-auto px-6 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="max-w-5xl mx-auto text-center mb-16"
+                    <div
+                        className="max-w-5xl mx-auto text-center mb-16 antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100/50 border border-blue-200/50 rounded-full text-growth font-black uppercase tracking-[0.2em] mb-8 text-[10px] shadow-sm">
                             <Heart size={14} className="fill-growth" /> Built by Entrepreneurs, for Entrepreneurs
                         </div>
-                        <h1 className="text-5xl md:text-7xl font-black text-navy-950 tracking-tighter mb-10 leading-[1.05]">
+                        <h1 className="text-5xl md:text-7xl font-black text-navy-950 tracking-tighter mb-10 leading-[1.05]" style={{ transform: "translateZ(0)" }}>
                             We exist to give you <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-growth to-blue-600">your weekends back.</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-navy-900/70 leading-relaxed font-medium max-w-3xl mx-auto mb-4">
+                        <p className="text-xl md:text-2xl text-navy-900/70 leading-relaxed font-medium max-w-3xl mx-auto mb-4" style={{ transform: "translateZ(0)" }}>
                             Because you didn't start a business to spend Saturday nights doing data entry.
                         </p>
-                        <p className="text-lg text-navy-900/50 leading-relaxed font-medium max-w-2xl mx-auto">
+                        <p className="text-lg text-navy-900/50 leading-relaxed font-medium max-w-2xl mx-auto" style={{ transform: "translateZ(0)" }}>
                             Modern tax filing, bookkeeping, and CFO services for Canadian founders who'd rather build their dreams than manage spreadsheets.
                         </p>
-                    </motion.div>
+                    </div>
 
                     {/* Certifications Bar */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="flex flex-wrap justify-center items-center gap-8 mb-16 max-w-4xl mx-auto"
+                    <div
+                        className="flex flex-wrap justify-center items-center gap-8 mb-16 max-w-4xl mx-auto antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         {certifications.map((cert, i) => (
                             <div key={i} className="flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm border border-navy-950/10 rounded-full shadow-sm">
@@ -178,14 +174,12 @@ export default function AboutPage() {
                                 <span className="text-sm font-bold text-navy-950">{cert.name}</span>
                             </div>
                         ))}
-                    </motion.div>
+                    </div>
 
                     {/* Stats Grid */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto"
+                    <div
+                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         {stats.map((stat, i) => (
                             <div key={i} className="text-center bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-navy-950/5 hover:border-growth/30 transition-all">
@@ -194,7 +188,7 @@ export default function AboutPage() {
                                 <div className="text-xs text-navy-900/50 font-medium">{stat.sublabel}</div>
                             </div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -206,12 +200,9 @@ export default function AboutPage() {
                 </div>
 
                 <div className="container mx-auto px-6 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="max-w-4xl mx-auto"
+                    <div
+                        className="max-w-4xl mx-auto antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <div className="text-center mb-16">
                             <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">
@@ -299,19 +290,16 @@ export default function AboutPage() {
                                 </ul>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* Why We're Different */}
             <section className="py-32 bg-white">
                 <div className="container mx-auto px-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center mb-20"
+                    <div
+                        className="text-center mb-20 antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <h2 className="text-4xl md:text-5xl font-black text-navy-950 mb-6 tracking-tighter">
                             Why We're Different
@@ -319,16 +307,14 @@ export default function AboutPage() {
                         <p className="text-xl text-navy-900/60 max-w-2xl mx-auto font-medium">
                             We're not your grandfather's accounting firm. Here's what makes us different.
                         </p>
-                    </motion.div>
+                    </div>
 
                     <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
                         {whyDifferent.map((item, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: i * 0.1 }}
+                                className="antialiased"
+                                style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                             >
                                 <GlassCard className="p-8 h-full hover:border-growth/30 transition-all group text-center" intensity="light">
                                     <div className="w-20 h-20 bg-growth/10 rounded-2xl flex items-center justify-center mb-6 text-growth group-hover:bg-growth group-hover:text-white transition-all mx-auto">
@@ -337,7 +323,7 @@ export default function AboutPage() {
                                     <h3 className="text-2xl font-black text-navy-950 mb-4 tracking-tight">{item.title}</h3>
                                     <p className="text-navy-900/60 leading-relaxed font-medium">{item.desc}</p>
                                 </GlassCard>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -346,12 +332,9 @@ export default function AboutPage() {
             {/* Our Values - Expanded */}
             <section className="py-32 bg-gray-50/50">
                 <div className="container mx-auto px-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center mb-20"
+                    <div
+                        className="text-center mb-20 antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <h2 className="text-4xl md:text-5xl font-black text-navy-950 mb-6 tracking-tighter">
                             What We Believe
@@ -359,16 +342,14 @@ export default function AboutPage() {
                         <p className="text-xl text-navy-900/60 max-w-2xl mx-auto font-medium">
                             These aren't just words on a wall. They're promises we make to every client, every day.
                         </p>
-                    </motion.div>
+                    </div>
 
                     <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                         {values.map((value, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: i * 0.1 }}
+                                className="antialiased"
+                                style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                             >
                                 <GlassCard className="p-10 h-full hover:border-growth/30 transition-all group" intensity="light">
                                     <div className="flex items-start gap-6 mb-6">
@@ -386,7 +367,7 @@ export default function AboutPage() {
                                         </p>
                                     </div>
                                 </GlassCard>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -395,12 +376,9 @@ export default function AboutPage() {
             {/* Client Testimonials */}
             <section className="py-32 bg-white">
                 <div className="container mx-auto px-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center mb-20"
+                    <div
+                        className="text-center mb-20 antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <h2 className="text-4xl md:text-5xl font-black text-navy-950 mb-6 tracking-tighter">
                             Don't Take Our Word For It
@@ -408,16 +386,14 @@ export default function AboutPage() {
                         <p className="text-xl text-navy-900/60 max-w-2xl mx-auto font-medium">
                             Here's what real clients say about working with us.
                         </p>
-                    </motion.div>
+                    </div>
 
                     <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         {testimonials.map((testimonial, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: i * 0.1 }}
+                                className="antialiased"
+                                style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                             >
                                 <GlassCard className="p-8 h-full hover:border-growth/30 transition-all" intensity="light">
                                     <div className="flex gap-1 mb-4">
@@ -437,7 +413,7 @@ export default function AboutPage() {
                                         </div>
                                     </div>
                                 </GlassCard>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -451,12 +427,9 @@ export default function AboutPage() {
                 </div>
 
                 <div className="container mx-auto px-6 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center mb-20"
+                    <div
+                        className="text-center mb-20 antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full text-growth font-black uppercase tracking-[0.2em] mb-8 text-[10px]">
                             <Code2 size={14} /> Tech-Driven, Human-Led
@@ -467,16 +440,13 @@ export default function AboutPage() {
                         <p className="text-xl text-white/70 max-w-3xl mx-auto font-medium leading-relaxed">
                             We're not just accountants—we're systems integrators. We connect all your tools so your financial data flows automatically. No more manual data entry. Ever.
                         </p>
-                    </motion.div>
+                    </div>
 
                     <div className="grid lg:grid-cols-12 gap-6 max-w-6xl mx-auto mb-12">
                         {/* Featured Image Box */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 lg:p-0 overflow-hidden lg:col-span-7 relative min-h-[400px] flex items-center justify-center group"
+                        <div
+                            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 lg:p-0 overflow-hidden lg:col-span-7 relative min-h-[400px] flex items-center justify-center group antialiased"
+                            style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-growth/20 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             <Image
@@ -485,18 +455,15 @@ export default function AboutPage() {
                                 fill
                                 className="object-cover md:object-contain p-4 transition-transform duration-700 group-hover:scale-105"
                             />
-                        </motion.div>
+                        </div>
 
                         {/* Tech Grid */}
                         <div className="lg:col-span-5 grid grid-cols-2 gap-4">
                             {techStack.map((tech, i) => (
-                                <motion.div
+                                <div
                                     key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: i * 0.05 }}
-                                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 hover:bg-white/10 hover:border-growth/50 transition-all group flex flex-col justify-between"
+                                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 hover:bg-white/10 hover:border-growth/50 transition-all group flex flex-col justify-between antialiased"
+                                    style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                                 >
                                     <div>
                                         <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-growth mb-4 group-hover:scale-110 transition-transform group-hover:bg-growth/20">
@@ -506,17 +473,14 @@ export default function AboutPage() {
                                         <div className="text-[10px] text-white/40 uppercase tracking-wider mb-2">{tech.category}</div>
                                     </div>
                                     <div className="text-xs text-white/60">{tech.desc}</div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-center"
+                    <div
+                        className="text-center antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full mb-4">
                             <Lock size={16} className="text-growth" />
@@ -525,7 +489,7 @@ export default function AboutPage() {
                         <p className="text-white/50 text-sm max-w-2xl mx-auto">
                             Your data is encrypted at rest and in transit. We take security as seriously as you do.
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -533,11 +497,8 @@ export default function AboutPage() {
             <section className="py-32 bg-white">
                 <div className="container mx-auto px-6">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center mb-24"
+                        className="text-center mb-24 antialiased"
+                        style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased", backfaceVisibility: "hidden" }}
                     >
                         <h2 className="text-4xl md:text-5xl font-black text-navy-950 mb-6 tracking-tighter">
                             Our Journey

@@ -40,7 +40,7 @@ export default function JsonLd() {
         '@type': ['AccountingService', 'FinancialService', 'LocalBusiness'],
         '@id': 'https://taxbuddycanada.ca/#localbusiness',
         name: 'TaxBuddy Canada',
-        description: 'Professional virtual bookkeeping, tax planning, and CFO services for Canadian startups and businesses.',
+        description: 'Virtual personal tax filing, corporate tax planning, cloud bookkeeping, and fractional CFO services for Canadian businesses. 100% remote Halifax accountants.',
         image: 'https://taxbuddycanada.ca/icon.png',
         telephone: '+13068804017',
         email: 'taxbuddyca4u@gmail.com',

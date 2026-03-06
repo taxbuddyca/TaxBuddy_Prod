@@ -1,0 +1,26 @@
+[
+  {
+    "scenario": "SCENARIO 1: $100k Salary in Ontario",
+    "result": {
+      "TotalIncome": "100000.00",
+      "FederalTax": "13301.60",
+      "ProvincialTax": "6008.50",
+      "TotalCPPEI": "5769.52",
+      "TotalTax": "25079.62",
+      "AfterTaxIncome": "74920.38",
+      "RefundOrOwed": -19310
+    }
+  },
+  {
+    "scenario": "SCENARIO 2: $100k Salary in Nova Scotia",
+    "result": {
+      "TotalIncome": "100000.00",
+      "FederalTax": "13301.60",
+      "ProvincialTax": "12061.78",
+      "TotalCPPEI": "5769.52",
+      "TotalTax": "31132.89",
+      "AfterTaxIncome": "68867.11",
+      "RefundOrOwed": -25363
+    }
+  }
+]

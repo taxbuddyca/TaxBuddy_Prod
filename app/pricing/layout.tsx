@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Pricing | Free 15-Minute Consultation | TaxBuddy Canada',
-    description: 'Transparent pricing for virtual tax filing, bookkeeping, and CFO services. Book a free 15-minute consultation to find the perfect plan for you. Fixed monthly rates with no hidden fees.',
+    title: 'Transparent Pricing | Virtual Tax & CFO Services | TaxBuddy Canada',
+    description: 'Fixed monthly rates for remote tax filing, bookkeeping, and fractional CFO services. Book your free 15-minute consultation with our Halifax-based CPAs, serving all of Canada.',
     alternates: {
         canonical: '/pricing',
     },

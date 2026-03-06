@@ -320,17 +320,18 @@ const AuditRiskSection = ({ facts, updateFact }: any) => {
             <div className="flex items-center justify-between mb-4">
                 <h4 className="text-sm font-black text-navy-900/40 uppercase tracking-widest flex items-center gap-2">
                     <Shield size={14} />
-                    Audit Risk Factors
+                    CRA Audit Risk Factors
                 </h4>
                 <button
                     onClick={() => setShowAdvanced(!showAdvanced)}
                     className="text-xs font-black text-blue-600 hover:text-blue-700 uppercase tracking-wider flex items-center gap-1 transition-colors"
                 >
-                    {showAdvanced ? 'Hide Advanced' : 'Show Advanced Analysis'}
+                    {showAdvanced ? 'Hide' : 'Show All Triggers'}
                     <TrendingUp size={12} className={showAdvanced ? 'rotate-180' : ''} />
                 </button>
             </div>
 
+            {/* Always-visible basic fields */}
             <div className="grid md:grid-cols-2 gap-4">
                 <FormField
                     label="Annual Meal Expenses"
@@ -338,19 +339,16 @@ const AuditRiskSection = ({ facts, updateFact }: any) => {
                     value={facts.meals_expenses || ''}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('meals_expenses', parseFloat(e.target.value) || 0)}
                     prefix="$"
-                    helpText="Flagged if > 5.000% of revenue"
+                    helpText="Flagged if > 2% of revenue"
                 />
                 <FormField
                     label="Home Office %"
                     type="number"
-                    value={facts.home_office_percentage ? (facts.home_office_percentage).toFixed(3) : ''}
+                    value={facts.home_office_percentage ? (facts.home_office_percentage).toFixed(0) : ''}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('home_office_percentage', parseFloat(e.target.value) || 0)}
                     suffix="%"
-                    helpText="Flagged if > 20.000%"
+                    helpText="Flagged if > 20% — CRA expects 5–15%"
                 />
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4 mt-4">
                 <FormField
                     label="Total Annual Home Expenses"
                     type="number"
@@ -362,26 +360,31 @@ const AuditRiskSection = ({ facts, updateFact }: any) => {
                 <FormField
                     label="Cash Revenue %"
                     type="number"
-                    value={facts.cash_revenue_percentage ? (facts.cash_revenue_percentage).toFixed(3) : ''}
+                    value={facts.cash_revenue_percentage ? (facts.cash_revenue_percentage).toFixed(0) : ''}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFact('cash_revenue_percentage', parseFloat(e.target.value) || 0)}
                     suffix="%"
-                    helpText="High cash intake (30%+) triggers flags"
+                    helpText="Flagged if > 30% in high-revenue business"
                 />
             </div>
 
             {showAdvanced && (
-                <div className="mt-8 space-y-8 animate-in fade-in slide-in-from-top-4 duration-300">
-                    {/* Tier 1: Automated */}
-                    <div className="p-6 bg-red-50 rounded-2xl border border-red-100">
-                        <h5 className="text-xs font-black text-red-900 uppercase tracking-widest mb-4">Tier 1: Automated Triggers (95-100%)</h5>
+                <div className="mt-8 space-y-6 animate-in fade-in slide-in-from-top-4 duration-300">
+
+                    {/* TIER 1 — Automated Income Matching */}
+                    <div className="p-5 bg-red-50 rounded-2xl border border-red-200">
+                        <h5 className="text-xs font-black text-red-900 uppercase tracking-widest mb-1 flex items-center gap-2">
+                            <AlertTriangle size={12} className="text-red-600" />
+                            Tier 1 — Automated Income Matching (95–100% audit trigger)
+                        </h5>
+                        <p className="text-xs text-red-700 font-medium mb-4">CRA's computers flag these before a human reads your return.</p>
                         <div className="grid md:grid-cols-2 gap-4">
                             <FormField
-                                label="Total T-Slips Income"
+                                label="Total T-Slip Income (T4/T5/T3/T5013)"
                                 type="number"
                                 value={facts.total_t_slips_income || ''}
                                 onChange={(e: any) => updateFact('total_t_slips_income', parseFloat(e.target.value) || 0)}
                                 prefix="$"
-                                helpText="Calculated from T4, T5, etc."
+                                helpText="All slips CRA received — must match reported income"
                             />
                             <FormField
                                 label="GST/HST Return Revenue"
@@ -389,142 +392,175 @@ const AuditRiskSection = ({ facts, updateFact }: any) => {
                                 value={facts.gst_revenue || ''}
                                 onChange={(e: any) => updateFact('gst_revenue', parseFloat(e.target.value) || 0)}
                                 prefix="$"
-                                helpText="Revenue reported to GST dept"
+                                helpText="Revenue on your GST/HST filing — must match T2125"
                             />
                             <FormField
-                                label="Medical Expenses"
+                                label="Platform / Gig Income (Uber, Airbnb, etc.)"
+                                type="number"
+                                value={facts.platform_income || ''}
+                                onChange={(e: any) => updateFact('platform_income', parseFloat(e.target.value) || 0)}
+                                prefix="$"
+                                helpText="CRA receives T4As from these platforms"
+                            />
+                            <div>
+                                <label className="block text-xs font-black text-navy-950 mb-2 uppercase tracking-wider">Platform Income Reported?</label>
+                                <div className="flex gap-4 mt-1">
+                                    {[true, false].map(v => (
+                                        <label key={String(v)} className="flex items-center gap-2 font-bold text-sm cursor-pointer">
+                                            <input type="radio" name="platform_reported" checked={facts.platform_income_reported === v} onChange={() => updateFact('platform_income_reported', v)} />
+                                            {v ? 'Yes — declared' : 'No — not reported'}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                            <FormField
+                                label="Medical Expenses Claimed"
                                 type="number"
                                 value={facts.reported_medical_expenses || ''}
                                 onChange={(e: any) => updateFact('reported_medical_expenses', parseFloat(e.target.value) || 0)}
                                 prefix="$"
-                                helpText="Flagged if > $15,000"
+                                helpText="Flagged if > $15,000 or > 9% of income"
                             />
                             <FormField
                                 label="Vehicles Registered in Name"
                                 type="number"
                                 value={facts.num_vehicles_owned || ''}
                                 onChange={(e: any) => updateFact('num_vehicles_owned', parseInt(e.target.value) || 0)}
-                                helpText="CRA checks for 2nd vehicle"
+                                helpText="CRA checks for 2nd car if 100% use claimed"
                             />
+                        </div>
+                        <div className="mt-4 space-y-3">
+                            <CheckItem id="family_remittance" label="Spouse T4 issued AND actual bank transfer confirmed" checked={facts.family_remittance_transfer_confirmed || false} onChange={(v: boolean) => updateFact('family_remittance_transfer_confirmed', v)} color="border-red-200 bg-white" />
+                            <CheckItem id="unreported_income" label="Potential unreported income suspected (tip, discrepancy, or prior year issue)" checked={facts.unreported_income_suspected || false} onChange={(v: boolean) => updateFact('unreported_income_suspected', v)} color="border-red-300 bg-red-100" />
                         </div>
                     </div>
 
-                    {/* Tier 2: Behavioral */}
-                    <div className="p-6 bg-yellow-50 rounded-2xl border border-yellow-100">
-                        <h5 className="text-xs font-black text-yellow-900 uppercase tracking-widest mb-4">Tier 2: Behavioral Models (60-80%)</h5>
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4 p-3 bg-white rounded-xl border border-yellow-200">
-                                <input
-                                    type="checkbox"
-                                    id="lifestyle_gap"
-                                    checked={facts.lifestyle_gap_detected || false}
-                                    onChange={(e) => updateFact('lifestyle_gap_detected', e.target.checked)}
-                                    className="w-5 h-5 rounded border-gray-300"
-                                />
-                                <label htmlFor="lifestyle_gap" className="text-sm font-bold text-navy-950">
-                                    Lifestyle/Income Gap (Postal code outlier or luxury car)
-                                </label>
-                            </div>
-                            <div className="flex items-center gap-4 p-3 bg-white rounded-xl border border-yellow-200">
-                                <input
-                                    type="checkbox"
-                                    id="real_estate_flip"
-                                    checked={facts.property_sold_within_365_days || false}
-                                    onChange={(e) => updateFact('property_sold_within_365_days', e.target.checked)}
-                                    className="w-5 h-5 rounded border-gray-300"
-                                />
-                                <label htmlFor="real_estate_flip" className="text-sm font-bold text-navy-950">
-                                    Property sold within 365 days?
-                                </label>
-                            </div>
+                    {/* TIER 2 — Behavioral Pattern Flags */}
+                    <div className="p-5 bg-yellow-50 rounded-2xl border border-yellow-200">
+                        <h5 className="text-xs font-black text-yellow-900 uppercase tracking-widest mb-1 flex items-center gap-2">
+                            <AlertTriangle size={12} className="text-yellow-600" />
+                            Tier 2 — Behavioral Patterns (60–85% audit trigger)
+                        </h5>
+                        <p className="text-xs text-yellow-700 font-medium mb-4">CRA's statistical models compare your return against thousands of similar profiles.</p>
+                        <div className="grid md:grid-cols-2 gap-4">
                             <FormField
-                                label="Consecutive Loss Years"
+                                label="Consecutive Business Loss Years"
                                 type="number"
                                 value={facts.business_loss_years_consecutive || ''}
                                 onChange={(e: any) => updateFact('business_loss_years_consecutive', parseInt(e.target.value) || 0)}
-                                helpText="Losses > 3 years trigger hobby tests"
+                                helpText="3+ years triggers 'hobby business' test"
                             />
+                            <FormField
+                                label="Income Change % vs Last Year"
+                                type="number"
+                                value={facts.income_change_percent_yoy !== undefined ? facts.income_change_percent_yoy : ''}
+                                onChange={(e: any) => updateFact('income_change_percent_yoy', parseFloat(e.target.value) || 0)}
+                                suffix="%"
+                                helpText="Negative = income dropped. >40% drop is flagged."
+                            />
+                        </div>
+                        <div className="mt-4 space-y-3">
+                            <CheckItem id="lifestyle_gap" label="Lifestyle / income gap (luxury car, postal code outlier, large asset purchase)" checked={facts.lifestyle_gap_detected || false} onChange={(v: boolean) => updateFact('lifestyle_gap_detected', v)} color="border-yellow-200 bg-white" />
+                            <CheckItem id="cash_deposits" label="Frequent near-$10,000 cash deposits (construction or renovation industry)" checked={facts.cash_deposits_frequency_high || false} onChange={(v: boolean) => updateFact('cash_deposits_frequency_high', v)} color="border-yellow-200 bg-white" />
+                            <CheckItem id="worker_misclass" label="Some contractors may legally qualify as employees (same tools, same hours, controlled schedule)" checked={facts.worker_misclassification_suspected || false} onChange={(v: boolean) => updateFact('worker_misclassification_suspected', v)} color="border-yellow-200 bg-white" />
+                            <CheckItem id="prior_reassessments" label="Prior CRA reassessments on file (increases scrutiny on this year)" checked={facts.repeated_cra_reassessments || false} onChange={(v: boolean) => updateFact('repeated_cra_reassessments', v)} color="border-yellow-200 bg-white" />
                         </div>
                     </div>
 
-                    {/* Tier 3: Outliers */}
-                    <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                        <h5 className="text-xs font-black text-blue-900 uppercase tracking-widest mb-4">Tier 3: Outliers (Industry Codes)</h5>
+                    {/* TIER 3 — Expense Ratio Outliers */}
+                    <div className="p-5 bg-blue-50 rounded-2xl border border-blue-200">
+                        <h5 className="text-xs font-black text-blue-900 uppercase tracking-widest mb-1 flex items-center gap-2">
+                            <AlertTriangle size={12} className="text-blue-600" />
+                            Tier 3 — Expense Ratios & Outliers (30–65% audit trigger)
+                        </h5>
+                        <p className="text-xs text-blue-700 font-medium mb-4">Deductions beyond industry benchmarks trigger automated outlier scoring.</p>
                         <div className="grid md:grid-cols-2 gap-4">
                             <FormField
-                                label="Subcontractor Fees"
+                                label="Subcontractor Fees Paid"
                                 type="number"
                                 value={facts.subcontractor_fees || ''}
                                 onChange={(e: any) => updateFact('subcontractor_fees', parseFloat(e.target.value) || 0)}
                                 prefix="$"
-                                helpText="Total paid to contractors"
+                                helpText="T4A required for each contractor > $500"
                             />
                             <FormField
-                                label="Donations"
+                                label="Number of T4A Contractors"
+                                type="number"
+                                value={facts.num_t4a_contractors || ''}
+                                onChange={(e: any) => updateFact('num_t4a_contractors', parseInt(e.target.value) || 0)}
+                                helpText="Leave 0 if none issued"
+                            />
+                            <FormField
+                                label="Donations Claimed"
                                 type="number"
                                 value={facts.donations_amount || ''}
                                 onChange={(e: any) => updateFact('donations_amount', parseFloat(e.target.value) || 0)}
                                 prefix="$"
-                                helpText="Flagged if > 20% of income"
+                                helpText="Flagged if > 10% of income"
                             />
+                            <FormField
+                                label="Late Filing Years"
+                                type="number"
+                                value={facts.late_filing_years || ''}
+                                onChange={(e: any) => updateFact('late_filing_years', parseInt(e.target.value) || 0)}
+                                helpText="2+ consecutive late years = heightened scrutiny"
+                            />
+                        </div>
+                        <div className="mt-4 space-y-3">
+                            <CheckItem id="t4a_issued" label="T4A slips issued for all contractor payments > $500" checked={facts.t4a_slips_issued || false} onChange={(v: boolean) => updateFact('t4a_slips_issued', v)} color="border-blue-200 bg-white" />
+                            <CheckItem id="gst_new_registrant" label="Claiming a large GST/HST refund in first year of registration" checked={facts.gst_refund_claim_new_registrant || false} onChange={(v: boolean) => updateFact('gst_refund_claim_new_registrant', v)} color="border-blue-200 bg-white" />
+                            <CheckItem id="shareholder_benefits" label="Corporate funds used for personal expenses (meals, car, home renovation) not included in personal income" checked={facts.shareholder_benefits_not_reported || false} onChange={(v: boolean) => updateFact('shareholder_benefits_not_reported', v)} color="border-blue-300 bg-blue-100" />
                         </div>
                     </div>
 
-                    {/* Death Zone */}
-                    <div className="p-6 bg-black rounded-2xl border border-gray-800">
-                        <h5 className="text-xs font-black text-white uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <AlertTriangle size={14} className="text-yellow-400" />
-                            CRA Death Zone (95-100% Failure)
+                    {/* TIER 4 — International */}
+                    <div className="p-5 bg-indigo-50 rounded-2xl border border-indigo-200">
+                        <h5 className="text-xs font-black text-indigo-900 uppercase tracking-widest mb-1 flex items-center gap-2">
+                            <AlertTriangle size={12} className="text-indigo-600" />
+                            Tier 4 — International / Offshore (80–95% audit trigger)
                         </h5>
+                        <p className="text-xs text-indigo-700 font-medium mb-4">Canada shares financial data with 100+ countries via the OECD Common Reporting Standard (CRS).</p>
                         <div className="space-y-3">
-                            <div className="flex items-center gap-4 p-3 bg-gray-900 rounded-xl border border-gray-800">
-                                <input
-                                    type="checkbox"
-                                    id="irregular_log"
-                                    checked={facts.irregular_mileage_log || false}
-                                    onChange={(e) => updateFact('irregular_mileage_log', e.target.checked)}
-                                    className="w-5 h-5 rounded border-gray-700 bg-black"
-                                />
-                                <label htmlFor="irregular_log" className="text-sm font-bold text-gray-400">
-                                    Repetitive/Fake Mileage numbers in Logbook
-                                </label>
-                            </div>
-                            <div className="flex items-center gap-4 p-3 bg-gray-900 rounded-xl border border-gray-800">
-                                <input
-                                    type="checkbox"
-                                    id="shareholder_loan"
-                                    checked={facts.unpaid_shareholder_loan || false}
-                                    onChange={(e) => updateFact('unpaid_shareholder_loan', e.target.checked)}
-                                    className="w-5 h-5 rounded border-gray-700 bg-black"
-                                />
-                                <label htmlFor="shareholder_loan" className="text-sm font-bold text-gray-400">
-                                    Unpaid Shareholder Loan ({'>'} 1 year)
-                                </label>
-                            </div>
+                            <CheckItem id="foreign_assets" label="Foreign assets (stocks, property, bank accounts) exceeded $100,000 CAD at any point this year" checked={facts.foreign_assets_over_100k || false} onChange={(v: boolean) => updateFact('foreign_assets_over_100k', v)} color="border-indigo-200 bg-white" />
+                            <CheckItem id="t1135_filed" label="T1135 (Foreign Income Verification Statement) filed with this return" checked={facts.t1135_filed || false} onChange={(v: boolean) => updateFact('t1135_filed', v)} color="border-indigo-200 bg-white" />
+                            <CheckItem id="offshore_accounts" label="Bank accounts or investments held outside Canada" checked={facts.has_offshore_accounts || false} onChange={(v: boolean) => updateFact('has_offshore_accounts', v)} color="border-indigo-300 bg-indigo-100" />
+                        </div>
+                    </div>
+
+                    {/* TIER 5 — Death Zone */}
+                    <div className="p-5 bg-gray-950 rounded-2xl border border-gray-800">
+                        <h5 className="text-xs font-black text-white uppercase tracking-widest mb-1 flex items-center gap-2">
+                            <AlertTriangle size={12} className="text-yellow-400" />
+                            ⚠️ Death Zone — Near-Certain Rejection (90–100%)
+                        </h5>
+                        <p className="text-xs text-gray-400 font-medium mb-4">These items are almost universally rejected by CRA with gross negligence penalties.</p>
+                        <div className="space-y-3">
+                            <CheckItem id="fake_log" label="Mileage logbook has repetitive round numbers, exact duplicates, or impossible trip patterns" checked={facts.irregular_mileage_log || false} onChange={(v: boolean) => updateFact('irregular_mileage_log', v)} color="border-gray-700 bg-gray-900 text-gray-300" dark />
+                            <CheckItem id="loan" label="Shareholder loan not repaid within 1 year of corporate fiscal year-end" checked={facts.unpaid_shareholder_loan || false} onChange={(v: boolean) => updateFact('unpaid_shareholder_loan', v)} color="border-gray-700 bg-gray-900 text-gray-300" dark />
+                            <CheckItem id="union_dues" label="Union dues claimed but T4 Box 44 is blank" checked={facts.union_dues_claim_mismatch || false} onChange={(v: boolean) => updateFact('union_dues_claim_mismatch', v)} color="border-gray-700 bg-gray-900 text-gray-300" dark />
+                            <CheckItem id="tax_shelter" label="Aggressive tax shelter claimed (GLGI, leveraged donations, gifting schemes)" checked={facts.aggressive_tax_shelter_claimed || false} onChange={(v: boolean) => updateFact('aggressive_tax_shelter_claimed', v)} color="border-red-900 bg-red-950 text-red-300" dark />
+                            <CheckItem id="salary_low" label="Owner-manager salary is below minimum wage while corporation earns significant revenue (TOSI risk)" checked={facts.salary_below_minimum_wage || false} onChange={(v: boolean) => updateFact('salary_below_minimum_wage', v)} color="border-red-900 bg-red-950 text-red-300" dark />
                         </div>
                     </div>
 
                     {/* Audit-Proofing Tips */}
-                    <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+                    <div className="p-5 bg-emerald-50 rounded-2xl border border-emerald-200">
                         <h5 className="text-xs font-black text-emerald-900 uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <Shield size={14} />
-                            Audit-Proofing Tips (Reduce Probability to {'<'} 1%)
+                            <Shield size={12} />
+                            How to Reduce Your Risk to Under 1%
                         </h5>
-                        <div className="space-y-4">
-                            <div className="flex gap-3">
-                                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-emerald-600 font-black text-xs">01</div>
-                                <div className="text-sm">
-                                    <p className="font-bold text-navy-950">The "Explanatory Note"</p>
-                                    <p className="text-navy-900/60 font-medium">If you have a weird year (e.g., "Huge loss because I bought a $20k server"), attach a note to your return. It stops the auditor from wondering.</p>
+                        <div className="space-y-3">
+                            {[
+                                ['Attach an Explanatory Note', 'Unusual years (big expenses, major loss, large refund) — attach a brief note to your return. It prevents CRA from flagging unknowns.'],
+                                ['Run the Ratio Check', 'Before filing, check every expense as a % of revenue. If Meals are 8% of revenue or Office Supplies are 15%, flag it.'],
+                                ['Keep Records 6 Years', 'CRA can review any return up to 6 years after the notice of assessment date. That means 2024 → keep until 2030.'],
+                                ['Digital Mileage Logs', 'Apps like TripLog or MileIQ automatically generate GPS-verified logs that CRA accepts without question.'],
+                            ].map(([title, desc], i) => (
+                                <div key={i} className="flex gap-3">
+                                    <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-emerald-600 font-black text-xs">{String(i + 1).padStart(2, '0')}</div>
+                                    <div className="text-sm"><p className="font-bold text-navy-950">{title}</p><p className="text-navy-900/60 font-medium">{desc}</p></div>
                                 </div>
-                            </div>
-                            <div className="flex gap-3">
-                                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-emerald-600 font-black text-xs">02</div>
-                                <div className="text-sm">
-                                    <p className="font-bold text-navy-950">The "Ratio" Check</p>
-                                    <p className="text-navy-900/60 font-medium">Before filing, check your Expenses vs. Revenue %. If your "Office Supplies" are 15% of your revenue, you are doing it wrong.</p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -532,6 +568,23 @@ const AuditRiskSection = ({ facts, updateFact }: any) => {
         </div>
     );
 };
+
+const CheckItem = ({ id, label, checked, onChange, color, dark }: any) => (
+    <div className={`flex items-start gap-3 p-3 rounded-xl border ${color || 'border-gray-200 bg-white'}`}>
+        <input
+            type="checkbox"
+            id={id}
+            checked={checked}
+            onChange={(e) => onChange(e.target.checked)}
+            className={`w-5 h-5 mt-0.5 rounded flex-shrink-0 ${dark ? 'border-gray-600 bg-gray-800' : 'border-gray-300'}`}
+        />
+        <label htmlFor={id} className={`text-sm font-bold cursor-pointer ${dark ? 'text-gray-300' : 'text-navy-950'}`}>
+            {label}
+        </label>
+    </div>
+);
+
+
 
 const VehicleForm = ({ facts, updateFact }: any) => {
     const calculateBusinessUse = (total: number, business: number) => {
@@ -690,9 +743,18 @@ const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts, 
         );
     }
 
-    const riskColor = results.risk_score.level === 'LOW' ? 'bg-green-50 border-green-200' :
-        results.risk_score.level === 'MEDIUM' ? 'bg-yellow-50 border-yellow-200' :
-            'bg-red-50 border-red-200';
+    const riskColor = results.risk_score.level === 'LOW' ? 'bg-green-50 border-green-200 text-green-900' :
+        results.risk_score.level === 'MEDIUM' ? 'bg-yellow-50 border-yellow-200 text-yellow-900' :
+            results.risk_score.level === 'HIGH' ? 'bg-orange-50 border-orange-300 text-orange-900' :
+                'bg-red-100 border-red-500 text-red-950'; // CRITICAL
+
+    const tierColors: Record<number, string> = {
+        1: 'bg-red-100 text-red-700',
+        2: 'bg-yellow-100 text-yellow-700',
+        3: 'bg-blue-100 text-blue-700',
+        4: 'bg-indigo-100 text-indigo-700',
+        5: 'bg-black text-yellow-400'
+    };
 
     return (
         <div className="space-y-6 sticky top-24">
@@ -712,24 +774,39 @@ const ResultsPanel = ({ results, isCalculating, brainType, scenarioType, facts, 
             </div>
 
             <div className={`rounded-3xl border-2 ${riskColor} p-6`}>
-                <div className="flex items-center gap-3 mb-4">
-                    <Shield size={24} />
-                    <div className="text-sm font-black uppercase tracking-wider">
-                        CRA Audit Risk
+                <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                        <Shield size={22} />
+                        <div className="text-sm font-black uppercase tracking-wider">CRA Audit Risk</div>
+                    </div>
+                    <div className="text-right">
+                        <div className="text-3xl font-black">{results.risk_score.score}<span className="text-base font-bold opacity-50">/100</span></div>
+                        <div className="text-xs font-black">{results.risk_score.level}</div>
                     </div>
                 </div>
-                <div className="flex items-baseline gap-2 mb-2">
-                    <div className="text-4xl font-black">{results.risk_score.score}</div>
-                    <div className="text-lg font-bold opacity-60">/100</div>
-                </div>
-                <div className="text-sm font-black mb-4">{results.risk_score.level} RISK</div>
+                {results.risk_score.recommendations?.length > 0 && (
+                    <div className="mb-4 space-y-1">
+                        {results.risk_score.recommendations.map((r: string, i: number) => (
+                            <p key={i} className="text-xs font-bold opacity-80">{r}</p>
+                        ))}
+                    </div>
+                )}
                 {results.risk_score.flags.length > 0 && (
-                    <div className="space-y-2">
+                    <div className="space-y-3 mt-4">
                         {results.risk_score.flags.map((flag: any, i: number) => (
-                            <div key={i} className="flex items-start gap-2 text-xs">
-                                <AlertTriangle size={14} className="mt-0.5 flex-shrink-0" />
-                                <span className="font-bold">{flag.message}</span>
-                            </div>
+                            <details key={i} className="text-xs rounded-xl overflow-hidden border border-current/20">
+                                <summary className="flex items-start gap-2 p-3 cursor-pointer font-bold hover:bg-black/5 list-none">
+                                    <AlertTriangle size={13} className="mt-0.5 flex-shrink-0" />
+                                    <span className="flex-1">{flag.message}</span>
+                                    <span className={`ml-2 px-1.5 py-0.5 rounded text-[10px] font-black flex-shrink-0 ${tierColors[flag.tier] || 'bg-gray-100 text-gray-700'}`}>{flag.code}</span>
+                                </summary>
+                                {flag.action && (
+                                    <div className="px-3 pb-3 pt-1 bg-white/50 text-[11px] font-medium leading-relaxed border-t border-current/10">
+                                        <span className="font-black uppercase tracking-wide text-[10px] block mb-1">→ What to do:</span>
+                                        {flag.action}
+                                    </div>
+                                )}
+                            </details>
                         ))}
                     </div>
                 )}

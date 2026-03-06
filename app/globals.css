@@ -27,7 +27,6 @@ body {
   color: rgb(var(--foreground-rgb));
   background: white;
   overflow-x: hidden;
-  transform: translate3d(0,0,0);
 }
 
 @layer utilities {

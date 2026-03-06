@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Services | TaxBuddy Canada',
-    description: 'Comprehensive virtual accounting services including tax filing, bookkeeping, payroll, and CFO services for Canadian businesses and individuals.',
+    title: 'Virtual Personal Tax & Cloud Bookkeeping Services Canada | TaxBuddy',
+    description: 'Comprehensive virtual accounting services including personal tax filing, corporate tax, cloud bookkeeping, payroll, and fractional CFO services for Canadian businesses.',
     alternates: {
         canonical: '/services',
     },

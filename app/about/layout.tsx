@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'About Us | TaxBuddy Canada | Your Virtual CPA Team',
-    description: 'Learn about TaxBuddy Canada - our mission to provide modern virtual accounting and tax services. Book a free 15-minute consultation with our professional CPA team today.',
+    title: 'About TaxBuddy | Top Virtual Personal Tax Service Canada',
+    description: 'Founded in Halifax, TaxBuddy is a leading virtual CPA team for Canadian entrepreneurs. Automated cloud accounting, proactive tax planning, and expert CFO advisory.',
     alternates: {
         canonical: '/about',
     },
